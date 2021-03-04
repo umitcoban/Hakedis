@@ -11,5 +11,6 @@ namespace Hakediş
         public int ID { get; set; }
         public string Name { get; set; }
         public double PayforDay { get; set; }
+        public DateTime PaymentDate { get; set; }
     }
 }

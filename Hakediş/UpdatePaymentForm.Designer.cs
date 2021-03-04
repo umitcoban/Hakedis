@@ -31,6 +31,8 @@ namespace Hakediş
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dateTimePayment = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtUpdatePayForDay = new System.Windows.Forms.TextBox();
             this.lblUpdatePayForDay = new System.Windows.Forms.Label();
             this.btnAddNewWorkOrder = new FontAwesome.Sharp.IconButton();
@@ -43,6 +45,8 @@ namespace Hakediş
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.dateTimePayment);
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtUpdatePayForDay);
             this.panel1.Controls.Add(this.lblUpdatePayForDay);
             this.panel1.Controls.Add(this.btnAddNewWorkOrder);
@@ -51,8 +55,26 @@ namespace Hakediş
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(243, 171);
+            this.panel1.Size = new System.Drawing.Size(243, 213);
             this.panel1.TabIndex = 1;
+            // 
+            // dateTimePayment
+            // 
+            this.dateTimePayment.Location = new System.Drawing.Point(3, 128);
+            this.dateTimePayment.Name = "dateTimePayment";
+            this.dateTimePayment.Size = new System.Drawing.Size(240, 20);
+            this.dateTimePayment.TabIndex = 27;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(4, 107);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 13);
+            this.label1.TabIndex = 26;
+            this.label1.Text = "Ödeme Tarihi Giriniz :";
             // 
             // txtUpdatePayForDay
             // 
@@ -82,7 +104,7 @@ namespace Hakediş
             this.btnAddNewWorkOrder.IconChar = FontAwesome.Sharp.IconChar.MoneyCheckAlt;
             this.btnAddNewWorkOrder.IconColor = System.Drawing.Color.Lime;
             this.btnAddNewWorkOrder.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnAddNewWorkOrder.Location = new System.Drawing.Point(0, 115);
+            this.btnAddNewWorkOrder.Location = new System.Drawing.Point(0, 157);
             this.btnAddNewWorkOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddNewWorkOrder.Name = "btnAddNewWorkOrder";
             this.btnAddNewWorkOrder.Size = new System.Drawing.Size(243, 56);
@@ -130,7 +152,7 @@ namespace Hakediş
             this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView2.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(342, 171);
+            this.dataGridView2.Size = new System.Drawing.Size(342, 213);
             this.dataGridView2.TabIndex = 2;
             this.dataGridView2.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellClick);
             // 
@@ -139,14 +161,16 @@ namespace Hakediş
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(585, 171);
+            this.ClientSize = new System.Drawing.Size(585, 213);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "UpdatePaymentForm";
+            this.Opacity = 0.96D;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UpdatePaymentForm";
+            this.Text = "Ödeme Güncelleme";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.UpdatePaymentForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -164,5 +188,7 @@ namespace Hakediş
         private System.Windows.Forms.TextBox txtUpdatePayForDay;
         private System.Windows.Forms.Label lblUpdatePayForDay;
         private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DateTimePicker dateTimePayment;
+        private System.Windows.Forms.Label label1;
     }
 }

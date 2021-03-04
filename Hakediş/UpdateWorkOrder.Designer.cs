@@ -31,6 +31,8 @@ namespace Hakediş
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.dateTimeNewFinish = new System.Windows.Forms.DateTimePicker();
+            this.lblNewFinish = new System.Windows.Forms.Label();
             this.txtUpdateMan = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtUpdateDesc = new System.Windows.Forms.RichTextBox();
@@ -44,8 +46,6 @@ namespace Hakediş
             this.txtUpdateName = new System.Windows.Forms.TextBox();
             this.lblUpdateName = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dateTimeNewFinish = new System.Windows.Forms.DateTimePicker();
-            this.lblNewFinish = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -71,6 +71,26 @@ namespace Hakediş
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(243, 443);
             this.panel1.TabIndex = 0;
+            // 
+            // dateTimeNewFinish
+            // 
+            this.dateTimeNewFinish.CustomFormat = "dd-MM-yyyy-ss";
+            this.dateTimeNewFinish.Location = new System.Drawing.Point(3, 288);
+            this.dateTimeNewFinish.Name = "dateTimeNewFinish";
+            this.dateTimeNewFinish.Size = new System.Drawing.Size(240, 21);
+            this.dateTimeNewFinish.TabIndex = 29;
+            this.dateTimeNewFinish.ValueChanged += new System.EventHandler(this.DateTimePickerValueChange);
+            // 
+            // lblNewFinish
+            // 
+            this.lblNewFinish.AutoSize = true;
+            this.lblNewFinish.ForeColor = System.Drawing.Color.White;
+            this.lblNewFinish.Location = new System.Drawing.Point(4, 260);
+            this.lblNewFinish.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblNewFinish.Name = "lblNewFinish";
+            this.lblNewFinish.Size = new System.Drawing.Size(130, 15);
+            this.lblNewFinish.TabIndex = 28;
+            this.lblNewFinish.Text = "Bitiş Tarihi Giriniz :";
             // 
             // txtUpdateMan
             // 
@@ -102,6 +122,7 @@ namespace Hakediş
             // 
             this.chckbxIsWorkFinished.AutoSize = true;
             this.chckbxIsWorkFinished.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.chckbxIsWorkFinished.ForeColor = System.Drawing.Color.White;
             this.chckbxIsWorkFinished.Location = new System.Drawing.Point(143, 324);
             this.chckbxIsWorkFinished.Name = "chckbxIsWorkFinished";
             this.chckbxIsWorkFinished.Size = new System.Drawing.Size(107, 17);
@@ -158,6 +179,7 @@ namespace Hakediş
             this.dateTimeUpdateFirst.Name = "dateTimeUpdateFirst";
             this.dateTimeUpdateFirst.Size = new System.Drawing.Size(243, 21);
             this.dateTimeUpdateFirst.TabIndex = 18;
+            this.dateTimeUpdateFirst.ValueChanged += new System.EventHandler(this.DateTimePickerValueChange);
             // 
             // lblUpdateFirstDate
             // 
@@ -219,25 +241,6 @@ namespace Hakediş
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
-            // dateTimeNewFinish
-            // 
-            this.dateTimeNewFinish.CustomFormat = "dd-MM-yyyy-ss";
-            this.dateTimeNewFinish.Location = new System.Drawing.Point(3, 288);
-            this.dateTimeNewFinish.Name = "dateTimeNewFinish";
-            this.dateTimeNewFinish.Size = new System.Drawing.Size(240, 21);
-            this.dateTimeNewFinish.TabIndex = 29;
-            // 
-            // lblNewFinish
-            // 
-            this.lblNewFinish.AutoSize = true;
-            this.lblNewFinish.ForeColor = System.Drawing.Color.White;
-            this.lblNewFinish.Location = new System.Drawing.Point(4, 260);
-            this.lblNewFinish.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblNewFinish.Name = "lblNewFinish";
-            this.lblNewFinish.Size = new System.Drawing.Size(130, 15);
-            this.lblNewFinish.TabIndex = 28;
-            this.lblNewFinish.Text = "Bitiş Tarihi Giriniz :";
-            // 
             // UpdateWorkOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -247,13 +250,15 @@ namespace Hakediş
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.ForeColor = System.Drawing.Color.White;
+            this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "UpdateWorkOrder";
+            this.Opacity = 0.96D;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UpdateWorkOrder";
+            this.Text = "İş Emri Güncelleme";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.UpdateWorkOrder_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

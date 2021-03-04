@@ -74,5 +74,21 @@ namespace Hakediş
         {
             CreateNewWorkOrder();
         }
+        private void DateTimeChanged(object sender, EventArgs e)
+        {
+            DateTimePicker dateTimePicker = (DateTimePicker)sender;
+            switch (dateTimePicker.Name)
+            {
+                case "dateTimeNewFirst":
+                    dateTimeNewFinish.MinDate = dateTimeNewFirst.Value;
+                    break;
+                case "dateTimeNewFinish":
+
+                    break;
+                default:
+                    break;
+            }
+        }
+        
     }
 }

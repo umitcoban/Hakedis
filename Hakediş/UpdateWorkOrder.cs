@@ -33,6 +33,7 @@ namespace Hakediş
             try
             {
                 ReadJson();
+                ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi", "Adam/Gün");
                 int selectedRow = 0;
                 int i = 0;
                 for (i = 0; i <= workOrders.Count - 1; i++)
@@ -106,6 +107,15 @@ namespace Hakediş
                 MessageBox.Show("Bir Hata Oluştu!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+        public void ChangeDataGridHeader(DataGridView dataGridView, string name1, string name2, string name3, string name4, string name5, string name6)
+        {
+            dataGridView.Columns[1].HeaderText = name1;
+            dataGridView.Columns[2].HeaderText = name2;
+            dataGridView.Columns[3].HeaderText = name3;
+            dataGridView.Columns[4].HeaderText = name4;
+            dataGridView.Columns[5].HeaderText = name5;
+            dataGridView.Columns[6].HeaderText = name6;
         }
         #endregion
 
@@ -182,6 +192,21 @@ namespace Hakediş
             else
             {
                 dateTimeUpdateExpired.Enabled = true;
+            }
+        }
+        private void DateTimePickerValueChange(object sender, EventArgs e)
+        {
+            DateTimePicker dateTimePicker = (DateTimePicker)sender;
+            switch (dateTimePicker.Name)
+            {
+                case "dateTimeUpdateFirst":
+                    dateTimeUpdateExpired.MinDate = dateTimeUpdateFirst.Value;
+                    break;
+                case "dateTimeNewFinish":
+                    dateTimeNewFinish.MinDate = dateTimeUpdateExpired.Value;
+                    break;
+                default:
+                    break;
             }
         }
     }

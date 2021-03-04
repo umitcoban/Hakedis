@@ -111,6 +111,7 @@ namespace Hakediş
             this.dateTimeNewFirst.Name = "dateTimeNewFirst";
             this.dateTimeNewFirst.Size = new System.Drawing.Size(228, 21);
             this.dateTimeNewFirst.TabIndex = 8;
+            this.dateTimeNewFirst.ValueChanged += new System.EventHandler(this.DateTimeChanged);
             // 
             // lblNewManDay
             // 
@@ -160,9 +161,9 @@ namespace Hakediş
             this.lblNewFinish.Location = new System.Drawing.Point(5, 258);
             this.lblNewFinish.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNewFinish.Name = "lblNewFinish";
-            this.lblNewFinish.Size = new System.Drawing.Size(165, 15);
+            this.lblNewFinish.Size = new System.Drawing.Size(145, 15);
             this.lblNewFinish.TabIndex = 14;
-            this.lblNewFinish.Text = "Başlangıç Tarihi Giriniz :";
+            this.lblNewFinish.Text = "Teslim Tarihi Giriniz :";
             // 
             // AddNewWorkOrder
             // 
@@ -188,7 +189,7 @@ namespace Hakediş
             this.Opacity = 0.95D;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AddNewWorkOrder";
+            this.Text = "Yeni İş Emri";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.AddNewWorkOrder_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericNewManDay)).EndInit();

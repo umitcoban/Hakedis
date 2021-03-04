@@ -34,6 +34,8 @@ namespace Hakediş
             this.txtNewPayment = new System.Windows.Forms.TextBox();
             this.lblNewPayment = new System.Windows.Forms.Label();
             this.btnAddNewPayment = new FontAwesome.Sharp.IconButton();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dateTimePayment = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // txtNewName
@@ -82,7 +84,7 @@ namespace Hakediş
             this.btnAddNewPayment.IconChar = FontAwesome.Sharp.IconChar.Handshake;
             this.btnAddNewPayment.IconColor = System.Drawing.Color.Lime;
             this.btnAddNewPayment.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnAddNewPayment.Location = new System.Drawing.Point(0, 115);
+            this.btnAddNewPayment.Location = new System.Drawing.Point(0, 162);
             this.btnAddNewPayment.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddNewPayment.Name = "btnAddNewPayment";
             this.btnAddNewPayment.Size = new System.Drawing.Size(251, 67);
@@ -93,12 +95,32 @@ namespace Hakediş
             this.btnAddNewPayment.UseVisualStyleBackColor = true;
             this.btnAddNewPayment.Click += new System.EventHandler(this.btnAddNewPayment_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(9, 124);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(148, 15);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Ödeme Tarihi Giriniz :";
+            // 
+            // dateTimePayment
+            // 
+            this.dateTimePayment.Location = new System.Drawing.Point(12, 145);
+            this.dateTimePayment.Name = "dateTimePayment";
+            this.dateTimePayment.Size = new System.Drawing.Size(228, 21);
+            this.dateTimePayment.TabIndex = 11;
+            // 
             // AddNewPaymentForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(251, 182);
+            this.ClientSize = new System.Drawing.Size(251, 229);
+            this.Controls.Add(this.dateTimePayment);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAddNewPayment);
             this.Controls.Add(this.txtNewPayment);
             this.Controls.Add(this.lblNewPayment);
@@ -108,8 +130,10 @@ namespace Hakediş
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "AddNewPaymentForm";
+            this.Opacity = 0.96D;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AddNewPaymentForm";
+            this.Text = "Yeni Ödeme";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.AddNewPaymentForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -123,5 +147,7 @@ namespace Hakediş
         private System.Windows.Forms.TextBox txtNewPayment;
         private System.Windows.Forms.Label lblNewPayment;
         private FontAwesome.Sharp.IconButton btnAddNewPayment;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DateTimePicker dateTimePayment;
     }
 }

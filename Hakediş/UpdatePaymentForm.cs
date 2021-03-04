@@ -17,6 +17,7 @@ namespace Hakediş
         public double man, pay;
         public string name;
         public int idIndex = 0;
+        public DateTime paymentDate;
         public UpdatePaymentForm()
         {
             InitializeComponent();
@@ -53,6 +54,12 @@ namespace Hakediş
             }
 
         }
+        public void ChangeDataGridHeader(DataGridView dataGridView, string name1, string name2, string name3)
+        {
+            dataGridView.Columns[1].HeaderText = name1;
+            dataGridView.Columns[2].HeaderText = name2;
+            dataGridView.Columns[3].HeaderText = name3;
+        }
         #endregion
 
         private void UpdatePaymentForm_Load(object sender, EventArgs e)
@@ -60,8 +67,10 @@ namespace Hakediş
             try
             {
                 ReadJson();
+                ChangeDataGridHeader(dataGridView2, "Ödeme Adı", "Ödenen Gün", " Ödeme Tarihi");
                 txtUpdateName.Text = name;
                 txtUpdatePayForDay.Text = pay.ToString();
+                dateTimePayment.Value = paymentDate;
                 int selectedRow = 0;
                 for (int i = 0; i < payments.Count; i++)
                 {
@@ -86,6 +95,8 @@ namespace Hakediş
             {
                 txtUpdateName.Text = dataGridView2.CurrentRow.Cells[1].Value.ToString();
                 txtUpdatePayForDay.Text = dataGridView2.CurrentRow.Cells[2].Value.ToString();
+                dateTimePayment.Value = DateTime.Parse( dataGridView2.CurrentRow.Cells[3].Value.ToString());
+                
             }
             catch (Exception)
             {
@@ -110,6 +121,7 @@ namespace Hakediş
                 payments[selectedRow].Name = txtUpdateName.Text;
                 //payments[selectRow].ManofDay = double.Parse( txtUpdateDayOfMan.Text);
                 payments[selectedRow].PayforDay = double.Parse(txtUpdatePayForDay.Text);
+                payments[selectedRow].PaymentDate = dateTimePayment.Value;
                 NewUpdatePayments();
                 this.Close();
             }

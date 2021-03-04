@@ -30,6 +30,7 @@ namespace Hakediş
                 payment.Name = txtNewName.Text;
                 payment.PayforDay = double.Parse(txtNewPayment.Text);
                 payment.ID = idIndex;
+                payment.PaymentDate = dateTimePayment.Value;
                 payments.Add(payment);
                 string jsonPaymentData = Newtonsoft.Json.JsonConvert.SerializeObject(payments);
                 File.WriteAllText(jsonPaymentsDataPath, jsonPaymentData);

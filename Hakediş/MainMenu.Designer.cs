@@ -31,8 +31,8 @@ namespace Hakediş
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelMain = new System.Windows.Forms.Panel();
             this.btnUpdatePayment = new FontAwesome.Sharp.IconButton();
             this.btnOptions = new FontAwesome.Sharp.IconButton();
@@ -42,6 +42,9 @@ namespace Hakediş
             this.btnAddNewWorkOrder = new FontAwesome.Sharp.IconButton();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.contextMenuMainList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tamamlananİşleriGösterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tamamlananİşleriGöstermeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLblMonth = new System.Windows.Forms.ToolStripLabel();
@@ -58,12 +61,15 @@ namespace Hakediş
             this.contextMenuNotify = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.uygulamayıKapatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uygulamayıKapatToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBoxFilter = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.contextMenuMainList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.contextMenuNotify.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMain
@@ -80,7 +86,7 @@ namespace Hakediş
             this.panelMain.Location = new System.Drawing.Point(0, 0);
             this.panelMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(209, 525);
+            this.panelMain.Size = new System.Drawing.Size(209, 577);
             this.panelMain.TabIndex = 0;
             // 
             // btnUpdatePayment
@@ -116,7 +122,7 @@ namespace Hakediş
             this.btnOptions.IconColor = System.Drawing.Color.White;
             this.btnOptions.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnOptions.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOptions.Location = new System.Drawing.Point(0, 458);
+            this.btnOptions.Location = new System.Drawing.Point(0, 510);
             this.btnOptions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOptions.Name = "btnOptions";
             this.btnOptions.Size = new System.Drawing.Size(209, 67);
@@ -232,18 +238,42 @@ namespace Hakediş
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
-            this.dataGridView1.Location = new System.Drawing.Point(209, 22);
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ContextMenuStrip = this.contextMenuMainList;
+            this.dataGridView1.Location = new System.Drawing.Point(217, 12);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(526, 475);
+            this.dataGridView1.Size = new System.Drawing.Size(561, 531);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            // 
+            // contextMenuMainList
+            // 
+            this.contextMenuMainList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tamamlananİşleriGösterToolStripMenuItem,
+            this.tamamlananİşleriGöstermeToolStripMenuItem});
+            this.contextMenuMainList.Name = "contextMenuMainList";
+            this.contextMenuMainList.Size = new System.Drawing.Size(224, 48);
+            // 
+            // tamamlananİşleriGösterToolStripMenuItem
+            // 
+            this.tamamlananİşleriGösterToolStripMenuItem.Name = "tamamlananİşleriGösterToolStripMenuItem";
+            this.tamamlananİşleriGösterToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.tamamlananİşleriGösterToolStripMenuItem.Text = "Tamamlanan İşleri Göster";
+            this.tamamlananİşleriGösterToolStripMenuItem.Click += new System.EventHandler(this.MainListFilterClick);
+            // 
+            // tamamlananİşleriGöstermeToolStripMenuItem
+            // 
+            this.tamamlananİşleriGöstermeToolStripMenuItem.Name = "tamamlananİşleriGöstermeToolStripMenuItem";
+            this.tamamlananİşleriGöstermeToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.tamamlananİşleriGöstermeToolStripMenuItem.Text = "Tamamlanan İşleri Gösterme";
+            this.tamamlananİşleriGöstermeToolStripMenuItem.Click += new System.EventHandler(this.MainListFilterClick);
             // 
             // dataGridView2
             // 
@@ -256,17 +286,17 @@ namespace Hakediş
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(743, 22);
+            this.dataGridView2.Location = new System.Drawing.Point(7, 10);
             this.dataGridView2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView2.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(284, 475);
+            this.dataGridView2.Size = new System.Drawing.Size(210, 531);
             this.dataGridView2.TabIndex = 0;
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             // 
@@ -284,7 +314,7 @@ namespace Hakediş
             this.toolStripSeparator3,
             this.toolStripLblGeneralStat,
             this.toolStripSeparator4});
-            this.toolStrip1.Location = new System.Drawing.Point(209, 500);
+            this.toolStrip1.Location = new System.Drawing.Point(209, 552);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(818, 25);
             this.toolStrip1.TabIndex = 3;
@@ -306,12 +336,14 @@ namespace Hakediş
             this.toolStripLblPaymentStat.Name = "toolStripLblPaymentStat";
             this.toolStripLblPaymentStat.Size = new System.Drawing.Size(202, 22);
             this.toolStripLblPaymentStat.Text = "Toplamda Alınacak Adam Gün Sayısı:";
+            this.toolStripLblPaymentStat.Visible = false;
             // 
             // toolStripLblTotalPayment
             // 
             this.toolStripLblTotalPayment.Name = "toolStripLblTotalPayment";
             this.toolStripLblTotalPayment.Size = new System.Drawing.Size(13, 22);
             this.toolStripLblTotalPayment.Text = "0";
+            this.toolStripLblTotalPayment.Visible = false;
             // 
             // toolStripSeparator2
             // 
@@ -377,44 +409,52 @@ namespace Hakediş
             this.uygulamayıKapatToolStripMenuItem1.Text = "Uygulamayı Kapat";
             this.uygulamayıKapatToolStripMenuItem1.Click += new System.EventHandler(this.uygulamayıKapatToolStripMenuItem1_Click);
             // 
-            // checkBoxFilter
+            // groupBox1
             // 
-            this.checkBoxFilter.AutoSize = true;
-            this.checkBoxFilter.BackColor = System.Drawing.Color.Transparent;
-            this.checkBoxFilter.Dock = System.Windows.Forms.DockStyle.Top;
-            this.checkBoxFilter.Location = new System.Drawing.Point(209, 0);
-            this.checkBoxFilter.Name = "checkBoxFilter";
-            this.checkBoxFilter.Size = new System.Drawing.Size(818, 19);
-            this.checkBoxFilter.TabIndex = 4;
-            this.checkBoxFilter.Text = "Tamamlanan İşleri Göster";
-            this.checkBoxFilter.UseVisualStyleBackColor = false;
-            this.checkBoxFilter.CheckedChanged += new System.EventHandler(this.checkBoxFilter_CheckedChanged);
+            this.groupBox1.Location = new System.Drawing.Point(214, 2);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(571, 547);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.dataGridView2);
+            this.groupBox2.Location = new System.Drawing.Point(791, 2);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(224, 547);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
             // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1027, 525);
-            this.Controls.Add(this.checkBoxFilter);
+            this.ClientSize = new System.Drawing.Size(1027, 577);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panelMain);
-            this.Controls.Add(this.dataGridView2);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "MainMenu";
-            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "İlkay/Hakediş";
             this.Load += new System.EventHandler(this.MainMenu_Load);
             this.Resize += new System.EventHandler(this.MainMenu_Resize);
             this.panelMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.contextMenuMainList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.contextMenuNotify.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -447,7 +487,11 @@ namespace Hakediş
         private System.Windows.Forms.ToolStripMenuItem uygulamayıKapatToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uygulamayıKapatToolStripMenuItem1;
         private FontAwesome.Sharp.IconButton btnUpdatePayment;
-        private System.Windows.Forms.CheckBox checkBoxFilter;
+        private System.Windows.Forms.ContextMenuStrip contextMenuMainList;
+        private System.Windows.Forms.ToolStripMenuItem tamamlananİşleriGösterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tamamlananİşleriGöstermeToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
 
