@@ -54,12 +54,6 @@ namespace Hakediş
             }
 
         }
-        public void ChangeDataGridHeader(DataGridView dataGridView, string name1, string name2, string name3)
-        {
-            dataGridView.Columns[1].HeaderText = name1;
-            dataGridView.Columns[2].HeaderText = name2;
-            dataGridView.Columns[3].HeaderText = name3;
-        }
         #endregion
 
         private void UpdatePaymentForm_Load(object sender, EventArgs e)
@@ -67,7 +61,8 @@ namespace Hakediş
             try
             {
                 ReadJson();
-                ChangeDataGridHeader(dataGridView2, "Ödeme Adı", "Ödenen Gün", " Ödeme Tarihi");
+                DataTableColumnNameChange dataTableColumnNameChange = new DataTableColumnNameChange();
+                dataTableColumnNameChange.ChangeDataGridHeader(dataGridView2, "Ödeme Adı", "Ödenen Gün", "Ödeme Tarihi");
                 txtUpdateName.Text = name;
                 txtUpdatePayForDay.Text = pay.ToString();
                 dateTimePayment.Value = paymentDate;

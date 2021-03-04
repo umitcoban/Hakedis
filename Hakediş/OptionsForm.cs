@@ -28,12 +28,12 @@ namespace Hakediş
                          ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
                 if (isChecked)
                 {
-                    registryKey.SetValue("Hakediş", Application.ExecutablePath);
+                    registryKey.SetValue("C:/Hakediş.exe", Application.ExecutablePath);
                     MessageBox.Show("Uygulama Otomatik Başlamaya Ayarlanmıştır !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    registryKey.DeleteValue("Hakediş");
+                    registryKey.DeleteValue("C:/Hakediş.exe");
                     MessageBox.Show("Uygulama Otomatik Başlama İptal Edilmiştir !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }

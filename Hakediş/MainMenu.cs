@@ -27,29 +27,39 @@ namespace Hakediş
         }
         private void MainMenu_Load(object sender, EventArgs e)
         {
+            DataTableColumnNameChange dataTableColumnNameChange = new DataTableColumnNameChange();
             ReadWorkOrderJson();
-            ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi","Adam/Gün");
-            ChangeDataGridHeader(dataGridView2, "Ödeme Adı","Ödenen Gün"," Ödeme Tarihi");
-            toolStripLblMonth.Text = "Şuan Yılın " + currentMonth.ToString() + ". Ayındasınız" ;
+            dataTableColumnNameChange.ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi", "Adam/Gün");
+            dataTableColumnNameChange.ChangeDataGridHeader(dataGridView2, "Ödeme Adı", "Ödenen Gün", "Ödeme Tarihi");
+            int week = DateTime.Now.DayOfYear / 7;
+            //int remainingWeek = ;
+            toolStripLblMonth.Text = "Şuan Yılın " + currentMonth.ToString() + ". Ayında, " + week + ". Haftasında, " 
+                + DateTime.Now.ToString("dddd") + " Günündesiniz. Geriye ";
         }
         #region Data İşlemleri
         public void ReadWorkOrderJson()
         {
             try
             {
-                if (File.Exists(jsonPaymentsDataPath))
-                {
-                    string jsonPaymentData = File.ReadAllText(jsonPaymentsDataPath);
-                    payments = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Payment>>(jsonPaymentData);
-                }
-                List<Payment> paymentsClone = payments;
-                dataGridView2.DataSource = payments;
-                dataGridView2.Columns[0].Visible = false;
-                if (File.Exists(jsonWorkOrderDataPath))
-                {
-                    string jsonData = File.ReadAllText(jsonWorkOrderDataPath);
-                    workOrders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WorkOrder>>(jsonData);
-                }
+                //if (File.Exists(jsonPaymentsDataPath))
+                //{
+                //    string jsonPaymentData = File.ReadAllText(jsonPaymentsDataPath);
+                //    payments = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Payment>>(jsonPaymentData);
+                //}
+                //List<Payment> paymentsClone = payments;
+                //dataGridView2.DataSource = payments;
+                //dataGridView2.Columns[0].Visible = false;
+                //if (File.Exists(jsonWorkOrderDataPath))
+                //{
+                //    string jsonData = File.ReadAllText(jsonWorkOrderDataPath);
+                //    workOrders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WorkOrder>>(jsonData);
+                //}
+
+                DataListing dataListing = new DataListing();
+                dataListing.ReadPaymentJson(dataGridView2, jsonPaymentsDataPath);
+                dataListing.ReadWorkOrderJson(dataGridView1,jsonWorkOrderDataPath);
+                workOrders.AddRange(dataListing.WorkOrders);
+                payments.AddRange(dataListing.Payments);
                 List<WorkOrder> currentWorkOrders = new List<WorkOrder>();
                 currentWorkOrders.AddRange(workOrders);
                 for (int i = 0; i <= currentWorkOrders.Count-1; i++)
@@ -59,22 +69,15 @@ namespace Hakediş
                         isDoneWorkOrders.Add(currentWorkOrders[i]);
                     }
                 }
+
                 foreach (var item in currentWorkOrders.ToList())
                 {
-                 
                     if (item.ExpiredDate != null)
                     {
                         currentWorkOrders.Remove(item);
                     }
                 }
-                //for (int i = 0; i <= currentWorkOrders.Count-1; i++)
-                //{
-                //    if (currentWorkOrders[i].ExpiredDate != null)
-                //    {
-                //        currentWorkOrders.RemoveAt(i);
-                //        i = 0;
-                //    }
-                //}
+
                 if (checkedFilter)
                 {
                     dataGridView1.DataSource = workOrders;
@@ -84,7 +87,9 @@ namespace Hakediş
                     dataGridView1.DataSource = currentWorkOrders;
                 }
                 //dataGridView1.DataSource = currentWorkOrders;
-                dataGridView1.Columns[0].Visible = false;
+                //dataGridView1.Columns[3].DefaultCellStyle.Format = "dd.MM.yyyy";
+                //dataGridView1.Sort(dataGridView1.Columns[3], ListSortDirection.Descending);
+                //dataGridView1.Columns[0].Visible = false;
                 CalculatePayments(isDoneWorkOrders, payments);
             }
             catch (Exception)
@@ -105,39 +110,23 @@ namespace Hakediş
                 totalPay += otherList[i].ManOfDay;
             }
             //toolStripLblTotalPayment.Text = totalPay.ToString();
-            toolStripLblCurrentPay.Text = currtenPay.ToString();
+            //toolStripLblCurrentPay.Text = currtenPay.ToString();
             double generalPay = totalPay - currtenPay;
-            if (currtenPay == 0 && totalPay == 0)
+            if (currtenPay == 0 && totalPay == 0 || currtenPay == totalPay)
             {
                 toolStripLblGeneralStat.Visible = false;
             }
             else if (totalPay > currtenPay)
             {
                 toolStripLblGeneralStat.Visible = true;
-                toolStripLblGeneralStat.Text = "Durumunuz : " + generalPay.ToString() + " Alacaklısınız !";
+                toolStripLblGeneralStat.Text = "Durumunuz : " + generalPay.ToString() +" Gün" + " Alacaklısınız !";
             }
             else
             {
                 toolStripLblGeneralStat.Visible = true;
-                toolStripLblGeneralStat.Text = "Durumunuz : " + generalPay.ToString() + " Borçlusunuz !";
+                toolStripLblGeneralStat.Text = "Durumunuz : " + generalPay.ToString() + " Gün" + " Borçlusunuz !";
             }
 
-        }
-
-        public void ChangeDataGridHeader(DataGridView dataGridView, string name1, string name2, string name3, string name4, string name5,string name6)
-        {
-            dataGridView.Columns[1].HeaderText = name1;
-            dataGridView.Columns[2].HeaderText = name2;
-            dataGridView.Columns[3].HeaderText = name3;
-            dataGridView.Columns[4].HeaderText = name4;
-            dataGridView.Columns[5].HeaderText = name5;
-            dataGridView.Columns[6].HeaderText = name6;
-        }
-        public void ChangeDataGridHeader(DataGridView dataGridView, string name1, string name2, string name3)
-        {
-            dataGridView.Columns[1].HeaderText = name1;
-            dataGridView.Columns[2].HeaderText = name2;
-            dataGridView.Columns[3].HeaderText = name3;
         }
         #endregion
 
@@ -160,7 +149,7 @@ namespace Hakediş
             if (frm == null)
             {
                 UpdateWorkOrder updateWorkOrder = new UpdateWorkOrder();
-                updateWorkOrder.workOrders.AddRange(workOrders);
+                //updateWorkOrder.workOrders.AddRange(workOrders);
                 updateWorkOrder.Show();
             }
 
@@ -182,7 +171,7 @@ namespace Hakediş
             if (frm == null)
             {
                 AddNewPaymentForm addNewPaymentForm = new AddNewPaymentForm();
-                addNewPaymentForm.payments.AddRange(payments);
+                //addNewPaymentForm.payments.AddRange(payments);
                 addNewPaymentForm.Show();
             }
 

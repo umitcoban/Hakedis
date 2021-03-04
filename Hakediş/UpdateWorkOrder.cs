@@ -12,6 +12,7 @@ namespace Hakediş
 {
     public partial class UpdateWorkOrder : Form
     {
+        DataListing dataListing = new DataListing();
         readonly string jsonDataPath = @"WorkOrderJson.json";
         public string txtName, txtDesc;
         public DateTime? startDate;
@@ -20,12 +21,10 @@ namespace Hakediş
         public double ManDay;
         public int idIndex;
         public List<WorkOrder> workOrders { get; set; }
-        public List<Payment> payments { get; set; }
         public UpdateWorkOrder()
         {
             InitializeComponent();
             workOrders = new List<WorkOrder>();
-            payments = new List<Payment>();
         }
 
         private void UpdateWorkOrder_Load(object sender, EventArgs e)
@@ -33,7 +32,8 @@ namespace Hakediş
             try
             {
                 ReadJson();
-                ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi", "Adam/Gün");
+                DataTableColumnNameChange dataTableColumnNameChange = new DataTableColumnNameChange();
+                dataTableColumnNameChange.ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi", "Adam/Gün");
                 int selectedRow = 0;
                 int i = 0;
                 for (i = 0; i <= workOrders.Count - 1; i++)
@@ -83,9 +83,8 @@ namespace Hakediş
         {
             try
             {
-                string jsonData = File.ReadAllText(jsonDataPath);
-                workOrders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WorkOrder>>(jsonData);
-                dataGridView1.DataSource = workOrders;
+                dataListing.ReadWorkOrderJson(dataGridView1, jsonDataPath);
+                workOrders.AddRange(dataListing.WorkOrders);
                 dataGridView1.Columns[0].Visible = false;
             }
             catch (Exception)
@@ -108,15 +107,7 @@ namespace Hakediş
             }
 
         }
-        public void ChangeDataGridHeader(DataGridView dataGridView, string name1, string name2, string name3, string name4, string name5, string name6)
-        {
-            dataGridView.Columns[1].HeaderText = name1;
-            dataGridView.Columns[2].HeaderText = name2;
-            dataGridView.Columns[3].HeaderText = name3;
-            dataGridView.Columns[4].HeaderText = name4;
-            dataGridView.Columns[5].HeaderText = name5;
-            dataGridView.Columns[6].HeaderText = name6;
-        }
+
         #endregion
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -134,15 +125,17 @@ namespace Hakediş
                 idIndex = int.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
                 txtUpdateName.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                 txtUpdateDesc.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-                dateTimeUpdateFirst.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[3].Value.ToString());
-                dateTimeNewFinish.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[4].Value.ToString());
+                if (dataGridView1.CurrentRow.Cells[3].Value != null)
+                    dateTimeUpdateFirst.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[3].Value.ToString());
+                if (dataGridView1.CurrentRow.Cells[4].Value != null)
+                    dateTimeNewFinish.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[4].Value.ToString());
                 txtUpdateMan.Text = dataGridView1.CurrentRow.Cells[6].Value.ToString();
                 if (dataGridView1.CurrentRow.Cells[5].Value != null)
                     dateTimeUpdateExpired.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[5].Value.ToString());
             }
-            catch (Exception)
+            catch (Exception exa)
             {
-
+                MessageBox.Show(exa.Message);
             }
         }
 
@@ -196,18 +189,18 @@ namespace Hakediş
         }
         private void DateTimePickerValueChange(object sender, EventArgs e)
         {
-            DateTimePicker dateTimePicker = (DateTimePicker)sender;
-            switch (dateTimePicker.Name)
-            {
-                case "dateTimeUpdateFirst":
-                    dateTimeUpdateExpired.MinDate = dateTimeUpdateFirst.Value;
-                    break;
-                case "dateTimeNewFinish":
-                    dateTimeNewFinish.MinDate = dateTimeUpdateExpired.Value;
-                    break;
-                default:
-                    break;
-            }
+            //DateTimePicker dateTimePicker = (DateTimePicker)sender;
+            //switch (dateTimePicker.Name)
+            //{
+            //    case "dateTimeUpdateFirst":
+            //        dateTimeUpdateExpired.MinDate = dateTimeUpdateFirst.Value.AddDays(-5);
+            //        break;
+            //    case "dateTimeNewFinish":
+            //        dateTimeNewFinish.MinDate = dateTimeUpdateExpired.Value;
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
     }
 }
