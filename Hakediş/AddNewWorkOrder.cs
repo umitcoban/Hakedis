@@ -14,14 +14,12 @@ namespace Hakediş
     {
 
         readonly string jsonDataPath = @"WorkOrderJson.json";
-
         int idIndex = 0;
         public List<WorkOrder> workOrders { get; set; }
         public AddNewWorkOrder()
         {
-            InitializeComponent();
             workOrders = new List<WorkOrder>();
-
+            InitializeComponent();
         }
 
         #region Veri İşlemleri
@@ -30,7 +28,7 @@ namespace Hakediş
             try
             {
                 WorkOrder workOrder = new WorkOrder();
-
+                DataListing dataListing = new DataListing();
                 workOrder.Name = txtNewName.Text;
                 workOrder.Description = txtNewDesc.Text;
                 workOrder.StartingDate = dateTimeNewFirst.Value;
@@ -56,6 +54,8 @@ namespace Hakediş
 
         private void AddNewWorkOrder_Load(object sender, EventArgs e)
         {
+            DataListing dataListing = new DataListing();
+            workOrders = dataListing.ReadWorkOrderJson(jsonDataPath,workOrders);
             if (workOrders.Count>0)
             {
                 for (int i = workOrders.Count - 1; i < workOrders.Count; i++)

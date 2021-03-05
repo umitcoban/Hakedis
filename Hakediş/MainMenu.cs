@@ -137,7 +137,8 @@ namespace Hakediş
             if (frm == null)
             {
                 AddNewWorkOrder addNewWorkOrder = new AddNewWorkOrder();
-                addNewWorkOrder.workOrders.AddRange(workOrders);
+                //dataListing.ReadWorkOrderJson(jsonWorkOrderDataPath, addNewWorkOrder.workOrders);
+                //addNewWorkOrder.workOrders.AddRange(workOrders);
                 addNewWorkOrder.Show();
             }
 

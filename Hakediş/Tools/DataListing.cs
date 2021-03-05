@@ -22,6 +22,15 @@ namespace Hakediş
             dataGridView.DataSource = Payments;
             dataGridView.Columns[0].Visible = false;
         }
+        public List<Payment> ReadPaymentJson(string jsonPath,List <Payment> payments)
+        {
+            if (File.Exists(jsonPath))
+            {
+                string jsonPaymentData = File.ReadAllText(jsonPath);
+                payments = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Payment>>(jsonPaymentData);
+            }
+            return payments;
+        }
         public void ReadWorkOrderJson(DataGridView dataGridView, string jsonPath)
         {
             if (File.Exists(jsonPath))
@@ -31,6 +40,15 @@ namespace Hakediş
             }
             dataGridView.DataSource = WorkOrders;
             dataGridView.Columns[0].Visible = false;
+        }
+        public List<WorkOrder> ReadWorkOrderJson(string jsonPath, List<WorkOrder> workOrders)
+        {
+            if (File.Exists(jsonPath))
+            {
+                string jsonPaymentData = File.ReadAllText(jsonPath);
+                workOrders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WorkOrder>>(jsonPaymentData);
+            }
+            return workOrders;
         }
         public DataListing()
         {
