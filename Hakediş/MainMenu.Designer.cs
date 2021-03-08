@@ -30,9 +30,9 @@ namespace Hakediş
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.panelMain = new System.Windows.Forms.Panel();
             this.btnUpdatePayment = new FontAwesome.Sharp.IconButton();
             this.btnOptions = new FontAwesome.Sharp.IconButton();
@@ -100,7 +100,7 @@ namespace Hakediş
             this.btnUpdatePayment.IconColor = System.Drawing.Color.White;
             this.btnUpdatePayment.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnUpdatePayment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpdatePayment.Location = new System.Drawing.Point(0, 438);
+            this.btnUpdatePayment.Location = new System.Drawing.Point(0, 397);
             this.btnUpdatePayment.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnUpdatePayment.Name = "btnUpdatePayment";
             this.btnUpdatePayment.Size = new System.Drawing.Size(209, 67);
@@ -144,7 +144,7 @@ namespace Hakediş
             this.btnAddPayment.IconColor = System.Drawing.Color.White;
             this.btnAddPayment.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAddPayment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddPayment.Location = new System.Drawing.Point(0, 371);
+            this.btnAddPayment.Location = new System.Drawing.Point(0, 330);
             this.btnAddPayment.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddPayment.Name = "btnAddPayment";
             this.btnAddPayment.Size = new System.Drawing.Size(209, 67);
@@ -166,7 +166,7 @@ namespace Hakediş
             this.btnCreateWorkReport.IconColor = System.Drawing.Color.White;
             this.btnCreateWorkReport.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnCreateWorkReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCreateWorkReport.Location = new System.Drawing.Point(0, 304);
+            this.btnCreateWorkReport.Location = new System.Drawing.Point(0, 263);
             this.btnCreateWorkReport.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnCreateWorkReport.Name = "btnCreateWorkReport";
             this.btnCreateWorkReport.Size = new System.Drawing.Size(209, 67);
@@ -188,7 +188,7 @@ namespace Hakediş
             this.btnUpdateWorkOrder.IconColor = System.Drawing.Color.White;
             this.btnUpdateWorkOrder.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnUpdateWorkOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpdateWorkOrder.Location = new System.Drawing.Point(0, 237);
+            this.btnUpdateWorkOrder.Location = new System.Drawing.Point(0, 196);
             this.btnUpdateWorkOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnUpdateWorkOrder.Name = "btnUpdateWorkOrder";
             this.btnUpdateWorkOrder.Size = new System.Drawing.Size(209, 67);
@@ -210,7 +210,7 @@ namespace Hakediş
             this.btnAddNewWorkOrder.IconColor = System.Drawing.Color.White;
             this.btnAddNewWorkOrder.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAddNewWorkOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnAddNewWorkOrder.Location = new System.Drawing.Point(0, 170);
+            this.btnAddNewWorkOrder.Location = new System.Drawing.Point(0, 129);
             this.btnAddNewWorkOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddNewWorkOrder.Name = "btnAddNewWorkOrder";
             this.btnAddNewWorkOrder.Size = new System.Drawing.Size(209, 67);
@@ -223,13 +223,13 @@ namespace Hakediş
             // 
             // panelLogo
             // 
-            this.panelLogo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panelLogo.BackgroundImage")));
+            this.panelLogo.BackgroundImage = global::Hakediş.Properties.Resources.images;
             this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelLogo.Location = new System.Drawing.Point(0, 0);
             this.panelLogo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelLogo.Name = "panelLogo";
-            this.panelLogo.Size = new System.Drawing.Size(209, 170);
+            this.panelLogo.Size = new System.Drawing.Size(209, 129);
             this.panelLogo.TabIndex = 1;
             // 
             // dataGridView1
@@ -246,8 +246,8 @@ namespace Hakediş
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(561, 531);
             this.dataGridView1.TabIndex = 1;
@@ -294,8 +294,8 @@ namespace Hakediş
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView2.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2.Size = new System.Drawing.Size(210, 531);
