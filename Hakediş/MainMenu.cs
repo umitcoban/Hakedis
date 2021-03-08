@@ -21,20 +21,26 @@ namespace Hakediş
         int currentMonth = int.Parse(DateTime.Now.Month.ToString());
         double totalPay;
         double currtenPay;
+
         public MainMenu()
         {
             InitializeComponent();
         }
         private void MainMenu_Load(object sender, EventArgs e)
         {
+            //Form size belirleme
+            this.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
+            this.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+            //
+
             DataTableColumnNameChange dataTableColumnNameChange = new DataTableColumnNameChange();
             ReadWorkOrderJson();
             dataTableColumnNameChange.ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi", "Adam/Gün");
             dataTableColumnNameChange.ChangeDataGridHeader(dataGridView2, "Ödeme Adı", "Ödenen Gün", "Ödeme Tarihi");
             int week = DateTime.Now.DayOfYear / 7;
             //int remainingWeek = ;
-            toolStripLblMonth.Text = "Şuan Yılın " + currentMonth.ToString() + ". Ayında, " + week + ". Haftasında, " 
-                + DateTime.Now.ToString("dddd") + " Günündesiniz. Geriye ";
+            toolStripLblMonth.Text = "Şuan Yılın " + currentMonth.ToString() + ". Ayında, " + week + ". Haftasında, "
+                + DateTime.Now.ToString("dddd") + " Günündesiniz. Geriye " + (52 - week).ToString() + " Hafta Kaldı.";
         }
         #region Data İşlemleri
         public void ReadWorkOrderJson()
@@ -54,37 +60,36 @@ namespace Hakediş
                 //    string jsonData = File.ReadAllText(jsonWorkOrderDataPath);
                 //    workOrders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WorkOrder>>(jsonData);
                 //}
-
-                DataListing dataListing = new DataListing();
-                dataListing.ReadPaymentJson(dataGridView2, jsonPaymentsDataPath);
-                dataListing.ReadWorkOrderJson(dataGridView1,jsonWorkOrderDataPath);
-                workOrders.AddRange(dataListing.WorkOrders);
-                payments.AddRange(dataListing.Payments);
+                DataListing.ReadPaymentJson(dataGridView2, jsonPaymentsDataPath);
+                DataListing.ReadWorkOrderJson(dataGridView1, jsonWorkOrderDataPath);
+                workOrders = DataListing.ReadWorkOrderJson(jsonWorkOrderDataPath,workOrders);
+                payments = DataListing.ReadPaymentJson(jsonPaymentsDataPath,payments);
                 List<WorkOrder> currentWorkOrders = new List<WorkOrder>();
                 currentWorkOrders.AddRange(workOrders);
-                for (int i = 0; i <= currentWorkOrders.Count-1; i++)
-                {
-                    if (currentWorkOrders[i].ExpiredDate != null)
-                    {
-                        isDoneWorkOrders.Add(currentWorkOrders[i]);
-                    }
-                }
-
-                foreach (var item in currentWorkOrders.ToList())
-                {
-                    if (item.ExpiredDate != null)
-                    {
-                        currentWorkOrders.Remove(item);
-                    }
-                }
+                //for (int i = 0; i <= currentWorkOrders.Count - 1; i++)
+                //{
+                //    if (currentWorkOrders[i].ExpiredDate != null)
+                //    {
+                //        isDoneWorkOrders.Add(currentWorkOrders[i]);
+                //    }
+                //}
+                currentWorkOrders = currentWorkOrders.Where(x => x.ExpiredDate == null).ToList();
+                isDoneWorkOrders = workOrders.Where(x => x.ExpiredDate != null).ToList();
+                //foreach (var item in currentWorkOrders.ToList())
+                //{
+                //    if (item.ExpiredDate != null)
+                //    {
+                //        currentWorkOrders.Remove(item);
+                //    }
+                //}
 
                 if (checkedFilter)
                 {
-                    dataGridView1.DataSource = workOrders;
+                    dataGridView1.DataSource = workOrders.OrderBy(x=>x.StartingDate).ToList();
                 }
                 else
                 {
-                    dataGridView1.DataSource = currentWorkOrders;
+                    dataGridView1.DataSource = currentWorkOrders.OrderBy(x=>x.StartingDate).ToList();
                 }
                 //dataGridView1.DataSource = currentWorkOrders;
                 //dataGridView1.Columns[3].DefaultCellStyle.Format = "dd.MM.yyyy";
@@ -101,17 +106,21 @@ namespace Hakediş
         public void CalculatePayments(List<WorkOrder> otherList, List<Payment> payments)
         {
             if (payments.Count != 0)
-                for (int i = 0; i < payments.Count; i++)
-                {
-                    currtenPay += payments[i].PayforDay;
-                }
-            for (int i = 0; i < otherList.Count; i++)
-            {
-                totalPay += otherList[i].ManOfDay;
-            }
+                currtenPay = payments.Sum(x => x.PayforDay);
+            //if (payments.Count != 0)
+            //    for (int i = 0; i < payments.Count; i++)
+            //    {
+            //        currtenPay += payments[i].PayforDay;
+            //    }
+           totalPay = otherList.Sum(x=> x.ManOfDay);
+                //for (int i = 0; i < otherList.Count; i++)
+                //{
+                //    totalPay += otherList[i].ManOfDay;
+                //}
             //toolStripLblTotalPayment.Text = totalPay.ToString();
             //toolStripLblCurrentPay.Text = currtenPay.ToString();
             double generalPay = totalPay - currtenPay;
+
             if (currtenPay == 0 && totalPay == 0 || currtenPay == totalPay)
             {
                 toolStripLblGeneralStat.Visible = false;
@@ -119,7 +128,7 @@ namespace Hakediş
             else if (totalPay > currtenPay)
             {
                 toolStripLblGeneralStat.Visible = true;
-                toolStripLblGeneralStat.Text = "Durumunuz : " + generalPay.ToString() +" Gün" + " Alacaklısınız !";
+                toolStripLblGeneralStat.Text = "Durumunuz : " + generalPay.ToString() + " Gün" + " Alacaklısınız !";
             }
             else
             {
@@ -127,6 +136,15 @@ namespace Hakediş
                 toolStripLblGeneralStat.Text = "Durumunuz : " + generalPay.ToString() + " Gün" + " Borçlusunuz !";
             }
 
+        }
+        public void UpdateDataList()
+        {
+            totalPay = 0;
+            currtenPay = 0;
+            workOrders.Clear();
+            isDoneWorkOrders.Clear();
+            payments.Clear();
+            ReadWorkOrderJson();
         }
         #endregion
 
@@ -136,7 +154,7 @@ namespace Hakediş
             Form frm = Application.OpenForms["AddNewWorkOrder"];
             if (frm == null)
             {
-                AddNewWorkOrder addNewWorkOrder = new AddNewWorkOrder();
+                AddNewWorkOrder addNewWorkOrder = new AddNewWorkOrder(this);
                 //dataListing.ReadWorkOrderJson(jsonWorkOrderDataPath, addNewWorkOrder.workOrders);
                 //addNewWorkOrder.workOrders.AddRange(workOrders);
                 addNewWorkOrder.Show();
@@ -149,21 +167,11 @@ namespace Hakediş
             Form frm = Application.OpenForms["UpdateWorkOrder"];
             if (frm == null)
             {
-                UpdateWorkOrder updateWorkOrder = new UpdateWorkOrder();
+                UpdateWorkOrder updateWorkOrder = new UpdateWorkOrder(this);
                 //updateWorkOrder.workOrders.AddRange(workOrders);
                 updateWorkOrder.Show();
             }
 
-        }
-
-        private void btnUpdateWorkOrderList_Click(object sender, EventArgs e)
-        {
-            totalPay = 0;
-            currtenPay = 0;
-            workOrders.Clear();
-            isDoneWorkOrders.Clear();
-            payments.Clear();
-            ReadWorkOrderJson();
         }
 
         private void btnUpdatePayment_Click(object sender, EventArgs e)
@@ -171,7 +179,7 @@ namespace Hakediş
             Form frm = Application.OpenForms["AddNewPaymentForm"];
             if (frm == null)
             {
-                AddNewPaymentForm addNewPaymentForm = new AddNewPaymentForm();
+                AddNewPaymentForm addNewPaymentForm = new AddNewPaymentForm(this);
                 //addNewPaymentForm.payments.AddRange(payments);
                 addNewPaymentForm.Show();
             }
@@ -234,7 +242,7 @@ namespace Hakediş
             try
             {
                 var selectRow = dataGridView1.CurrentCell.RowIndex;
-                UpdateWorkOrder updateWorkOrder = new UpdateWorkOrder();
+                UpdateWorkOrder updateWorkOrder = new UpdateWorkOrder(this);
                 updateWorkOrder.idIndex = int.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
                 updateWorkOrder.txtName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                 updateWorkOrder.txtDesc = dataGridView1.CurrentRow.Cells[2].Value.ToString();
@@ -263,7 +271,7 @@ namespace Hakediş
         {
             try
             {
-                UpdatePaymentForm updatePaymentForm = new UpdatePaymentForm();
+                UpdatePaymentForm updatePaymentForm = new UpdatePaymentForm(this);
                 updatePaymentForm.idIndex = int.Parse(dataGridView2.CurrentRow.Cells[0].Value.ToString());
                 updatePaymentForm.name = dataGridView2.CurrentRow.Cells[1].Value.ToString();
                 updatePaymentForm.pay = double.Parse(dataGridView2.CurrentRow.Cells[2].Value.ToString());
@@ -283,7 +291,7 @@ namespace Hakediş
             Form frm = Application.OpenForms["UpdatePaymentForm"];
             if (frm == null)
             {
-                UpdatePaymentForm updatePaymentForm = new UpdatePaymentForm();
+                UpdatePaymentForm updatePaymentForm = new UpdatePaymentForm(this);
                 updatePaymentForm.payments.AddRange(payments);
                 updatePaymentForm.Show();
             }
@@ -307,9 +315,15 @@ namespace Hakediş
             {
                 case "Tamamlanan İşleri Göster":
                     checkedFilter = true;
+                    //tamamlananİşleriGösterToolStripMenuItem.BackColor = Color.Blue;
+                    tamamlananİşleriGösterToolStripMenuItem.Checked = true;
+                    tamamlananİşleriGöstermeToolStripMenuItem.Checked = false;
                     break;
                 case "Tamamlanan İşleri Gösterme":
                     checkedFilter = false;
+                    //tamamlananİşleriGöstermeToolStripMenuItem.BackColor = Color.Blue;
+                    tamamlananİşleriGöstermeToolStripMenuItem.Checked = true;
+                    tamamlananİşleriGösterToolStripMenuItem.Checked = false;
                     break;
                 default:
                     break;
@@ -320,6 +334,11 @@ namespace Hakediş
             isDoneWorkOrders.Clear();
             payments.Clear();
             ReadWorkOrderJson();
+        }
+
+        private void btnCreateWorkReport_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

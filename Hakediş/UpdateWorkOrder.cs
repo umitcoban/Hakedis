@@ -12,7 +12,7 @@ namespace Hakediş
 {
     public partial class UpdateWorkOrder : Form
     {
-        DataListing dataListing = new DataListing();
+        private readonly MainMenu mainMenu;
         readonly string jsonDataPath = @"WorkOrderJson.json";
         public string txtName, txtDesc;
         public DateTime? startDate;
@@ -21,10 +21,11 @@ namespace Hakediş
         public double ManDay;
         public int idIndex;
         public List<WorkOrder> workOrders { get; set; }
-        public UpdateWorkOrder()
+        public UpdateWorkOrder(MainMenu main)
         {
             InitializeComponent();
             workOrders = new List<WorkOrder>();
+            mainMenu = main;
         }
 
         private void UpdateWorkOrder_Load(object sender, EventArgs e)
@@ -34,6 +35,7 @@ namespace Hakediş
                 ReadJson();
                 DataTableColumnNameChange dataTableColumnNameChange = new DataTableColumnNameChange();
                 dataTableColumnNameChange.ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi", "Adam/Gün");
+                int selectID = workOrders.FindIndex(x=> x.ID ==idIndex);
                 int selectedRow = 0;
                 int i = 0;
                 for (i = 0; i <= workOrders.Count - 1; i++)
@@ -44,7 +46,7 @@ namespace Hakediş
                         break;
                     }
                 }
-                if (workOrders[selectedRow].ExpiredDate != null)
+                if (workOrders[selectID].ExpiredDate != null)
                 {
                     chckbxIsWorkFinished.Checked = true;
                 }
@@ -52,6 +54,7 @@ namespace Hakediş
                 {
                     chckbxIsWorkFinished.Checked = false;
                 }
+                
                 dataGridView1.Rows[selectedRow].Selected = true;
                 //dataGridView1.CurrentRow.Cells[i].Selected = true;
                 txtUpdateName.Text = txtName;
@@ -83,9 +86,9 @@ namespace Hakediş
         {
             try
             {
-                dataListing.ReadWorkOrderJson(dataGridView1, jsonDataPath);
-                workOrders.AddRange(dataListing.WorkOrders);
-                dataGridView1.Columns[0].Visible = false;
+               workOrders = DataListing.ReadWorkOrderJson(jsonDataPath, workOrders);
+               dataGridView1.DataSource = workOrders;
+               dataGridView1.Columns[0].Visible = false;
             }
             catch (Exception)
             {
@@ -99,6 +102,7 @@ namespace Hakediş
                 string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(workOrders);
                 File.WriteAllText(jsonDataPath, jsonData);
                 MessageBox.Show(" İş Emri Başarılı Bir Şekilde Güncellendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                mainMenu.UpdateDataList();
             }
             catch (Exception)
             {
@@ -143,27 +147,27 @@ namespace Hakediş
         {
             try
             {
-                int selectedRow = 0;
-                for (int i = 0; i <= workOrders.Count - 1; i++)
-                {
-                    if (workOrders[i].ID == idIndex)
-                    {
-                        selectedRow = i;
-                        break;
-                    }
-                }
-                workOrders[selectedRow].Name = txtUpdateName.Text;
-                workOrders[selectedRow].Description = txtUpdateDesc.Text;
-                workOrders[selectedRow].StartingDate = dateTimeUpdateFirst.Value;
-                workOrders[selectedRow].ManOfDay = double.Parse(txtUpdateMan.Text);
-                workOrders[selectedRow].FinishedDate = dateTimeNewFinish.Value;
+                int selectedID = workOrders.FindIndex(x=> x.ID == idIndex);
+                //for (int i = 0; i <= workOrders.Count - 1; i++)
+                //{
+                //    if (workOrders[i].ID == idIndex)
+                //    {
+                //        selectedRow = i;
+                //        break;
+                //    }
+                //}
+                workOrders[selectedID].Name = txtUpdateName.Text;
+                workOrders[selectedID].Description = txtUpdateDesc.Text;
+                workOrders[selectedID].StartingDate = dateTimeUpdateFirst.Value;
+                workOrders[selectedID].ManOfDay = double.Parse(txtUpdateMan.Text);
+                workOrders[selectedID].FinishedDate = dateTimeNewFinish.Value;
                 if (chckbxIsWorkFinished.Checked == true)
                 {
-                    workOrders[selectedRow].ExpiredDate = dateTimeUpdateExpired.Value;
+                    workOrders[selectedID].ExpiredDate = dateTimeUpdateExpired.Value;
                 }
                 else
                 {
-                    workOrders[selectedRow].ExpiredDate = null;
+                    workOrders[selectedID].ExpiredDate = null;
                 }
 
             }

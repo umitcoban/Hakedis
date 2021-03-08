@@ -12,16 +12,18 @@ namespace Hakediş
 {
     public partial class UpdatePaymentForm : Form
     {
+        private readonly MainMenu mainMenu;
         public List<Payment> payments { get; set; }
         readonly string jsonPaymentsDataPath = @"PaymentJson.json";
         public double man, pay;
         public string name;
         public int idIndex = 0;
         public DateTime paymentDate;
-        public UpdatePaymentForm()
+        public UpdatePaymentForm(MainMenu main)
         {
             InitializeComponent();
             payments = new List<Payment>();
+            mainMenu = main;
         }
         #region Data İşlemleri
         public void ReadJson()
@@ -44,8 +46,8 @@ namespace Hakediş
             {
                 string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(payments);
                 File.WriteAllText(jsonPaymentsDataPath, jsonData);
-
                 MessageBox.Show("Ödemeler Başarılı Bir Şekilde Güncellendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                mainMenu.UpdateDataList();
             }
             catch (Exception)
             {
@@ -60,7 +62,9 @@ namespace Hakediş
         {
             try
             {
-                ReadJson();
+                //ReadJson();
+                payments = DataListing.ReadPaymentJson(jsonPaymentsDataPath,payments);
+                dataGridView2.DataSource = payments.OrderBy(x=> x.PaymentDate).ToList();
                 DataTableColumnNameChange dataTableColumnNameChange = new DataTableColumnNameChange();
                 dataTableColumnNameChange.ChangeDataGridHeader(dataGridView2, "Ödeme Adı", "Ödenen Gün", "Ödeme Tarihi");
                 txtUpdateName.Text = name;

@@ -7,11 +7,11 @@ using System.Windows.Forms;
 using System.IO;
 namespace Hakediş
 {
-   public class DataListing:DataGridView
+   public static class DataListing
     {
-        public List<Payment> Payments { get; set; }
-        public List<WorkOrder> WorkOrders { get; set; }
-        public void ReadPaymentJson(DataGridView dataGridView, string jsonPath)
+        public static List<Payment> Payments { get; set; }
+        public static List<WorkOrder> WorkOrders { get; set; }
+        public static void ReadPaymentJson(DataGridView dataGridView, string jsonPath)
         {
             if (File.Exists(jsonPath))
             {
@@ -22,7 +22,7 @@ namespace Hakediş
             dataGridView.DataSource = Payments;
             dataGridView.Columns[0].Visible = false;
         }
-        public List<Payment> ReadPaymentJson(string jsonPath,List <Payment> payments)
+        public static List<Payment> ReadPaymentJson(string jsonPath,List <Payment> payments)
         {
             if (File.Exists(jsonPath))
             {
@@ -31,7 +31,7 @@ namespace Hakediş
             }
             return payments;
         }
-        public void ReadWorkOrderJson(DataGridView dataGridView, string jsonPath)
+        public static void ReadWorkOrderJson(DataGridView dataGridView, string jsonPath)
         {
             if (File.Exists(jsonPath))
             {
@@ -41,7 +41,7 @@ namespace Hakediş
             dataGridView.DataSource = WorkOrders;
             dataGridView.Columns[0].Visible = false;
         }
-        public List<WorkOrder> ReadWorkOrderJson(string jsonPath, List<WorkOrder> workOrders)
+        public static List<WorkOrder> ReadWorkOrderJson(string jsonPath, List<WorkOrder> workOrders)
         {
             if (File.Exists(jsonPath))
             {
@@ -49,11 +49,6 @@ namespace Hakediş
                 workOrders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WorkOrder>>(jsonPaymentData);
             }
             return workOrders;
-        }
-        public DataListing()
-        {
-            Payments = new List<Payment>();
-            WorkOrders = new List<WorkOrder>();
         }
     }
 }

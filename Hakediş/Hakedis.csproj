@@ -98,11 +98,11 @@
     <Compile Include="UpdateWorkOrder.Designer.cs">
       <DependentUpon>UpdateWorkOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="WorkOrderDetails.cs">
+    <Compile Include="WorkOrderReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WorkOrderDetails.Designer.cs">
-      <DependentUpon>WorkOrderDetails.cs</DependentUpon>
+    <Compile Include="WorkOrderReportForm.Designer.cs">
+      <DependentUpon>WorkOrderReportForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AddNewPaymentForm.resx">
       <DependentUpon>AddNewPaymentForm.cs</DependentUpon>
@@ -132,8 +132,8 @@
     <EmbeddedResource Include="UpdateWorkOrder.resx">
       <DependentUpon>UpdateWorkOrder.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WorkOrderDetails.resx">
-      <DependentUpon>WorkOrderDetails.cs</DependentUpon>
+    <EmbeddedResource Include="WorkOrderReportForm.resx">
+      <DependentUpon>WorkOrderReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

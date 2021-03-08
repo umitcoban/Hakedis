@@ -12,14 +12,15 @@ namespace Hakediş
 {
     public partial class AddNewWorkOrder : Form
     {
-
+        private readonly MainMenu mainMenu;
         readonly string jsonDataPath = @"WorkOrderJson.json";
         int idIndex = 0;
         public List<WorkOrder> workOrders { get; set; }
-        public AddNewWorkOrder()
+        public AddNewWorkOrder(MainMenu mainMenu1)
         {
             workOrders = new List<WorkOrder>();
             InitializeComponent();
+            mainMenu = mainMenu1;
         }
 
         #region Veri İşlemleri
@@ -28,7 +29,6 @@ namespace Hakediş
             try
             {
                 WorkOrder workOrder = new WorkOrder();
-                DataListing dataListing = new DataListing();
                 workOrder.Name = txtNewName.Text;
                 workOrder.Description = txtNewDesc.Text;
                 workOrder.StartingDate = dateTimeNewFirst.Value;
@@ -40,6 +40,7 @@ namespace Hakediş
                 string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(workOrders);
                 File.WriteAllText(jsonDataPath, jsonData);
                 MessageBox.Show("Yeni İş Emri Başarılı Bir Şekilde Eklendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                mainMenu.UpdateDataList();
                 this.Close();
             }
             catch (Exception)
@@ -54,9 +55,9 @@ namespace Hakediş
 
         private void AddNewWorkOrder_Load(object sender, EventArgs e)
         {
-            DataListing dataListing = new DataListing();
-            workOrders = dataListing.ReadWorkOrderJson(jsonDataPath,workOrders);
-            if (workOrders.Count>0)
+
+            workOrders = DataListing.ReadWorkOrderJson(jsonDataPath, workOrders);
+            if (workOrders.Count > 0)
             {
                 for (int i = workOrders.Count - 1; i < workOrders.Count; i++)
                 {
@@ -67,7 +68,7 @@ namespace Hakediş
             {
                 idIndex = 0;
             }
-                
+
         }
 
         private void btnAddNewWorkOrder_Click(object sender, EventArgs e)
@@ -89,6 +90,6 @@ namespace Hakediş
                     break;
             }
         }
-        
+
     }
 }

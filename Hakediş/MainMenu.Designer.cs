@@ -31,13 +31,13 @@ namespace Hakediş
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelMain = new System.Windows.Forms.Panel();
             this.btnUpdatePayment = new FontAwesome.Sharp.IconButton();
             this.btnOptions = new FontAwesome.Sharp.IconButton();
             this.btnAddPayment = new FontAwesome.Sharp.IconButton();
-            this.btnUpdateWorkOrderList = new FontAwesome.Sharp.IconButton();
+            this.btnCreateWorkReport = new FontAwesome.Sharp.IconButton();
             this.btnUpdateWorkOrder = new FontAwesome.Sharp.IconButton();
             this.btnAddNewWorkOrder = new FontAwesome.Sharp.IconButton();
             this.panelLogo = new System.Windows.Forms.Panel();
@@ -78,7 +78,7 @@ namespace Hakediş
             this.panelMain.Controls.Add(this.btnUpdatePayment);
             this.panelMain.Controls.Add(this.btnOptions);
             this.panelMain.Controls.Add(this.btnAddPayment);
-            this.panelMain.Controls.Add(this.btnUpdateWorkOrderList);
+            this.panelMain.Controls.Add(this.btnCreateWorkReport);
             this.panelMain.Controls.Add(this.btnUpdateWorkOrder);
             this.panelMain.Controls.Add(this.btnAddNewWorkOrder);
             this.panelMain.Controls.Add(this.panelLogo);
@@ -155,27 +155,27 @@ namespace Hakediş
             this.btnAddPayment.UseVisualStyleBackColor = true;
             this.btnAddPayment.Click += new System.EventHandler(this.btnUpdatePayment_Click);
             // 
-            // btnUpdateWorkOrderList
+            // btnCreateWorkReport
             // 
-            this.btnUpdateWorkOrderList.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnUpdateWorkOrderList.FlatAppearance.BorderSize = 0;
-            this.btnUpdateWorkOrderList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdateWorkOrderList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.btnUpdateWorkOrderList.ForeColor = System.Drawing.Color.White;
-            this.btnUpdateWorkOrderList.IconChar = FontAwesome.Sharp.IconChar.Sync;
-            this.btnUpdateWorkOrderList.IconColor = System.Drawing.Color.White;
-            this.btnUpdateWorkOrderList.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnUpdateWorkOrderList.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpdateWorkOrderList.Location = new System.Drawing.Point(0, 304);
-            this.btnUpdateWorkOrderList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.btnUpdateWorkOrderList.Name = "btnUpdateWorkOrderList";
-            this.btnUpdateWorkOrderList.Size = new System.Drawing.Size(209, 67);
-            this.btnUpdateWorkOrderList.TabIndex = 3;
-            this.btnUpdateWorkOrderList.Text = "İş Emri Listesi Güncelle";
-            this.btnUpdateWorkOrderList.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnUpdateWorkOrderList.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnUpdateWorkOrderList.UseVisualStyleBackColor = true;
-            this.btnUpdateWorkOrderList.Click += new System.EventHandler(this.btnUpdateWorkOrderList_Click);
+            this.btnCreateWorkReport.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnCreateWorkReport.FlatAppearance.BorderSize = 0;
+            this.btnCreateWorkReport.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCreateWorkReport.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnCreateWorkReport.ForeColor = System.Drawing.Color.White;
+            this.btnCreateWorkReport.IconChar = FontAwesome.Sharp.IconChar.FileInvoiceDollar;
+            this.btnCreateWorkReport.IconColor = System.Drawing.Color.White;
+            this.btnCreateWorkReport.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnCreateWorkReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCreateWorkReport.Location = new System.Drawing.Point(0, 304);
+            this.btnCreateWorkReport.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnCreateWorkReport.Name = "btnCreateWorkReport";
+            this.btnCreateWorkReport.Size = new System.Drawing.Size(209, 67);
+            this.btnCreateWorkReport.TabIndex = 3;
+            this.btnCreateWorkReport.Text = "Rapor Oluştur";
+            this.btnCreateWorkReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCreateWorkReport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCreateWorkReport.UseVisualStyleBackColor = true;
+            this.btnCreateWorkReport.Click += new System.EventHandler(this.btnCreateWorkReport_Click);
             // 
             // btnUpdateWorkOrder
             // 
@@ -246,8 +246,8 @@ namespace Hakediş
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(561, 531);
             this.dataGridView1.TabIndex = 1;
@@ -270,6 +270,8 @@ namespace Hakediş
             // 
             // tamamlananİşleriGöstermeToolStripMenuItem
             // 
+            this.tamamlananİşleriGöstermeToolStripMenuItem.Checked = true;
+            this.tamamlananİşleriGöstermeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.tamamlananİşleriGöstermeToolStripMenuItem.Name = "tamamlananİşleriGöstermeToolStripMenuItem";
             this.tamamlananİşleriGöstermeToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.tamamlananİşleriGöstermeToolStripMenuItem.Text = "Tamamlanan İşleri Gösterme";
@@ -292,8 +294,8 @@ namespace Hakediş
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView2.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2.Size = new System.Drawing.Size(210, 531);
@@ -470,7 +472,7 @@ namespace Hakediş
         private FontAwesome.Sharp.IconButton btnAddNewWorkOrder;
         private FontAwesome.Sharp.IconButton btnUpdateWorkOrder;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private FontAwesome.Sharp.IconButton btnUpdateWorkOrderList;
+        private FontAwesome.Sharp.IconButton btnCreateWorkReport;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Panel panelLogo;
         private System.Windows.Forms.ToolStrip toolStrip1;

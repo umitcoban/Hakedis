@@ -1,7 +1,7 @@
 ﻿
 namespace Hakediş
 {
-    partial class WorkOrderDetails
+    partial class WorkOrderReportForm
     {
         /// <summary>
         /// Required designer variable.

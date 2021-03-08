@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Hakediş
 {
-    public partial class WorkOrderDetails : Form
+    public partial class WorkOrderReportForm : Form
     {
-        public WorkOrderDetails()
+        public WorkOrderReportForm()
         {
             InitializeComponent();
         }
