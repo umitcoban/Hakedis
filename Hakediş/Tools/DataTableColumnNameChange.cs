@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace Hakediş
 {
-   public  class DataTableColumnNameChange:DataGridView
+   public static class DataTableColumnNameChange
     {
-        public void ChangeDataGridHeader(DataGridView dataGrid,string name1, string name2, string name3, string name4, string name5,string name6)
+        public static void ChangeDataGridHeader(DataGridView dataGrid,string name1, string name2, string name3, string name4, string name5,string name6)
         {
             dataGrid.Columns[1].HeaderText = name1;
             dataGrid.Columns[2].HeaderText = name2;
@@ -17,7 +17,7 @@ namespace Hakediş
             dataGrid.Columns[5].HeaderText = name5;
             dataGrid.Columns[6].HeaderText = name6;
         }
-        public void ChangeDataGridHeader(DataGridView dataGrid, string name1, string name2, string name3)
+        public static void ChangeDataGridHeader(DataGridView dataGrid, string name1, string name2, string name3)
         {
             dataGrid.Columns[1].HeaderText = name1;
             dataGrid.Columns[2].HeaderText = name2;

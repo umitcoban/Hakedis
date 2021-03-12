@@ -13,8 +13,10 @@ namespace Hakediş
 {
     public partial class AddNewPaymentForm : Form
     {
+        static string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        readonly static string pathApplication = System.IO.Path.GetDirectoryName(path);
         private readonly MainMenu mainMenu;
-        readonly string jsonPaymentsDataPath = @"PaymentJson.json";
+        readonly string jsonPaymentsDataPath = pathApplication + @"\PaymentJson.json";
         public List<Payment> payments { get; set; }
         public int idIndex;
 

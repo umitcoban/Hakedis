@@ -12,14 +12,16 @@ namespace Hakediş
 {
     public partial class AddNewWorkOrder : Form
     {
+        static string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        readonly static string pathApplication = System.IO.Path.GetDirectoryName(path);
+        readonly string jsonWorkOrderDataPath = pathApplication + @"\WorkOrderJson.json";
         private readonly MainMenu mainMenu;
-        readonly string jsonDataPath = @"WorkOrderJson.json";
         int idIndex = 0;
         public List<WorkOrder> workOrders { get; set; }
         public AddNewWorkOrder(MainMenu mainMenu1)
         {
-            workOrders = new List<WorkOrder>();
             InitializeComponent();
+            workOrders = new List<WorkOrder>();
             mainMenu = mainMenu1;
         }
 
@@ -38,7 +40,7 @@ namespace Hakediş
                 workOrder.ID = idIndex;
                 workOrders.Add(workOrder);
                 string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(workOrders);
-                File.WriteAllText(jsonDataPath, jsonData);
+                File.WriteAllText(jsonWorkOrderDataPath, jsonData);
                 MessageBox.Show("Yeni İş Emri Başarılı Bir Şekilde Eklendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 mainMenu.UpdateDataList();
                 this.Close();
@@ -56,7 +58,7 @@ namespace Hakediş
         private void AddNewWorkOrder_Load(object sender, EventArgs e)
         {
 
-            workOrders = DataListing.ReadWorkOrderJson(jsonDataPath, workOrders);
+            workOrders = DataListing.ReadWorkOrderJson(jsonWorkOrderDataPath, workOrders);
             if (workOrders.Count > 0)
             {
                 for (int i = workOrders.Count - 1; i < workOrders.Count; i++)

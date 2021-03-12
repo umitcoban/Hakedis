@@ -50,5 +50,14 @@ namespace Hakediş
             }
             return workOrders;
         }
+        public static List<UpdateMail> ReadBackupInfo(string jsonPath, List<UpdateMail> updateMails)
+        {
+            if (File.Exists(jsonPath))
+            {
+                string jsonPaymentData = File.ReadAllText(jsonPath);
+                updateMails = Newtonsoft.Json.JsonConvert.DeserializeObject<List<UpdateMail>>(jsonPaymentData);
+            }
+            return updateMails;
+        }
     }
 }
