@@ -30,8 +30,8 @@ namespace Hakediş
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.panelMain = new System.Windows.Forms.Panel();
             this.btnUpdatePayment = new FontAwesome.Sharp.IconButton();
@@ -47,6 +47,8 @@ namespace Hakediş
             this.tamamlananİşleriGöstermeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripProgressBarBackup = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripBtnBackup = new System.Windows.Forms.ToolStripButton();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuNotify = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.uygulamayıKapatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,8 +71,6 @@ namespace Hakediş
             this.btnWeatherIcon = new FontAwesome.Sharp.IconButton();
             this.lblWeatherStat = new System.Windows.Forms.Label();
             this.splitter2 = new System.Windows.Forms.Splitter();
-            this.toolStripProgressBarBackup = new System.Windows.Forms.ToolStripProgressBar();
-            this.toolStripBtnBackup = new System.Windows.Forms.ToolStripButton();
             this.timerBackupStat = new System.Windows.Forms.Timer(this.components);
             this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -256,8 +256,8 @@ namespace Hakediş
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(582, 401);
             this.dataGridView1.TabIndex = 1;
@@ -303,8 +303,8 @@ namespace Hakediş
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView2.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2.Size = new System.Drawing.Size(190, 401);
@@ -322,6 +322,23 @@ namespace Hakediş
             this.toolStrip1.Size = new System.Drawing.Size(818, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripProgressBarBackup
+            // 
+            this.toolStripProgressBarBackup.Name = "toolStripProgressBarBackup";
+            this.toolStripProgressBarBackup.Size = new System.Drawing.Size(100, 22);
+            this.toolStripProgressBarBackup.Visible = false;
+            // 
+            // toolStripBtnBackup
+            // 
+            this.toolStripBtnBackup.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripBtnBackup.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnBackup.Image")));
+            this.toolStripBtnBackup.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripBtnBackup.Name = "toolStripBtnBackup";
+            this.toolStripBtnBackup.Size = new System.Drawing.Size(302, 22);
+            this.toolStripBtnBackup.Text = "(Güncelleme Mevcut) Güncellemek İçin Lütfen Tıklayın!";
+            this.toolStripBtnBackup.Visible = false;
+            this.toolStripBtnBackup.Click += new System.EventHandler(this.toolStripBtnBackup_Click);
             // 
             // notifyIcon1
             // 
@@ -534,11 +551,11 @@ namespace Hakediş
             this.lblWeather.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWeather.AutoSize = true;
             this.lblWeather.BackColor = System.Drawing.Color.RoyalBlue;
-            this.lblWeather.Font = new System.Drawing.Font("Times New Roman", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblWeather.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblWeather.ForeColor = System.Drawing.Color.White;
-            this.lblWeather.Location = new System.Drawing.Point(682, 93);
+            this.lblWeather.Location = new System.Drawing.Point(682, 88);
             this.lblWeather.Name = "lblWeather";
-            this.lblWeather.Size = new System.Drawing.Size(89, 15);
+            this.lblWeather.Size = new System.Drawing.Size(120, 18);
             this.lblWeather.TabIndex = 3;
             this.lblWeather.Text = "Hava Durumu :";
             // 
@@ -548,7 +565,7 @@ namespace Hakediş
             this.btnWeatherIcon.BackColor = System.Drawing.Color.RoyalBlue;
             this.btnWeatherIcon.FlatAppearance.BorderSize = 0;
             this.btnWeatherIcon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnWeatherIcon.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnWeatherIcon.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnWeatherIcon.ForeColor = System.Drawing.Color.White;
             this.btnWeatherIcon.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
             this.btnWeatherIcon.IconColor = System.Drawing.Color.Black;
@@ -570,7 +587,7 @@ namespace Hakediş
             this.lblWeatherStat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWeatherStat.AutoSize = true;
             this.lblWeatherStat.BackColor = System.Drawing.Color.RoyalBlue;
-            this.lblWeatherStat.Location = new System.Drawing.Point(585, 91);
+            this.lblWeatherStat.Location = new System.Drawing.Point(585, 88);
             this.lblWeatherStat.Name = "lblWeatherStat";
             this.lblWeatherStat.Size = new System.Drawing.Size(102, 15);
             this.lblWeatherStat.TabIndex = 1;
@@ -586,23 +603,6 @@ namespace Hakediş
             this.splitter2.Size = new System.Drawing.Size(234, 129);
             this.splitter2.TabIndex = 7;
             this.splitter2.TabStop = false;
-            // 
-            // toolStripProgressBarBackup
-            // 
-            this.toolStripProgressBarBackup.Name = "toolStripProgressBarBackup";
-            this.toolStripProgressBarBackup.Size = new System.Drawing.Size(100, 22);
-            this.toolStripProgressBarBackup.Visible = false;
-            // 
-            // toolStripBtnBackup
-            // 
-            this.toolStripBtnBackup.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripBtnBackup.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnBackup.Image")));
-            this.toolStripBtnBackup.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripBtnBackup.Name = "toolStripBtnBackup";
-            this.toolStripBtnBackup.Size = new System.Drawing.Size(302, 22);
-            this.toolStripBtnBackup.Text = "(Güncelleme Mevcut) Güncellemek İçin Lütfen Tıklayın!";
-            this.toolStripBtnBackup.Visible = false;
-            this.toolStripBtnBackup.Click += new System.EventHandler(this.toolStripBtnBackup_Click);
             // 
             // timerBackupStat
             // 

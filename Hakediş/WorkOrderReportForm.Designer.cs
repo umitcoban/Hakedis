@@ -43,8 +43,10 @@ namespace Hakediş
             this.lblDetailDescription = new System.Windows.Forms.Label();
             this.txtDetailName = new System.Windows.Forms.TextBox();
             this.lblDetailName = new System.Windows.Forms.Label();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericDetailManDay)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -105,6 +107,7 @@ namespace Hakediş
             this.btnAddNewWorkOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnAddNewWorkOrder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddNewWorkOrder.UseVisualStyleBackColor = true;
+            this.btnAddNewWorkOrder.Click += new System.EventHandler(this.btnAddNewWorkOrder_Click);
             // 
             // numericDetailManDay
             // 
@@ -203,25 +206,36 @@ namespace Hakediş
             this.lblDetailName.TabIndex = 13;
             this.lblDetailName.Text = "İsim :";
             // 
-            // WorkOrderDetails
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(249, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.Size = new System.Drawing.Size(456, 426);
+            this.dataGridView1.TabIndex = 2;
+            // 
+            // WorkOrderReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(599, 426);
+            this.ClientSize = new System.Drawing.Size(707, 426);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.ForeColor = System.Drawing.Color.White;
+            this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Name = "WorkOrderDetails";
+            this.Name = "WorkOrderReportForm";
             this.Opacity = 0.96D;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WorkOrderDetails";
+            this.Load += new System.EventHandler(this.WorkOrderReportForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericDetailManDay)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -242,5 +256,6 @@ namespace Hakediş
         private System.Windows.Forms.Label lblDetailName;
         private System.Windows.Forms.TextBox txtDetailPayDay;
         private System.Windows.Forms.Label lblDetailPayDay;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }

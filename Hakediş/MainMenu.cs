@@ -35,6 +35,7 @@ namespace Hakediş
         }
         private void MainMenu_Load(object sender, EventArgs e)
         {
+            
             BackupData();
             //Form size belirleme
             this.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
@@ -181,7 +182,7 @@ namespace Hakediş
         private void CheckLastUpdateDate()
         {
             var remainingDate = (DateTime.Now - Hakediş.Properties.Settings.Default.lastUpdateDate).TotalDays;
-            if (remainingDate > 7 && CheckInternetControl() && File.Exists(jsonMailUpdateDataPath) && new FileInfo(jsonMailUpdateDataPath).Length > 0 && Hakediş.Properties.Settings.Default.isAnyUpdate == false)
+            if (remainingDate > 7 && CheckInternetControl() && File.Exists(jsonMailUpdateDataPath) && new FileInfo(jsonMailUpdateDataPath).Length > 0 && Hakediş.Properties.Settings.Default.isAnyUpdate == false && Hakediş.Properties.Settings.Default.lastUpdateDate != new DateTime(1, 01, 0001))
             {
                 toolStripBtnBackup.Visible = true;
             }

@@ -20,9 +20,10 @@ namespace Hakediş
         {
             using (WebClient web = new WebClient())
             {
-                string url = string.Format("http://api.openweathermap.org/data/2.5/weather?id={0}&appid={1}&units=metric&lang=tr&charset=UTF-8", cityID,apiKey);
-                var json = web.DownloadString(url);
-                return json;
+                string url = string.Format("http://api.openweathermap.org/data/2.5/weather?id={0}&appid={1}&units=metric&lang=tr&charset=utf-8", cityID,apiKey);
+                var json = web.DownloadData(url);
+                var htmlCode = Encoding.UTF8.GetString(json);
+                return htmlCode;
             }
         }
     }
