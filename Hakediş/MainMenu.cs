@@ -179,30 +179,38 @@ namespace Hakediş
         #region BackupData
         private void BackupData()
         {
-            if (CheckInternetControl()&& File.Exists(jsonMailUpdateDataPath)&& new FileInfo(jsonMailUpdateDataPath).Length > 0)
+            try
             {
-                List<UpdateMail> updateMails = new List<UpdateMail>();
-                updateMails = DataListing.ReadBackupInfo(jsonMailUpdateDataPath, updateMails);
-                var date = updateMails[0].UpdateDate;
-                if (DateTime.Now.ToString("dddd") == date && Hakediş.Properties.Settings.Default.isAnyUpdate==false)
+                if (CheckInternetControl() && File.Exists(jsonMailUpdateDataPath) && new FileInfo(jsonMailUpdateDataPath).Length > 0)
                 {
-                    var toEmail = updateMails[0].ToEmail;//Göndermek İstediğin Email Girişi
-                    var email = updateMails[0].UserName;
-                    var pass = updateMails[0].Password;
-                    var body = DateTime.Now.ToString() + " Güncellemesi" + Environment.NewLine + Application.CompanyName + " " + Application.ProductName + " App";
-                    var subject = "Hakediş" + DateTime.Now.ToString() + " Yedek Veri Güncellemesi";
-                    ConnectAndSendMail.Email_Send(toEmail, body, subject, email, pass, jsonWorkOrderDataPath, jsonPaymentsDataPath);
-                    Hakediş.Properties.Settings.Default.isAnyUpdate = true;
-                    Hakediş.Properties.Settings.Default.Save();
-                    Hakediş.Properties.Settings.Default.Reload();
-                }
-                else
-                {
-                    Hakediş.Properties.Settings.Default.isAnyUpdate = false;
-                    Hakediş.Properties.Settings.Default.Save();
-                    Hakediş.Properties.Settings.Default.Reload();
+                    List<UpdateMail> updateMails = new List<UpdateMail>();
+                    updateMails = DataListing.ReadBackupInfo(jsonMailUpdateDataPath, updateMails);
+                    var date = updateMails[0].UpdateDate;
+                    if (DateTime.Now.ToString("dddd") == date && Hakediş.Properties.Settings.Default.isAnyUpdate == false)
+                    {
+                        var toEmail = updateMails[0].ToEmail;//Göndermek İstediğin Email Girişi
+                        var email = updateMails[0].UserName;
+                        var pass = updateMails[0].Password;
+                        var body = DateTime.Now.ToString() + " Güncellemesi" + Environment.NewLine + Application.CompanyName + " " + Application.ProductName + " App";
+                        var subject = "Hakediş" + DateTime.Now.ToString() + " Yedek Veri Güncellemesi";
+                        ConnectAndSendMail.Email_Send(toEmail, body, subject, email, pass, jsonWorkOrderDataPath, jsonPaymentsDataPath);
+                        Hakediş.Properties.Settings.Default.isAnyUpdate = true;
+                        Hakediş.Properties.Settings.Default.Save();
+                        Hakediş.Properties.Settings.Default.Reload();
+                    }
+                    else
+                    {
+                        Hakediş.Properties.Settings.Default.isAnyUpdate = false;
+                        Hakediş.Properties.Settings.Default.Save();
+                        Hakediş.Properties.Settings.Default.Reload();
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message,"Hata",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+            }
+          
         }
         #endregion
         #region Hava Durumu İslemleri
