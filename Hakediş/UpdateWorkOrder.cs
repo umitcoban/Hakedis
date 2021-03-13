@@ -12,10 +12,10 @@ namespace Hakediş
 {
     public partial class UpdateWorkOrder : Form
     {
-        static string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        readonly static string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
         readonly static string pathApplication = System.IO.Path.GetDirectoryName(path);
-        private readonly MainMenu mainMenu;
         readonly string jsonWorkOrderDataPath = pathApplication + @"\WorkOrderJson.json";
+        private readonly MainMenu mainMenu;
         public string txtName, txtDesc;
         public DateTime? startDate;
         public DateTime? expiredDate;

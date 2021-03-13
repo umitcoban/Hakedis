@@ -184,17 +184,25 @@ namespace Hakediş
                 List<UpdateMail> updateMails = new List<UpdateMail>();
                 updateMails = DataListing.ReadBackupInfo(jsonMailUpdateDataPath, updateMails);
                 var date = updateMails[0].UpdateDate;
-                if (DateTime.Now.ToString("dddd") == date)
+                if (DateTime.Now.ToString("dddd") == date && Hakediş.Properties.Settings.Default.isAnyUpdate==false)
                 {
                     var toEmail = updateMails[0].ToEmail;//Göndermek İstediğin Email Girişi
                     var email = updateMails[0].UserName;
                     var pass = updateMails[0].Password;
                     var body = DateTime.Now.ToString() + " Güncellemesi" + Environment.NewLine + Application.CompanyName + " " + Application.ProductName + " App";
                     var subject = "Hakediş" + DateTime.Now.ToString() + " Yedek Veri Güncellemesi";
-                    ConnectAndSendMail.Email_Send(toEmail,body , subject, email, pass, jsonWorkOrderDataPath, jsonPaymentsDataPath);
+                    ConnectAndSendMail.Email_Send(toEmail, body, subject, email, pass, jsonWorkOrderDataPath, jsonPaymentsDataPath);
+                    Hakediş.Properties.Settings.Default.isAnyUpdate = true;
+                    Hakediş.Properties.Settings.Default.Save();
+                    Hakediş.Properties.Settings.Default.Reload();
+                }
+                else
+                {
+                    Hakediş.Properties.Settings.Default.isAnyUpdate = false;
+                    Hakediş.Properties.Settings.Default.Save();
+                    Hakediş.Properties.Settings.Default.Reload();
                 }
             }
-           
         }
         #endregion
         #region Hava Durumu İslemleri
