@@ -543,7 +543,8 @@ namespace Hakediş
 
         private void btnCreateWorkReport_Click(object sender, EventArgs e)
         {
-
+            WorkOrderReportForm workOrderReportForm = new WorkOrderReportForm();
+            workOrderReportForm.Show();
         }
 
         private void toolStripBtnBackup_Click(object sender, EventArgs e)

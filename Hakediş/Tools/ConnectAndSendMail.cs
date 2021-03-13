@@ -12,25 +12,32 @@ namespace Hakediş
       static public void Email_Send(string toEmail,string body,string subject,string userName,string pass,string filePath,string filePath2)
         {
             MailMessage mail = new MailMessage();
-            SmtpClient SmtpServer = new SmtpClient("smtp-mail.outlook.com");
-            mail.From = new MailAddress(userName);
-            mail.To.Add(toEmail);
-            mail.Subject = subject;
-            mail.Body = body;
-            System.Net.Mail.Attachment attachment;
-            System.Net.Mail.Attachment attachment2;
-            attachment = new System.Net.Mail.Attachment(filePath);
-            attachment2 = new System.Net.Mail.Attachment(filePath2);
-            mail.Attachments.Add(attachment);
-            mail.Attachments.Add(attachment2);
-            SmtpServer.Port = 587;
-            SmtpServer.EnableSsl = true;
-            SmtpServer.UseDefaultCredentials = false;
-            NetworkCredential nc = new NetworkCredential(userName, pass);
-            SmtpServer.Credentials = nc;
-            //SmtpDeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-            SmtpServer.Send(mail);
+            try
+            {
+                SmtpClient SmtpServer = new SmtpClient("smtp-mail.outlook.com");
+                mail.From = new MailAddress(userName);
+                mail.To.Add(toEmail);
+                mail.Subject = subject;
+                mail.Body = body;
+                System.Net.Mail.Attachment attachment;
+                System.Net.Mail.Attachment attachment2;
+                attachment = new System.Net.Mail.Attachment(filePath);
+                attachment2 = new System.Net.Mail.Attachment(filePath2);
+                mail.Attachments.Add(attachment);
+                mail.Attachments.Add(attachment2);
+                SmtpServer.Port = 587;
+                SmtpServer.EnableSsl = true;
+                SmtpServer.UseDefaultCredentials = false;
+                NetworkCredential nc = new NetworkCredential(userName, pass);
+                SmtpServer.Credentials = nc;
+                //SmtpDeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                SmtpServer.Send(mail);
+            }
+            catch (Exception)
+            {
+                mail.Attachments.Clear();
 
+            }
             //Microsoft.Office.Interop.Outlook.Application OutlookObject = new Microsoft.Office.Interop.Outlook.Application();
 
             ////Outlook programına gönderilmek üzere MailItem nesnesinin bir instance oluşturuyoruz

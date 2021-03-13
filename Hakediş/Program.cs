@@ -16,7 +16,7 @@ namespace Hakediş
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new WorkOrderReportForm());
+            Application.Run(new MainMenu());
         }
     }
 }

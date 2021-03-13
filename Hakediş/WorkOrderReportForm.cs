@@ -34,7 +34,6 @@ namespace Hakediş
                 char character = txtDetailName.Text[i];
                 word += character;
                 cloneWorkOrders = workOrders.Where(x => x.Name.Contains(word.ToString().ToUpper()) || x.Name.Contains(word.ToString().ToLower())).ToList();
-
             }
             dataGridView1.DataSource = cloneWorkOrders;
         }
