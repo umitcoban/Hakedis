@@ -203,11 +203,13 @@ namespace Hakediş
                         var pass = updateMails[0].Password;
                         var body = DateTime.Now.ToString() + " Güncellemesi" + Environment.NewLine + Application.CompanyName + " " + Application.ProductName + " App";
                         var subject = "Hakediş" + DateTime.Now.ToString() + " Yedek Veri Güncellemesi";
-                        ConnectAndSendMail.Email_Send(toEmail, body, subject, email, pass, jsonWorkOrderDataPath, jsonPaymentsDataPath);
-                        Hakediş.Properties.Settings.Default.isAnyUpdate = true;
-                        Hakediş.Properties.Settings.Default.lastUpdateDate = DateTime.Now;
-                        Hakediş.Properties.Settings.Default.Save();
-                        Hakediş.Properties.Settings.Default.Reload();
+                        if (ConnectAndSendMail.Email_Send(toEmail, body, subject, email, pass, jsonWorkOrderDataPath, jsonPaymentsDataPath))
+                        {
+                            Hakediş.Properties.Settings.Default.isAnyUpdate = true;
+                            Hakediş.Properties.Settings.Default.lastUpdateDate = DateTime.Now;
+                            Hakediş.Properties.Settings.Default.Save();
+                            Hakediş.Properties.Settings.Default.Reload();
+                        }
                     }
                     else
                     {

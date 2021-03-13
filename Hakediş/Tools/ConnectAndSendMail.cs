@@ -9,7 +9,7 @@ namespace Hakediş
 {
    static class ConnectAndSendMail
     {
-      static public void Email_Send(string toEmail,string body,string subject,string userName,string pass,string filePath,string filePath2)
+      static public bool Email_Send(string toEmail,string body,string subject,string userName,string pass,string filePath,string filePath2)
         {
             MailMessage mail = new MailMessage();
             try
@@ -36,8 +36,9 @@ namespace Hakediş
             catch (Exception)
             {
                 mail.Attachments.Clear();
-
+                return false;
             }
+            return true;
             //Microsoft.Office.Interop.Outlook.Application OutlookObject = new Microsoft.Office.Interop.Outlook.Application();
 
             ////Outlook programına gönderilmek üzere MailItem nesnesinin bir instance oluşturuyoruz
