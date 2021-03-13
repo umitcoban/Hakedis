@@ -30,8 +30,8 @@ namespace Hakediş
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.panelMain = new System.Windows.Forms.Panel();
             this.btnUpdatePayment = new FontAwesome.Sharp.IconButton();
@@ -69,10 +69,14 @@ namespace Hakediş
             this.btnWeatherIcon = new FontAwesome.Sharp.IconButton();
             this.lblWeatherStat = new System.Windows.Forms.Label();
             this.splitter2 = new System.Windows.Forms.Splitter();
+            this.toolStripProgressBarBackup = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripBtnBackup = new System.Windows.Forms.ToolStripButton();
+            this.timerBackupStat = new System.Windows.Forms.Timer(this.components);
             this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextMenuMainList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.toolStrip1.SuspendLayout();
             this.contextMenuNotify.SuspendLayout();
             this.panelStat.SuspendLayout();
             this.SuspendLayout();
@@ -252,8 +256,8 @@ namespace Hakediş
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(582, 401);
             this.dataGridView1.TabIndex = 1;
@@ -299,8 +303,8 @@ namespace Hakediş
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView2.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2.Size = new System.Drawing.Size(190, 401);
@@ -310,6 +314,9 @@ namespace Hakediş
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBarBackup,
+            this.toolStripBtnBackup});
             this.toolStrip1.Location = new System.Drawing.Point(209, 552);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(818, 25);
@@ -580,6 +587,27 @@ namespace Hakediş
             this.splitter2.TabIndex = 7;
             this.splitter2.TabStop = false;
             // 
+            // toolStripProgressBarBackup
+            // 
+            this.toolStripProgressBarBackup.Name = "toolStripProgressBarBackup";
+            this.toolStripProgressBarBackup.Size = new System.Drawing.Size(100, 22);
+            this.toolStripProgressBarBackup.Visible = false;
+            // 
+            // toolStripBtnBackup
+            // 
+            this.toolStripBtnBackup.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripBtnBackup.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnBackup.Image")));
+            this.toolStripBtnBackup.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripBtnBackup.Name = "toolStripBtnBackup";
+            this.toolStripBtnBackup.Size = new System.Drawing.Size(302, 22);
+            this.toolStripBtnBackup.Text = "(Güncelleme Mevcut) Güncellemek İçin Lütfen Tıklayın!";
+            this.toolStripBtnBackup.Visible = false;
+            this.toolStripBtnBackup.Click += new System.EventHandler(this.toolStripBtnBackup_Click);
+            // 
+            // timerBackupStat
+            // 
+            this.timerBackupStat.Tick += new System.EventHandler(this.timerBackupStat_Tick);
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -605,6 +633,8 @@ namespace Hakediş
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.contextMenuMainList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.contextMenuNotify.ResumeLayout(false);
             this.panelStat.ResumeLayout(false);
             this.panelStat.PerformLayout();
@@ -651,6 +681,9 @@ namespace Hakediş
         private System.Windows.Forms.Label lblRemainingWeek;
         private System.Windows.Forms.Splitter splitter1;
         private FontAwesome.Sharp.IconButton btnGeneralStat;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBarBackup;
+        private System.Windows.Forms.ToolStripButton toolStripBtnBackup;
+        private System.Windows.Forms.Timer timerBackupStat;
     }
 }
 

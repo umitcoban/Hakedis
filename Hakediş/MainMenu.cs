@@ -35,6 +35,7 @@ namespace Hakediş
         }
         private void MainMenu_Load(object sender, EventArgs e)
         {
+            BackupData();
             //Form size belirleme
             this.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
             this.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
@@ -47,7 +48,7 @@ namespace Hakediş
             lblCurrentWeek.Text = week + ". Haftasında, ";
             lblCurrentDay.Text = DateTime.Now.ToString("dddd") + " Günündesiniz.";
             lblRemainingWeek.Text = "Geriye " + (52 - week).ToString() + " Hafta Kaldı.";
-            BackupData();
+            CheckLastUpdateDate();
         }
         #region Data İşlemleri
         public void ReadWorkOrderJson()
@@ -177,6 +178,14 @@ namespace Hakediş
         }
         #endregion
         #region BackupData
+        private void CheckLastUpdateDate()
+        {
+            var remainingDate = (DateTime.Now - Hakediş.Properties.Settings.Default.lastUpdateDate).TotalDays;
+            if (remainingDate > 7 && CheckInternetControl() && File.Exists(jsonMailUpdateDataPath) && new FileInfo(jsonMailUpdateDataPath).Length > 0 && Hakediş.Properties.Settings.Default.isAnyUpdate == false)
+            {
+                toolStripBtnBackup.Visible = true;
+            }
+        }
         private void BackupData()
         {
             try
@@ -185,7 +194,7 @@ namespace Hakediş
                 {
                     List<UpdateMail> updateMails = new List<UpdateMail>();
                     updateMails = DataListing.ReadBackupInfo(jsonMailUpdateDataPath, updateMails);
-                    var date = updateMails[0].UpdateDate;
+                    var date = updateMails[0].UpdateDate;  
                     if (DateTime.Now.ToString("dddd") == date && Hakediş.Properties.Settings.Default.isAnyUpdate == false)
                     {
                         var toEmail = updateMails[0].ToEmail;//Göndermek İstediğin Email Girişi
@@ -195,6 +204,7 @@ namespace Hakediş
                         var subject = "Hakediş" + DateTime.Now.ToString() + " Yedek Veri Güncellemesi";
                         ConnectAndSendMail.Email_Send(toEmail, body, subject, email, pass, jsonWorkOrderDataPath, jsonPaymentsDataPath);
                         Hakediş.Properties.Settings.Default.isAnyUpdate = true;
+                        Hakediş.Properties.Settings.Default.lastUpdateDate = DateTime.Now;
                         Hakediş.Properties.Settings.Default.Save();
                         Hakediş.Properties.Settings.Default.Reload();
                     }
@@ -535,6 +545,23 @@ namespace Hakediş
 
         }
 
+        private void toolStripBtnBackup_Click(object sender, EventArgs e)
+        {
+            toolStripProgressBarBackup.Visible = true;
+            timerBackupStat.Enabled = true;
+            BackupData();
+        }
 
+        private void timerBackupStat_Tick(object sender, EventArgs e)
+        {
+            toolStripProgressBarBackup.Value += 5;
+            if (toolStripProgressBarBackup.Value ==100)
+            {
+                timerBackupStat.Enabled = false;
+                toolStripBtnBackup.Visible = false;
+                toolStripProgressBarBackup.Value = 0;
+                toolStripProgressBarBackup.Visible = false;
+            }
+        }
     }
 }
