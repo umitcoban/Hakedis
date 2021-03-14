@@ -181,15 +181,19 @@ namespace Hakediş
         #region BackupData
         private void CheckLastUpdateDate()
         {
-            List<UpdateMail> updateMails = new List<UpdateMail>();
-            updateMails = DataListing.ReadBackupInfo(jsonMailUpdateDataPath, updateMails);
-            var lastUpdate =updateMails[0].LastUpdateDate.Value;
-            var nowDate = DateTime.Parse(DateTime.Now.ToString("dd-MM-yyyy"));
-            var remainingDate = (nowDate - lastUpdate).TotalDays;
-            if (remainingDate > 7 && CheckInternetControl() && File.Exists(jsonMailUpdateDataPath) && new FileInfo(jsonMailUpdateDataPath).Length > 0 && Hakediş.Properties.Settings.Default.isAnyUpdate == false && lastUpdate != null)
+            if (File.Exists(jsonMailUpdateDataPath) && new FileInfo(jsonMailUpdateDataPath).Length > 0)
             {
-                toolStripBtnBackup.Visible = true;
+                List<UpdateMail> updateMails = new List<UpdateMail>();
+                updateMails = DataListing.ReadBackupInfo(jsonMailUpdateDataPath, updateMails);
+                var lastUpdate = updateMails[0].LastUpdateDate.Value;
+                var nowDate = DateTime.Parse(DateTime.Now.ToString("dd-MM-yyyy"));
+                var remainingDate = (nowDate - lastUpdate).TotalDays;
+                if (remainingDate > 7 && CheckInternetControl() && Hakediş.Properties.Settings.Default.isAnyUpdate == false && lastUpdate != null)
+                {
+                    toolStripBtnBackup.Visible = true;
+                }
             }
+
         }
         public void BackupData()
         {
