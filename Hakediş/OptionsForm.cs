@@ -14,6 +14,7 @@ namespace Hakediş
 {
     public partial class OptionsForm : Form
     {
+        private readonly MainMenu mainMenu;
         static string appPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
         readonly static string pathApplication = System.IO.Path.GetDirectoryName(appPath);
         readonly string jsonMailUpdateDataPath = pathApplication + @"\jsonMailUpdateData.json";
@@ -22,10 +23,11 @@ namespace Hakediş
         bool startAutoApp = true;
         public string path;
         public string fileName;
-        public OptionsForm()
+        public OptionsForm(MainMenu main)
         {
             InitializeComponent();
             updateMails = new List<UpdateMail>();
+            mainMenu = main;
         }
         #region Uygulama Ayarları
 
@@ -96,13 +98,16 @@ namespace Hakediş
             try
             {
                 UpdateMail updateMail = new UpdateMail();
+                var nowDate = DateTime.Parse(DateTime.Now.ToString("dd-MM-yyyy"));
                 updateMail.UserName = maskedtxtUsername.Text;
                 updateMail.Password = maskedTxtPass.Text;
                 updateMail.UpdateDate = comboBoxSelectUpdateDay.SelectedItem.ToString();
                 updateMail.ToEmail = maskedTxtToEmail.Text;
+                updateMail.LastUpdateDate = nowDate.AddDays(-1);
                 updateMails.Add(updateMail);
                 var jsonData = JsonConvert.SerializeObject(updateMails);
                 File.WriteAllText(jsonMailUpdateDataPath,jsonData);
+                mainMenu.BackupData();
             }
             catch (Exception)
             {

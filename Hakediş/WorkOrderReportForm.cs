@@ -29,7 +29,7 @@ namespace Hakediş
         {
             List<WorkOrder> cloneWorkOrders = new List<WorkOrder>();
             string word = "";
-            for (int i = 0; i <= txtDetailName.TextLength-1; i++)
+            for (int i = 0; i <= txtDetailName.Text.Length-1; i++)
             {
                 char character = txtDetailName.Text[i];
                 word += character;

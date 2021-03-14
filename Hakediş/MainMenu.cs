@@ -181,13 +181,17 @@ namespace Hakediş
         #region BackupData
         private void CheckLastUpdateDate()
         {
-            var remainingDate = (DateTime.Now - Hakediş.Properties.Settings.Default.lastUpdateDate).TotalDays;
-            if (remainingDate > 7 && CheckInternetControl() && File.Exists(jsonMailUpdateDataPath) && new FileInfo(jsonMailUpdateDataPath).Length > 0 && Hakediş.Properties.Settings.Default.isAnyUpdate == false && Hakediş.Properties.Settings.Default.lastUpdateDate != new DateTime(1, 01, 0001))
+            List<UpdateMail> updateMails = new List<UpdateMail>();
+            updateMails = DataListing.ReadBackupInfo(jsonMailUpdateDataPath, updateMails);
+            var lastUpdate =updateMails[0].LastUpdateDate.Value;
+            var nowDate = DateTime.Parse(DateTime.Now.ToString("dd-MM-yyyy"));
+            var remainingDate = (nowDate - lastUpdate).TotalDays;
+            if (remainingDate > 7 && CheckInternetControl() && File.Exists(jsonMailUpdateDataPath) && new FileInfo(jsonMailUpdateDataPath).Length > 0 && Hakediş.Properties.Settings.Default.isAnyUpdate == false && lastUpdate != null)
             {
                 toolStripBtnBackup.Visible = true;
             }
         }
-        private void BackupData()
+        public void BackupData()
         {
             try
             {
@@ -195,8 +199,10 @@ namespace Hakediş
                 {
                     List<UpdateMail> updateMails = new List<UpdateMail>();
                     updateMails = DataListing.ReadBackupInfo(jsonMailUpdateDataPath, updateMails);
-                    var date = updateMails[0].UpdateDate;  
-                    if (DateTime.Now.ToString("dddd") == date && Hakediş.Properties.Settings.Default.isAnyUpdate == false)
+                    var date = updateMails[0].UpdateDate;
+                    DateTime? lastUpdateDate = updateMails[0].LastUpdateDate.Value;
+                    var nowDate = DateTime.Parse(DateTime.Now.ToString("dd-MM-yyyy"));
+                    if (DateTime.Now.ToString("dddd") == date && Hakediş.Properties.Settings.Default.isAnyUpdate == false && lastUpdateDate!= nowDate)
                     {
                         var toEmail = updateMails[0].ToEmail;//Göndermek İstediğin Email Girişi
                         var email = updateMails[0].UserName;
@@ -206,9 +212,9 @@ namespace Hakediş
                         if (ConnectAndSendMail.Email_Send(toEmail, body, subject, email, pass, jsonWorkOrderDataPath, jsonPaymentsDataPath))
                         {
                             Hakediş.Properties.Settings.Default.isAnyUpdate = true;
-                            Hakediş.Properties.Settings.Default.lastUpdateDate = DateTime.Now;
-                            Hakediş.Properties.Settings.Default.Save();
-                            Hakediş.Properties.Settings.Default.Reload();
+                            updateMails[0].LastUpdateDate = DateTime.Parse(DateTime.Now.ToString("dd-MM-yyyy"));
+                            var json = Newtonsoft.Json.JsonConvert.SerializeObject(updateMails);
+                            File.WriteAllText(jsonMailUpdateDataPath, json);
                         }
                     }
                     else
@@ -362,10 +368,10 @@ namespace Hakediş
             Form frm = Application.OpenForms["OptionsForm"];
             if (frm == null)
             {
-
+                OptionsForm optionsForm = new OptionsForm(this);
+                optionsForm.Show();
             }
-            OptionsForm optionsForm = new OptionsForm();
-            optionsForm.Show();
+
         }
 
         #endregion
