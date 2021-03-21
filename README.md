@@ -6,7 +6,8 @@ Ek olarak günlük hava durumu takibi ve kaydettiğiniz verileri, haftanın beli
 Veriler "json" formatında tutulmaktadır.
 
 
-![image](https://user-images.githubusercontent.com/61668822/111691277-3517c700-883f-11eb-8eb1-6f114dddad3a.png)
+![image](https://user-images.githubusercontent.com/61668822/111913208-29feaa00-8a7e-11eb-89b9-419bd9f53f18.png)
+
 
 
 
