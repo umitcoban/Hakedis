@@ -20,6 +20,7 @@ namespace Hakediş
         readonly string jsonWorkOrderDataPath = pathApplication+ @"\WorkOrderJson.json";
         readonly string jsonPaymentsDataPath = pathApplication + @"\PaymentJson.json";
         readonly string jsonMailUpdateDataPath = pathApplication + @"\jsonMailUpdateData.json";
+        readonly string jsonUserConfigPathFile = pathApplication + @"\UserConfig.json";
         static int weatherIconID;
         public List<WorkOrder> workOrders = new List<WorkOrder>();
         public List<WorkOrder> isDoneWorkOrders = new List<WorkOrder>();
@@ -28,15 +29,18 @@ namespace Hakediş
         int currentMonth = int.Parse(DateTime.Now.Month.ToString());
         double totalPay;
         double currtenPay;
+        short calculateParameterNum = 0;
+        string userTypeString;
         public MainMenu()
         {
             InitializeComponent();
             ReadWeather();
+            ReadUserConfigData();
         }
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            
-            BackupData();
+            this.Text = System.Environment.MachineName + "/ Hakedis /" + userTypeString;
+            BackupData(DateTime.Now.ToString("dddd"));
             //Form size belirleme
             this.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
             this.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
@@ -52,26 +56,23 @@ namespace Hakediş
             CheckLastUpdateDate();
         }
         #region Data İşlemleri
+        public void ReadUserConfigData()
+        {
+            if (File.Exists(jsonUserConfigPathFile)&& new FileInfo(jsonUserConfigPathFile).Length>0)
+            {
+                List<User> users = new List<User>();
+                users = DataListing.ReadUserConfig(jsonUserConfigPathFile,users);
+                calculateParameterNum = users[0].CalculateParameter;
+                userTypeString = users[0].Usertype.ToString();
+            }
+        }
         public void ReadWorkOrderJson()
         {
             try
             {
-                //if (File.Exists(jsonPaymentsDataPath))
-                //{
-                //    string jsonPaymentData = File.ReadAllText(jsonPaymentsDataPath);
-                //    payments = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Payment>>(jsonPaymentData);
-                //}
-                //List<Payment> paymentsClone = payments;
-                //dataGridView2.DataSource = payments;
-                //dataGridView2.Columns[0].Visible = false;
-                //if (File.Exists(jsonWorkOrderDataPath))
-                //{
-                //    string jsonData = File.ReadAllText(jsonWorkOrderDataPath);
-                //    workOrders = Newtonsoft.Json.JsonConvert.DeserializeObject<List<WorkOrder>>(jsonData);
-                //}
                 if(File.Exists(jsonWorkOrderDataPath) && new FileInfo(jsonWorkOrderDataPath).Length > 0)
                 {
-                    //DataListing.ReadWorkOrderJson(dataGridView1, jsonWorkOrderDataPath);
+
                     workOrders = DataListing.ReadWorkOrderJson(jsonWorkOrderDataPath, workOrders);
                     List<WorkOrder> currentWorkOrders = new List<WorkOrder>();
                     currentWorkOrders.AddRange(workOrders);
@@ -90,7 +91,7 @@ namespace Hakediş
                 }
                 if (File.Exists(jsonPaymentsDataPath) && new FileInfo(jsonPaymentsDataPath).Length >0)
                 {
-                    //DataListing.ReadPaymentJson(dataGridView2, jsonPaymentsDataPath);
+
                     payments = DataListing.ReadPaymentJson(jsonPaymentsDataPath, payments);
                     payments.Reverse();
                     dataGridView2.DataSource = payments;
@@ -99,27 +100,7 @@ namespace Hakediş
                 }
                 if (File.Exists(jsonPaymentsDataPath)||File.Exists(jsonWorkOrderDataPath))
                     CalculatePayments(isDoneWorkOrders, payments);
-                //for (int i = 0; i <= currentWorkOrders.Count - 1; i++)
-                //{
-                //    if (currentWorkOrders[i].ExpiredDate != null)
-                //    {
-                //        isDoneWorkOrders.Add(currentWorkOrders[i]);
-                //    }
-                //}
 
-                //foreach (var item in currentWorkOrders.ToList())
-                //{
-                //    if (item.ExpiredDate != null)
-                //    {
-                //        currentWorkOrders.Remove(item);
-                //    }
-                //}
-
-
-                //dataGridView1.DataSource = currentWorkOrders;
-                //dataGridView1.Columns[3].DefaultCellStyle.Format = "dd.MM.yyyy";
-                //dataGridView1.Sort(dataGridView1.Columns[3], ListSortDirection.Descending);
-                //dataGridView1.Columns[0].Visible = false;
 
             }
             catch (Exception)
@@ -132,40 +113,61 @@ namespace Hakediş
         {
             if (payments.Count != 0)
                 currtenPay = payments.Sum(x => x.PayforDay);
-            //if (payments.Count != 0)
-            //    for (int i = 0; i < payments.Count; i++)
-            //    {
-            //        currtenPay += payments[i].PayforDay;
-            //    }
-           totalPay = otherList.Sum(x=> x.ManOfDay);
-                //for (int i = 0; i < otherList.Count; i++)
-                //{
-                //    totalPay += otherList[i].ManOfDay;
-                //}
-            //toolStripLblTotalPayment.Text = totalPay.ToString();
-            //toolStripLblCurrentPay.Text = currtenPay.ToString();
-            double generalPay = totalPay - currtenPay;
-
-            if (currtenPay == 0 && totalPay == 0 || currtenPay == totalPay)
+            totalPay = otherList.Sum(x=> x.ManOfDay);
+            double generalPay = 0;
+            switch (calculateParameterNum)
             {
-                btnGeneralStat.Text = "Durumunuz : Stabil." ;
+                case 1:
+                    generalPay = totalPay - currtenPay;
+                    break;
+                case -1:
+                    generalPay = currtenPay - totalPay;
+                    break;
+                default:
+                    break;
+            }
+            if (generalPay == 0)
+            {
+                btnGeneralStat.Text = "Durumunuz : Stabil.";
                 btnGeneralStat.BackColor = Color.Gray;
                 btnGeneralStat.IconChar = FontAwesome.Sharp.IconChar.Equals;
             }
-            else if (totalPay > currtenPay)
+            else if (generalPay>0)
             {
                 btnGeneralStat.Visible = true;
                 btnGeneralStat.Text = "Durumunuz : " + generalPay.ToString() + " Gün" + " Alacaklısınız !";
                 btnGeneralStat.BackColor = Color.Green;
                 btnGeneralStat.IconChar = FontAwesome.Sharp.IconChar.PlusCircle;
             }
-            else
+            else if (generalPay<0)
             {
                 btnGeneralStat.Visible = true;
                 btnGeneralStat.Text = "Durumunuz : " + generalPay.ToString() + " Gün" + " Borçlusunuz !";
                 btnGeneralStat.BackColor = Color.Crimson;
                 btnGeneralStat.IconChar = FontAwesome.Sharp.IconChar.MinusCircle;
             }
+
+
+            //if (currtenPay == 0 && totalPay == 0 || currtenPay == totalPay)
+            //{
+            //    btnGeneralStat.Text = "Durumunuz : Stabil." ;
+            //    btnGeneralStat.BackColor = Color.Gray;
+            //    btnGeneralStat.IconChar = FontAwesome.Sharp.IconChar.Equals;
+            //}
+            //else if (totalPay > currtenPay)
+            //{
+            //    btnGeneralStat.Visible = true;
+            //    btnGeneralStat.Text = "Durumunuz : " + generalPay.ToString() + " Gün" + " Alacaklısınız !";
+            //    btnGeneralStat.BackColor = Color.Green;
+            //    btnGeneralStat.IconChar = FontAwesome.Sharp.IconChar.PlusCircle;
+            //}
+            //else
+            //{
+            //    btnGeneralStat.Visible = true;
+            //    btnGeneralStat.Text = "Durumunuz : " + generalPay.ToString() + " Gün" + " Borçlusunuz !";
+            //    btnGeneralStat.BackColor = Color.Crimson;
+            //    btnGeneralStat.IconChar = FontAwesome.Sharp.IconChar.MinusCircle;
+            //}
 
         }
         public void UpdateDataList()
@@ -186,16 +188,26 @@ namespace Hakediş
                 List<UpdateMail> updateMails = new List<UpdateMail>();
                 updateMails = DataListing.ReadBackupInfo(jsonMailUpdateDataPath, updateMails);
                 var lastUpdate = updateMails[0].LastUpdateDate.Value;
+                var updateDate = updateMails[0].UpdateDate.ToString();
                 var nowDate = DateTime.Parse(DateTime.Now.ToString("dd-MM-yyyy"));
                 var remainingDate = (nowDate - lastUpdate).TotalDays;
                 if (remainingDate > 7 && CheckInternetControl() && Hakediş.Properties.Settings.Default.isAnyUpdate == false && lastUpdate != null)
                 {
-                    toolStripBtnBackup.Visible = true;
+                    DialogResult dialog = new DialogResult();
+                    dialog = MessageBox.Show($"Verileriniz En Son {remainingDate} Gün Önce Yedeklendi. \rVerilerinizi Yedeklemek İstersiniz ?","Veri Yedeklemesi", MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                    if (dialog== DialogResult.Yes)
+                    {
+                        BackupData(updateDate);
+                    }
+                    else
+                    {
+                        toolStripBtnBackup.Visible = true;
+                    }
                 }
             }
 
         }
-        public void BackupData()
+        public void BackupData(string DateNow)
         {
             try
             {
@@ -203,10 +215,10 @@ namespace Hakediş
                 {
                     List<UpdateMail> updateMails = new List<UpdateMail>();
                     updateMails = DataListing.ReadBackupInfo(jsonMailUpdateDataPath, updateMails);
-                    var date = updateMails[0].UpdateDate;
+                    var date = updateMails[0].UpdateDate.ToString();
                     DateTime? lastUpdateDate = updateMails[0].LastUpdateDate.Value;
                     var nowDate = DateTime.Parse(DateTime.Now.ToString("dd-MM-yyyy"));
-                    if (DateTime.Now.ToString("dddd") == date && Hakediş.Properties.Settings.Default.isAnyUpdate == false && lastUpdateDate!= nowDate)
+                    if (DateNow == date && Hakediş.Properties.Settings.Default.isAnyUpdate == false && lastUpdateDate != nowDate)
                     {
                         var toEmail = updateMails[0].ToEmail;//Göndermek İstediğin Email Girişi
                         var email = updateMails[0].UserName;
@@ -561,9 +573,21 @@ namespace Hakediş
 
         private void toolStripBtnBackup_Click(object sender, EventArgs e)
         {
-            toolStripProgressBarBackup.Visible = true;
-            timerBackupStat.Enabled = true;
-            BackupData();
+            try
+            {
+                List<UpdateMail> updateMails = new List<UpdateMail>();
+                updateMails = DataListing.ReadBackupInfo(jsonMailUpdateDataPath, updateMails);
+                var date = updateMails[0].UpdateDate.ToString();
+                toolStripProgressBarBackup.Visible = true;
+                timerBackupStat.Enabled = true;
+                BackupData(date);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         private void timerBackupStat_Tick(object sender, EventArgs e)
@@ -576,6 +600,11 @@ namespace Hakediş
                 toolStripProgressBarBackup.Value = 0;
                 toolStripProgressBarBackup.Visible = false;
             }
+        }
+
+        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

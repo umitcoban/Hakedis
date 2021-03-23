@@ -59,6 +59,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WinFormAnimation, Version=1.6.0.4, Culture=neutral, PublicKeyToken=310fd07b25df79b3, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinFormAnimation.1.6.0.4\lib\net40\WinFormAnimation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddNewPaymentForm.cs">
@@ -73,6 +76,13 @@
     <Compile Include="AddNewWorkOrder.Designer.cs">
       <DependentUpon>AddNewWorkOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Enum\UserTypeEnum.cs" />
+    <Compile Include="LoginMenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoginMenuForm.Designer.cs">
+      <DependentUpon>LoginMenuForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +91,7 @@
     </Compile>
     <Compile Include="Models\Payment.cs" />
     <Compile Include="Models\UpdateMail.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\WeatherInfo.cs" />
     <Compile Include="Models\WorkOrder.cs" />
     <Compile Include="OptionsForm.cs">
@@ -127,6 +138,9 @@
     <EmbeddedResource Include="AddNewWorkOrder.resx">
       <DependentUpon>AddNewWorkOrder.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="LoginMenuForm.resx">
+      <DependentUpon>LoginMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainMenu.resx">
       <DependentUpon>MainMenu.cs</DependentUpon>
     </EmbeddedResource>
@@ -166,6 +180,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\splashscreen.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

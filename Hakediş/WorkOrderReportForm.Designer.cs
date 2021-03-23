@@ -194,6 +194,7 @@ namespace Hakediş
             this.txtDetailName.Name = "txtDetailName";
             this.txtDetailName.Size = new System.Drawing.Size(243, 21);
             this.txtDetailName.TabIndex = 14;
+            this.txtDetailName.TextChanged += new System.EventHandler(this.txtDetailName_TextChanged);
             // 
             // lblDetailName
             // 

@@ -7,10 +7,11 @@ using System.Windows.Forms;
 using System.IO;
 namespace Hakediş
 {
-   public static class DataListing
+    public static class DataListing
     {
         public static List<Payment> Payments { get; set; }
         public static List<WorkOrder> WorkOrders { get; set; }
+        
         public static void ReadPaymentJson(DataGridView dataGridView, string jsonPath)
         {
             if (File.Exists(jsonPath))
@@ -58,6 +59,15 @@ namespace Hakediş
                 updateMails = Newtonsoft.Json.JsonConvert.DeserializeObject<List<UpdateMail>>(jsonPaymentData);
             }
             return updateMails;
+        }
+        public static List<User> ReadUserConfig(string jsonPath, List<User> userConfig)
+        {
+            if (File.Exists(jsonPath))
+            {
+                string jsonUserConfigData = File.ReadAllText(jsonPath);
+                userConfig = Newtonsoft.Json.JsonConvert.DeserializeObject<List<User>>(jsonUserConfigData);
+            }
+            return userConfig;
         }
     }
 }

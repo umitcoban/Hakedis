@@ -24,18 +24,37 @@ namespace Hakediş
             workOrders = DataListing.ReadWorkOrderJson("WorkOrderJson.json",workOrders);
             dataGridView1.DataSource = workOrders;
         }
-
-        private void btnAddNewWorkOrder_Click(object sender, EventArgs e)
+        private void SearchItem()
         {
             List<WorkOrder> cloneWorkOrders = new List<WorkOrder>();
             string word = "";
-            for (int i = 0; i <= txtDetailName.Text.Length-1; i++)
+            for (int i = 0; i <= txtDetailName.Text.Length - 1; i++)
             {
                 char character = txtDetailName.Text[i];
                 word += character;
                 cloneWorkOrders = workOrders.Where(x => x.Name.Contains(word.ToString().ToUpper()) || x.Name.Contains(word.ToString().ToLower())).ToList();
             }
-            dataGridView1.DataSource = cloneWorkOrders;
+            if(word == "")
+            {
+                dataGridView1.DataSource = workOrders;
+            }
+            else
+            {
+                dataGridView1.DataSource = cloneWorkOrders;
+            }
+       
+        }
+        private void btnAddNewWorkOrder_Click(object sender, EventArgs e)
+        {
+          
+        }
+        private void textChange(object sender, EventArgs e)
+        {
+             
+        }
+        private void txtDetailName_TextChanged(object sender, EventArgs e)
+        {
+            SearchItem();
         }
     }
 }

@@ -18,6 +18,8 @@ namespace Hakediş
         static string appPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
         readonly static string pathApplication = System.IO.Path.GetDirectoryName(appPath);
         readonly string jsonMailUpdateDataPath = pathApplication + @"\jsonMailUpdateData.json";
+        readonly string jsonUserConfigPathFile = pathApplication + @"\UserConfig.json";
+
         public List<UpdateMail> updateMails { get; set; }
         bool autoUpdate = true;
         bool startAutoApp = true;
@@ -107,7 +109,7 @@ namespace Hakediş
                 updateMails.Add(updateMail);
                 var jsonData = JsonConvert.SerializeObject(updateMails);
                 File.WriteAllText(jsonMailUpdateDataPath,jsonData);
-                mainMenu.BackupData();
+                mainMenu.BackupData(DateTime.Now.ToString("dddd"));
             }
             catch (Exception)
             {
@@ -157,22 +159,30 @@ namespace Hakediş
                         btnAutoUpdate.IconChar = FontAwesome.Sharp.IconChar.BoxOpen;
                         btnAutoUpdate.Text = "Otomatik Yedekle";
                         autoUpdate = true;
+                        comboBoxSelectUpdateDay.Visible = true;
                         lblUserName.Visible = true;
                         lblPass.Visible = true;
                         maskedTxtPass.Visible = true;
                         maskedtxtUsername.Visible = true;
                         comboBoxSelectUpdateDay.Visible = true;
+                        maskedTxtToEmail.Visible = true;
+                        lblToEmail.Visible = true;
+                        chckboxShowPass.Visible = true;
                     }
                     else
                     {
                         btnAutoUpdate.IconChar = FontAwesome.Sharp.IconChar.Box;
                         btnAutoUpdate.Text = "Otomatik Yedeklemeyi İptal Et";
+                        comboBoxSelectUpdateDay.Visible = false;
+                        lblToEmail.Visible = false;
                         autoUpdate = false;
                         lblUserName.Visible = false;
                         lblPass.Visible = false;
                         maskedTxtPass.Visible = false;
                         maskedtxtUsername.Visible = false;
                         comboBoxSelectUpdateDay.Visible = false;
+                        maskedTxtToEmail.Visible = false;
+                        chckboxShowPass.Visible = false;
                     }
                     break;
                 default:
@@ -194,15 +204,51 @@ namespace Hakediş
             }
             else if(startAutoApp)
             {
+                File.Delete(jsonMailUpdateDataPath);
                 GetExeLocation(startAutoApp);
                 MessageBox.Show("Uygulama Otomatik Başlama Ayalandı!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             this.Close();
         }
-
+        private void BackUpDataFileItem()
+        {
+            if (File.Exists(jsonMailUpdateDataPath) && new FileInfo(jsonMailUpdateDataPath).Length > 0)
+            {
+                List<UpdateMail> updateMails = new List<UpdateMail>();
+                updateMails = DataListing.ReadBackupInfo(jsonMailUpdateDataPath,updateMails);
+                comboBoxSelectUpdateDay.SelectedItem = updateMails[0].UpdateDate;
+                maskedtxtUsername.Text = updateMails[0].UserName;
+                maskedTxtPass.Text = updateMails[0].Password;
+                maskedTxtToEmail.Text = updateMails[0].ToEmail;
+            }
+        }
         private void OptionsForm_Load(object sender, EventArgs e)
         {
-
+            BackUpDataFileItem();
         }
+
+        private void chckboxShowPass_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chckboxShowPass.Checked)
+            {
+                maskedTxtPass.UseSystemPasswordChar = false;
+            }
+            else
+            {
+                maskedTxtPass.UseSystemPasswordChar = true;
+            }
+        }
+
+        private void ıconBtnNewUser_Click(object sender, EventArgs e)
+        {
+            DialogResult dialog = new DialogResult();
+            dialog = MessageBox.Show("Yeni Kullanıcı Oluşturmak İstediğinize Eminmisiniz ?","Yeni Kullanıcı",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            if (dialog == DialogResult.Yes)
+            {
+                File.Delete(jsonUserConfigPathFile);
+                Application.Restart();
+            }
+        }
+        
     }
 }

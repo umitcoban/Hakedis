@@ -30,8 +30,8 @@ namespace Hakediş
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainMenu));
             this.panelMain = new System.Windows.Forms.Panel();
             this.btnUpdatePayment = new FontAwesome.Sharp.IconButton();
@@ -256,8 +256,8 @@ namespace Hakediş
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(582, 401);
             this.dataGridView1.TabIndex = 1;
@@ -303,8 +303,8 @@ namespace Hakediş
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
-            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
+            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView2.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView2.Size = new System.Drawing.Size(190, 401);
@@ -515,7 +515,7 @@ namespace Hakediş
             // splitDate
             // 
             this.splitDate.BackColor = System.Drawing.Color.RoyalBlue;
-            this.splitDate.Cursor = System.Windows.Forms.Cursors.VSplit;
+            this.splitDate.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.splitDate.Location = new System.Drawing.Point(0, 0);
             this.splitDate.Name = "splitDate";
             this.splitDate.Size = new System.Drawing.Size(227, 129);
@@ -551,11 +551,11 @@ namespace Hakediş
             this.lblWeather.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWeather.AutoSize = true;
             this.lblWeather.BackColor = System.Drawing.Color.RoyalBlue;
-            this.lblWeather.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblWeather.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblWeather.ForeColor = System.Drawing.Color.White;
-            this.lblWeather.Location = new System.Drawing.Point(682, 88);
+            this.lblWeather.Location = new System.Drawing.Point(680, 90);
             this.lblWeather.Name = "lblWeather";
-            this.lblWeather.Size = new System.Drawing.Size(120, 18);
+            this.lblWeather.Size = new System.Drawing.Size(109, 16);
             this.lblWeather.TabIndex = 3;
             this.lblWeather.Text = "Hava Durumu :";
             // 
@@ -587,7 +587,7 @@ namespace Hakediş
             this.lblWeatherStat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWeatherStat.AutoSize = true;
             this.lblWeatherStat.BackColor = System.Drawing.Color.RoyalBlue;
-            this.lblWeatherStat.Location = new System.Drawing.Point(585, 88);
+            this.lblWeatherStat.Location = new System.Drawing.Point(583, 88);
             this.lblWeatherStat.Name = "lblWeatherStat";
             this.lblWeatherStat.Size = new System.Drawing.Size(102, 15);
             this.lblWeatherStat.TabIndex = 1;
@@ -626,7 +626,8 @@ namespace Hakediş
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "MainMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "İlkay/Hakediş";
+            this.Text = "Hakediş";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainMenu_FormClosing);
             this.Load += new System.EventHandler(this.MainMenu_Load);
             this.Resize += new System.EventHandler(this.MainMenu_Resize);
             this.panelMain.ResumeLayout(false);
