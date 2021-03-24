@@ -85,9 +85,9 @@ namespace Hakediş
             this.lblNewFinish.Location = new System.Drawing.Point(4, 260);
             this.lblNewFinish.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNewFinish.Name = "lblNewFinish";
-            this.lblNewFinish.Size = new System.Drawing.Size(130, 15);
+            this.lblNewFinish.Size = new System.Drawing.Size(146, 15);
             this.lblNewFinish.TabIndex = 28;
-            this.lblNewFinish.Text = "Bitiş Tarihi Giriniz :";
+            this.lblNewFinish.Text = "Bitiş Tarihi Giriniz(*) :";
             // 
             // txtUpdateMan
             // 
@@ -95,17 +95,18 @@ namespace Hakediş
             this.txtUpdateMan.Name = "txtUpdateMan";
             this.txtUpdateMan.Size = new System.Drawing.Size(247, 21);
             this.txtUpdateMan.TabIndex = 27;
+            this.txtUpdateMan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUpdateMan_KeyPress);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(8, 145);
+            this.label1.Location = new System.Drawing.Point(4, 146);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 15);
+            this.label1.Size = new System.Drawing.Size(143, 15);
             this.label1.TabIndex = 26;
-            this.label1.Text = "Adam Gün Giriniz :";
+            this.label1.Text = "Adam Gün Giriniz (*):";
             // 
             // txtUpdateDesc
             // 
@@ -185,9 +186,9 @@ namespace Hakediş
             this.lblUpdateFirstDate.Location = new System.Drawing.Point(0, 198);
             this.lblUpdateFirstDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUpdateFirstDate.Name = "lblUpdateFirstDate";
-            this.lblUpdateFirstDate.Size = new System.Drawing.Size(165, 15);
+            this.lblUpdateFirstDate.Size = new System.Drawing.Size(181, 15);
             this.lblUpdateFirstDate.TabIndex = 17;
-            this.lblUpdateFirstDate.Text = "Başlangıç Tarihi Giriniz :";
+            this.lblUpdateFirstDate.Text = "Başlangıç Tarihi Giriniz(*) :";
             // 
             // lblUpdateDescription
             // 

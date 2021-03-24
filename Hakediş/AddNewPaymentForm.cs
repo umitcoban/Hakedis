@@ -32,18 +32,22 @@ namespace Hakediş
         {
             try
             {
-                Payment payment = new Payment();
-                payment.Name = txtNewName.Text;
-                payment.PayforDay = double.Parse(txtNewPayment.Text);
-                payment.ID = idIndex;
-                payment.PaymentDate = dateTimePayment.Value;
-                payments.Add(payment);
-                string jsonPaymentData = Newtonsoft.Json.JsonConvert.SerializeObject(payments);
-                File.WriteAllText(jsonPaymentsDataPath, jsonPaymentData);
-                //dataListing.Payments.AddRange(payments);
-                //mainMenu.ReadWorkOrderJson();
-                MessageBox.Show("Yeni İş Emri Başarılı Bir Şekilde Eklendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                mainMenu.UpdateDataList();
+                if (txtNewPayment.Text != "" && dateTimePayment.Value != null)
+                {
+                    Payment payment = new Payment();
+                    payment.Name = txtNewName.Text;
+                    payment.PayforDay = double.Parse(txtNewPayment.Text);
+                    payment.ID = idIndex;
+                    payment.PaymentDate = dateTimePayment.Value;
+                    payments.Add(payment);
+                    string jsonPaymentData = Newtonsoft.Json.JsonConvert.SerializeObject(payments);
+                    File.WriteAllText(jsonPaymentsDataPath, jsonPaymentData);
+                    //dataListing.Payments.AddRange(payments);
+                    //mainMenu.ReadWorkOrderJson();
+                    MessageBox.Show("Yeni İş Emri Başarılı Bir Şekilde Eklendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    mainMenu.UpdateDataList();
+                }
+
             }
             catch (Exception e)
             {
@@ -72,8 +76,31 @@ namespace Hakediş
 
         private void btnAddNewPayment_Click(object sender, EventArgs e)
         {
-            CreateNewPayment();
-            this.Close();
+            if (txtNewPayment.Text != "" && dateTimePayment.Value != null)
+            {
+                CreateNewPayment();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Lütfen Zorunlu Alanları Boş Bırakmayın !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void txtNewPayment_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 44))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            // tek bir virgül eklemesi gerektiğini kontrol et
+            if (e.KeyChar == 44)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                    e.Handled = true;
+            }
         }
     }
 }

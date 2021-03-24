@@ -56,6 +56,25 @@ namespace Hakediş
             CheckLastUpdateDate();
         }
         #region Data İşlemleri
+        private void CheckDataGridEmpty()
+        {
+            if (dataGridView1.Rows.Count > 0)
+            {
+                btnUpdateWorkOrder.Enabled = true;
+            }
+            else
+            {
+                btnUpdateWorkOrder.Enabled = false;
+            }
+            if (dataGridView2.Rows.Count >0 )
+            {
+                btnUpdatePayment.Enabled = true;
+            }
+            else
+            {
+                btnUpdatePayment.Enabled = false;
+            }
+        }
         public void ReadUserConfigData()
         {
             if (File.Exists(jsonUserConfigPathFile)&& new FileInfo(jsonUserConfigPathFile).Length>0)
@@ -101,7 +120,7 @@ namespace Hakediş
                 if (File.Exists(jsonPaymentsDataPath)||File.Exists(jsonWorkOrderDataPath))
                     CalculatePayments(isDoneWorkOrders, payments);
 
-
+                CheckDataGridEmpty();
             }
             catch (Exception)
             {
@@ -332,28 +351,36 @@ namespace Hakediş
             {
                 if (frm == null)
                 {
-                    UpdateWorkOrder updateWorkOrder = new UpdateWorkOrder(this);
-                    var selectRow = dataGridView1.CurrentCell.RowIndex;
-                    updateWorkOrder.idIndex = int.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
-                    updateWorkOrder.txtName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-                    updateWorkOrder.txtDesc = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-                    updateWorkOrder.startDate = DateTime.Parse(dataGridView1.CurrentRow.Cells[3].Value.ToString());
-                    updateWorkOrder.finishDate = DateTime.Parse(dataGridView1.CurrentRow.Cells[4].Value.ToString());
-                    updateWorkOrder.ManDay = double.Parse(dataGridView1.CurrentRow.Cells[6].Value.ToString());
-                    if (dataGridView1.CurrentRow.Cells[5].Value != null)
+                    if (workOrders.Count>0)
                     {
-                        updateWorkOrder.expiredDate = DateTime.Parse(dataGridView1.CurrentRow.Cells[5].Value.ToString());
+                        UpdateWorkOrder updateWorkOrder = new UpdateWorkOrder(this);
+                        var selectRow = dataGridView1.CurrentCell.RowIndex;
+                        updateWorkOrder.idIndex = int.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
+                        updateWorkOrder.txtName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
+                        updateWorkOrder.txtDesc = dataGridView1.CurrentRow.Cells[2].Value.ToString();
+                        updateWorkOrder.startDate = DateTime.Parse(dataGridView1.CurrentRow.Cells[3].Value.ToString());
+                        updateWorkOrder.finishDate = DateTime.Parse(dataGridView1.CurrentRow.Cells[4].Value.ToString());
+                        updateWorkOrder.ManDay = double.Parse(dataGridView1.CurrentRow.Cells[6].Value.ToString());
+                        if (dataGridView1.CurrentRow.Cells[5].Value != null)
+                        {
+                            updateWorkOrder.expiredDate = DateTime.Parse(dataGridView1.CurrentRow.Cells[5].Value.ToString());
+                        }
+                        else
+                        {
+                            updateWorkOrder.expiredDate = null;
+                        }
+                        updateWorkOrder.Show();
                     }
                     else
                     {
-                        updateWorkOrder.expiredDate = null;
+                        MessageBox.Show("Lütfen İş Emri Girişi Yapın !","",MessageBoxButtons.OK,MessageBoxIcon.Information);
                     }
-                    updateWorkOrder.Show();
+                  
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("Bir Hata Oluştu!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Bir Hata Oluştu! Lütfen İş Emri Seçtiğinize Emin Olun", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             //Form frm = Application.OpenForms["UpdateWorkOrder"];
             //if (frm == null)
@@ -507,21 +534,29 @@ namespace Hakediş
             Form frm = Application.OpenForms["UpdatePaymentForm"];
             try
             {
-                if (frm == null)
+                if (payments.Count>0)
                 {
-                    UpdatePaymentForm updatePaymentForm = new UpdatePaymentForm(this);
-                    updatePaymentForm.idIndex = int.Parse(dataGridView2.CurrentRow.Cells[0].Value.ToString());
-                    updatePaymentForm.name = dataGridView2.CurrentRow.Cells[1].Value.ToString();
-                    updatePaymentForm.pay = double.Parse(dataGridView2.CurrentRow.Cells[2].Value.ToString());
-                    updatePaymentForm.paymentDate = DateTime.Parse(dataGridView2.CurrentRow.Cells[3].Value.ToString());
-                    updatePaymentForm.Show();
+                    if (frm == null)
+                    {
+                        UpdatePaymentForm updatePaymentForm = new UpdatePaymentForm(this);
+                        updatePaymentForm.idIndex = int.Parse(dataGridView2.CurrentRow.Cells[0].Value.ToString());
+                        updatePaymentForm.name = dataGridView2.CurrentRow.Cells[1].Value.ToString();
+                        updatePaymentForm.pay = double.Parse(dataGridView2.CurrentRow.Cells[2].Value.ToString());
+                        updatePaymentForm.paymentDate = DateTime.Parse(dataGridView2.CurrentRow.Cells[3].Value.ToString());
+                        updatePaymentForm.Show();
+                    }
                 }
+                else
+                {
+                    MessageBox.Show("Lütfen Ödeme Girişi Yapın !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+               
 
             }
             catch (Exception)
             {
 
-                MessageBox.Show("Bir Hata Oluştu!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Bir Hata Oluştu! Lütfen Ödeme Seçtiğinize Emin Olun", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
 

@@ -131,31 +131,39 @@ namespace Hakediş
 
         private void btnAddNewWorkOrder_Click(object sender, EventArgs e)
         {
-            try
+            if (txtUpdateMan.Text != ""&& dateTimeNewFinish.Value != null&& dateTimeUpdateFirst.Value != null)
             {
-                int selectedID = workOrders.FindIndex(x=> x.ID == idIndex);
-                workOrders[selectedID].Name = txtUpdateName.Text;
-                workOrders[selectedID].Description = txtUpdateDesc.Text;
-                workOrders[selectedID].StartingDate = dateTimeUpdateFirst.Value;
-                workOrders[selectedID].ManOfDay = double.Parse(txtUpdateMan.Text);
-                workOrders[selectedID].FinishedDate = dateTimeNewFinish.Value;
-                if (chckbxIsWorkFinished.Checked == true)
+                try
                 {
-                    workOrders[selectedID].ExpiredDate = dateTimeUpdateExpired.Value;
+                    int selectedID = workOrders.FindIndex(x => x.ID == idIndex);
+                    workOrders[selectedID].Name = txtUpdateName.Text;
+                    workOrders[selectedID].Description = txtUpdateDesc.Text;
+                    workOrders[selectedID].StartingDate = dateTimeUpdateFirst.Value;
+                    workOrders[selectedID].ManOfDay = double.Parse(txtUpdateMan.Text);
+                    workOrders[selectedID].FinishedDate = dateTimeNewFinish.Value;
+                    if (chckbxIsWorkFinished.Checked == true)
+                    {
+                        workOrders[selectedID].ExpiredDate = dateTimeUpdateExpired.Value;
+                    }
+                    else
+                    {
+                        workOrders[selectedID].ExpiredDate = null;
+                    }
+
                 }
-                else
+                catch (Exception)
                 {
-                    workOrders[selectedID].ExpiredDate = null;
+
                 }
 
+                NewUpdateWorkOrder();
+                this.Close();
             }
-            catch (Exception)
+            else
             {
-
+                MessageBox.Show("Lütfen Zorunlu Alanları Boş Bırakmayın !","",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
-
-            NewUpdateWorkOrder();
-            this.Close();
+           
         }
 
         private void chckbxIsWorkFinished_CheckedChanged(object sender, EventArgs e)
@@ -169,6 +177,23 @@ namespace Hakediş
                 dateTimeUpdateExpired.Enabled = true;
             }
         }
+
+        private void txtUpdateMan_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 44))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            // tek bir virgül eklemesi gerektiğini kontrol et
+            if (e.KeyChar == 44)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                    e.Handled = true;
+            }
+        }
+
         private void DateTimePickerValueChange(object sender, EventArgs e)
         {
             //DateTimePicker dateTimePicker = (DateTimePicker)sender;

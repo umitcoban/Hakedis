@@ -75,7 +75,15 @@ namespace Hakediş
 
         private void btnAddNewWorkOrder_Click(object sender, EventArgs e)
         {
-            CreateNewWorkOrder();
+            if (dateTimeNewFirst.Value != null && dateTimeNewFinish.Value != null)
+            {
+                CreateNewWorkOrder();
+            }
+            else
+            {
+                MessageBox.Show("Lütfen Zorunlu Alanları Boş Bırakmayın !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
         private void DateTimeChanged(object sender, EventArgs e)
         {
@@ -93,5 +101,20 @@ namespace Hakediş
             }
         }
 
+        private void numericNewManDay_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            //{
+            //    e.Handled = true;
+            //    return;
+            //}
+
+            //tek bir virgül eklemesi gerektiğini kontrol et
+            //if (e.KeyChar == 46)
+            //{
+            //    if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+            //        e.Handled = true;
+            //}
+        }
     }
 }

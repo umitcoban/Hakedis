@@ -65,13 +65,14 @@ namespace Hakediş
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(4, 107);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 13);
+            this.label1.Size = new System.Drawing.Size(142, 13);
             this.label1.TabIndex = 26;
-            this.label1.Text = "Ödeme Tarihi Giriniz :";
+            this.label1.Text = "Ödeme Tarihi Giriniz (*):";
             // 
             // txtUpdatePayForDay
             // 
@@ -79,17 +80,19 @@ namespace Hakediş
             this.txtUpdatePayForDay.Name = "txtUpdatePayForDay";
             this.txtUpdatePayForDay.Size = new System.Drawing.Size(243, 20);
             this.txtUpdatePayForDay.TabIndex = 25;
+            this.txtUpdatePayForDay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUpdatePayForDay_KeyPress);
             // 
             // lblUpdatePayForDay
             // 
             this.lblUpdatePayForDay.AutoSize = true;
+            this.lblUpdatePayForDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblUpdatePayForDay.ForeColor = System.Drawing.Color.White;
             this.lblUpdatePayForDay.Location = new System.Drawing.Point(4, 56);
             this.lblUpdatePayForDay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUpdatePayForDay.Name = "lblUpdatePayForDay";
-            this.lblUpdatePayForDay.Size = new System.Drawing.Size(110, 13);
+            this.lblUpdatePayForDay.Size = new System.Drawing.Size(145, 13);
             this.lblUpdatePayForDay.TabIndex = 24;
-            this.lblUpdatePayForDay.Text = "Alınan Ödeme Giriniz :";
+            this.lblUpdatePayForDay.Text = "Alınan Ödeme Giriniz (*):";
             // 
             // btnAddNewWorkOrder
             // 
@@ -122,11 +125,12 @@ namespace Hakediş
             // lblUpdateName
             // 
             this.lblUpdateName.AutoSize = true;
+            this.lblUpdateName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblUpdateName.ForeColor = System.Drawing.Color.White;
             this.lblUpdateName.Location = new System.Drawing.Point(4, 9);
             this.lblUpdateName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUpdateName.Name = "lblUpdateName";
-            this.lblUpdateName.Size = new System.Drawing.Size(62, 13);
+            this.lblUpdateName.Size = new System.Drawing.Size(76, 13);
             this.lblUpdateName.TabIndex = 13;
             this.lblUpdateName.Text = "İsim Giriniz :";
             // 

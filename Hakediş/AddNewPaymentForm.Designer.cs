@@ -62,6 +62,7 @@ namespace Hakediş
             this.txtNewPayment.Name = "txtNewPayment";
             this.txtNewPayment.Size = new System.Drawing.Size(228, 21);
             this.txtNewPayment.TabIndex = 8;
+            this.txtNewPayment.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNewPayment_KeyPress);
             // 
             // lblNewPayment
             // 
@@ -70,9 +71,9 @@ namespace Hakediş
             this.lblNewPayment.Location = new System.Drawing.Point(9, 69);
             this.lblNewPayment.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNewPayment.Name = "lblNewPayment";
-            this.lblNewPayment.Size = new System.Drawing.Size(107, 15);
+            this.lblNewPayment.Size = new System.Drawing.Size(123, 15);
             this.lblNewPayment.TabIndex = 7;
-            this.lblNewPayment.Text = "Ödeme Giriniz :";
+            this.lblNewPayment.Text = "Ödeme Giriniz (*):";
             // 
             // btnAddNewPayment
             // 
@@ -102,9 +103,9 @@ namespace Hakediş
             this.label1.Location = new System.Drawing.Point(9, 124);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 15);
+            this.label1.Size = new System.Drawing.Size(164, 15);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Ödeme Tarihi Giriniz :";
+            this.label1.Text = "Ödeme Tarihi Giriniz(*) :";
             // 
             // dateTimePayment
             // 

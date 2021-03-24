@@ -100,9 +100,9 @@ namespace Hakediş
             this.lblNewFirstDate.Location = new System.Drawing.Point(5, 197);
             this.lblNewFirstDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNewFirstDate.Name = "lblNewFirstDate";
-            this.lblNewFirstDate.Size = new System.Drawing.Size(165, 15);
+            this.lblNewFirstDate.Size = new System.Drawing.Size(181, 15);
             this.lblNewFirstDate.TabIndex = 7;
-            this.lblNewFirstDate.Text = "Başlangıç Tarihi Giriniz :";
+            this.lblNewFirstDate.Text = "Başlangıç Tarihi Giriniz (*):";
             // 
             // dateTimeNewFirst
             // 
@@ -120,9 +120,9 @@ namespace Hakediş
             this.lblNewManDay.Location = new System.Drawing.Point(5, 324);
             this.lblNewManDay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNewManDay.Name = "lblNewManDay";
-            this.lblNewManDay.Size = new System.Drawing.Size(169, 15);
+            this.lblNewManDay.Size = new System.Drawing.Size(185, 15);
             this.lblNewManDay.TabIndex = 11;
-            this.lblNewManDay.Text = "Adam Gün Sayısı Giriniz :";
+            this.lblNewManDay.Text = "Adam Gün Sayısı Giriniz (*):";
             // 
             // numericNewManDay
             // 
@@ -137,6 +137,7 @@ namespace Hakediş
             this.numericNewManDay.Size = new System.Drawing.Size(227, 21);
             this.numericNewManDay.TabIndex = 12;
             this.numericNewManDay.ThousandsSeparator = true;
+            this.numericNewManDay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.numericNewManDay_KeyPress);
             // 
             // txtNewDesc
             // 
@@ -161,9 +162,9 @@ namespace Hakediş
             this.lblNewFinish.Location = new System.Drawing.Point(5, 258);
             this.lblNewFinish.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNewFinish.Name = "lblNewFinish";
-            this.lblNewFinish.Size = new System.Drawing.Size(145, 15);
+            this.lblNewFinish.Size = new System.Drawing.Size(161, 15);
             this.lblNewFinish.TabIndex = 14;
-            this.lblNewFinish.Text = "Teslim Tarihi Giriniz :";
+            this.lblNewFinish.Text = "Teslim Tarihi Giriniz (*):";
             // 
             // AddNewWorkOrder
             // 

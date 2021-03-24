@@ -76,32 +76,55 @@ namespace Hakediş
            
         }
 
+        private void txtUpdatePayForDay_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 44))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            // tek bir virgül eklemesi gerektiğini kontrol et
+            if (e.KeyChar == 44)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                    e.Handled = true;
+            }
+        }
 
         private void btnAddNewWorkOrder_Click(object sender, EventArgs e)
         {
-            try
+            if (txtUpdatePayForDay.Text != ""&& dateTimePayment.Value != null)
             {
-                int selectedRow = 0;
-                for (int i = 0; i <= payments.Count - 1; i++)
+                try
                 {
-                    if (payments[i].ID == idIndex)
+                    int selectedRow = 0;
+                    for (int i = 0; i <= payments.Count - 1; i++)
                     {
-                        selectedRow = i;
-                        break;
+                        if (payments[i].ID == idIndex)
+                        {
+                            selectedRow = i;
+                            break;
+                        }
                     }
+                    payments[selectedRow].Name = txtUpdateName.Text;
+                    //payments[selectRow].ManofDay = double.Parse( txtUpdateDayOfMan.Text);
+                    payments[selectedRow].PayforDay = double.Parse(txtUpdatePayForDay.Text);
+                    payments[selectedRow].PaymentDate = dateTimePayment.Value;
+                    NewUpdatePayments();
+                    this.Close();
                 }
-                payments[selectedRow].Name = txtUpdateName.Text;
-                //payments[selectRow].ManofDay = double.Parse( txtUpdateDayOfMan.Text);
-                payments[selectedRow].PayforDay = double.Parse(txtUpdatePayForDay.Text);
-                payments[selectedRow].PaymentDate = dateTimePayment.Value;
-                NewUpdatePayments();
-                this.Close();
-            }
-            catch (Exception)
-            {
+                catch (Exception)
+                {
 
-          
+                    MessageBox.Show("Bir Hata Oluştu !", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+            else
+            {
+                MessageBox.Show("Lütfen Zorunlu Alanları Boş Bırakmayın !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+           
         }
     }
 }
