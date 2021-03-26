@@ -13,7 +13,7 @@ namespace Hakediş
 {
     public partial class LoginMenuForm : Form
     {
-        static string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+        static readonly string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
         readonly static string pathApplication = System.IO.Path.GetDirectoryName(path);
         readonly string userConfigPathFile = pathApplication + @"\UserConfig.json";
         List<User> users = new List<User>();
@@ -30,6 +30,11 @@ namespace Hakediş
 
         private void LoginMenuForm_Load(object sender, EventArgs e)
         {
+            if (CheckAlreadyRunningApp.CheckApp())
+            {
+                MessageBox.Show("Uygulama Şuanda Çalışmakta !");
+                System.Diagnostics.Process.GetCurrentProcess().Kill();
+            }
         }
         private void CreateNewUserConfig(UserTypeEnum @enum,short parameter)
         {

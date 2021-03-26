@@ -39,6 +39,11 @@ namespace Hakediş
         }
         private void MainMenu_Load(object sender, EventArgs e)
         {
+            if (CheckAlreadyRunningApp.CheckApp())
+            {
+                MessageBox.Show("Uygulama Zaten Şuanda Çalışmakta !","Uygulama Arka Planda Çalışıyor");
+                System.Diagnostics.Process.GetCurrentProcess().Kill();
+            }
             this.Text = System.Environment.MachineName + "/ Hakedis /" + userTypeString;
             BackupData(DateTime.Now.ToString("dddd"));
             //Form size belirleme

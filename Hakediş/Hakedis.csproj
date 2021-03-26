@@ -107,6 +107,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Tools\CheckAlreadyRunningApp.cs" />
     <Compile Include="Tools\ConnectAndSendMail.cs" />
     <Compile Include="Tools\CryptoEngine.cs" />
     <Compile Include="Tools\DataListing.cs">
