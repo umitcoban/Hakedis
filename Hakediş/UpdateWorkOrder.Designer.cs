@@ -30,6 +30,7 @@ namespace Hakediş
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnDeleteWorkOrder = new FontAwesome.Sharp.IconButton();
             this.dateTimeNewFinish = new System.Windows.Forms.DateTimePicker();
             this.lblNewFinish = new System.Windows.Forms.Label();
             this.txtUpdateMan = new System.Windows.Forms.TextBox();
@@ -49,6 +50,7 @@ namespace Hakediş
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnDeleteWorkOrder);
             this.panel1.Controls.Add(this.dateTimeNewFinish);
             this.panel1.Controls.Add(this.lblNewFinish);
             this.panel1.Controls.Add(this.txtUpdateMan);
@@ -66,8 +68,28 @@ namespace Hakediş
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(243, 443);
+            this.panel1.Size = new System.Drawing.Size(243, 453);
             this.panel1.TabIndex = 0;
+            // 
+            // btnDeleteWorkOrder
+            // 
+            this.btnDeleteWorkOrder.FlatAppearance.BorderSize = 0;
+            this.btnDeleteWorkOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeleteWorkOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnDeleteWorkOrder.ForeColor = System.Drawing.Color.White;
+            this.btnDeleteWorkOrder.IconChar = FontAwesome.Sharp.IconChar.UserAltSlash;
+            this.btnDeleteWorkOrder.IconColor = System.Drawing.Color.Red;
+            this.btnDeleteWorkOrder.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnDeleteWorkOrder.Location = new System.Drawing.Point(134, 397);
+            this.btnDeleteWorkOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnDeleteWorkOrder.Name = "btnDeleteWorkOrder";
+            this.btnDeleteWorkOrder.Size = new System.Drawing.Size(116, 56);
+            this.btnDeleteWorkOrder.TabIndex = 30;
+            this.btnDeleteWorkOrder.Text = "İş Sil";
+            this.btnDeleteWorkOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeleteWorkOrder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnDeleteWorkOrder.UseVisualStyleBackColor = true;
+            this.btnDeleteWorkOrder.Click += new System.EventHandler(this.btnDeleteWorkOrder_Click);
             // 
             // dateTimeNewFinish
             // 
@@ -131,7 +153,6 @@ namespace Hakediş
             // 
             // btnAddNewWorkOrder
             // 
-            this.btnAddNewWorkOrder.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnAddNewWorkOrder.FlatAppearance.BorderSize = 0;
             this.btnAddNewWorkOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewWorkOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -139,10 +160,10 @@ namespace Hakediş
             this.btnAddNewWorkOrder.IconChar = FontAwesome.Sharp.IconChar.UserCheck;
             this.btnAddNewWorkOrder.IconColor = System.Drawing.Color.Lime;
             this.btnAddNewWorkOrder.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnAddNewWorkOrder.Location = new System.Drawing.Point(0, 387);
+            this.btnAddNewWorkOrder.Location = new System.Drawing.Point(0, 397);
             this.btnAddNewWorkOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddNewWorkOrder.Name = "btnAddNewWorkOrder";
-            this.btnAddNewWorkOrder.Size = new System.Drawing.Size(243, 56);
+            this.btnAddNewWorkOrder.Size = new System.Drawing.Size(146, 56);
             this.btnAddNewWorkOrder.TabIndex = 23;
             this.btnAddNewWorkOrder.Text = "İş Güncelle";
             this.btnAddNewWorkOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -224,7 +245,7 @@ namespace Hakediş
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(246, 443);
+            this.ClientSize = new System.Drawing.Size(246, 453);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ForeColor = System.Drawing.Color.Black;
@@ -260,5 +281,6 @@ namespace Hakediş
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimeNewFinish;
         private System.Windows.Forms.Label lblNewFinish;
+        private FontAwesome.Sharp.IconButton btnDeleteWorkOrder;
     }
 }

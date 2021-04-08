@@ -32,6 +32,7 @@ namespace Hakediş
 
         private void UpdateWorkOrder_Load(object sender, EventArgs e)
         {
+            this.MaximumSize = new Size(262, 492);
             try
             {
                 ReadJson();
@@ -85,10 +86,19 @@ namespace Hakediş
         {
             try
             {
-                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(workOrders);
-                File.WriteAllText(jsonWorkOrderDataPath, jsonData);
-                MessageBox.Show(" İş Emri Başarılı Bir Şekilde Güncellendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                mainMenu.UpdateDataList();
+                //string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(workOrders);
+                //File.WriteAllText(jsonWorkOrderDataPath, jsonData);
+                if (File.Exists(jsonWorkOrderDataPath))
+                {
+                    CreateJsonFile.CreateNewWorkOrdersJsonFile(workOrders, jsonWorkOrderDataPath);
+                    MessageBox.Show(" İş Emri Başarılı Bir Şekilde Güncellendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    mainMenu.UpdateDataList();
+                }
+                else
+                {
+                    MessageBox.Show(" İş Emri Dosyası Bulunamadı !", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
             catch (Exception)
             {
@@ -191,6 +201,19 @@ namespace Hakediş
             {
                 if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
                     e.Handled = true;
+            }
+        }
+
+        private void btnDeleteWorkOrder_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = new DialogResult();
+            dialogResult = MessageBox.Show("İş Emrini Silmek İstiyormusunuz ?","İş Emri",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
+            {
+                int selectID = workOrders.FindIndex(x => x.ID == idIndex);
+                workOrders.RemoveAt(selectID);
+                NewUpdateWorkOrder();
+                this.Close();
             }
         }
 

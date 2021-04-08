@@ -30,6 +30,7 @@ namespace Hakediş
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnDeletePayment = new FontAwesome.Sharp.IconButton();
             this.dateTimePayment = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.txtUpdatePayForDay = new System.Windows.Forms.TextBox();
@@ -42,6 +43,7 @@ namespace Hakediş
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnDeletePayment);
             this.panel1.Controls.Add(this.dateTimePayment);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtUpdatePayForDay);
@@ -54,6 +56,26 @@ namespace Hakediş
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(243, 213);
             this.panel1.TabIndex = 1;
+            // 
+            // btnDeletePayment
+            // 
+            this.btnDeletePayment.FlatAppearance.BorderSize = 0;
+            this.btnDeletePayment.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeletePayment.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnDeletePayment.ForeColor = System.Drawing.Color.White;
+            this.btnDeletePayment.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
+            this.btnDeletePayment.IconColor = System.Drawing.Color.Red;
+            this.btnDeletePayment.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnDeletePayment.Location = new System.Drawing.Point(126, 157);
+            this.btnDeletePayment.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.btnDeletePayment.Name = "btnDeletePayment";
+            this.btnDeletePayment.Size = new System.Drawing.Size(120, 56);
+            this.btnDeletePayment.TabIndex = 28;
+            this.btnDeletePayment.Text = "Ödeme Sil";
+            this.btnDeletePayment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDeletePayment.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnDeletePayment.UseVisualStyleBackColor = true;
+            this.btnDeletePayment.Click += new System.EventHandler(this.btnDeletePayment_Click);
             // 
             // dateTimePayment
             // 
@@ -96,7 +118,6 @@ namespace Hakediş
             // 
             // btnAddNewWorkOrder
             // 
-            this.btnAddNewWorkOrder.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.btnAddNewWorkOrder.FlatAppearance.BorderSize = 0;
             this.btnAddNewWorkOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddNewWorkOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -107,7 +128,7 @@ namespace Hakediş
             this.btnAddNewWorkOrder.Location = new System.Drawing.Point(0, 157);
             this.btnAddNewWorkOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddNewWorkOrder.Name = "btnAddNewWorkOrder";
-            this.btnAddNewWorkOrder.Size = new System.Drawing.Size(243, 56);
+            this.btnAddNewWorkOrder.Size = new System.Drawing.Size(124, 56);
             this.btnAddNewWorkOrder.TabIndex = 23;
             this.btnAddNewWorkOrder.Text = "Ödeme Güncelle";
             this.btnAddNewWorkOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -165,5 +186,6 @@ namespace Hakediş
         private System.Windows.Forms.Label lblUpdatePayForDay;
         private System.Windows.Forms.DateTimePicker dateTimePayment;
         private System.Windows.Forms.Label label1;
+        private FontAwesome.Sharp.IconButton btnDeletePayment;
     }
 }

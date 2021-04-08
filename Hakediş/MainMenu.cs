@@ -21,24 +21,27 @@ namespace Hakediş
         readonly string jsonPaymentsDataPath = pathApplication + @"\PaymentJson.json";
         readonly string jsonMailUpdateDataPath = pathApplication + @"\jsonMailUpdateData.json";
         readonly string jsonUserConfigPathFile = pathApplication + @"\UserConfig.json";
-        static int weatherIconID;
+        string userTypeString;
         public List<WorkOrder> workOrders = new List<WorkOrder>();
         public List<WorkOrder> isDoneWorkOrders = new List<WorkOrder>();
         public List<Payment> payments = new List<Payment>();
         public bool checkedFilter;
         int currentMonth = int.Parse(DateTime.Now.Month.ToString());
+        static int weatherIconID;
         double totalPay;
         double currtenPay;
         short calculateParameterNum = 0;
-        string userTypeString;
+        public string weatherCityKey = "745044";
+        public string weatherCityName = "İstanbul";
         public MainMenu()
         {
             InitializeComponent();
-            ReadWeather();
+            ReadWeather(weatherCityKey,weatherCityName);
             ReadUserConfigData();
         }
         private void MainMenu_Load(object sender, EventArgs e)
         {
+            this.IsMdiContainer = true;
             if (CheckAlreadyRunningApp.CheckApp())
             {
                 MessageBox.Show("Uygulama Zaten Şuanda Çalışmakta !","Uygulama Arka Planda Çalışıyor");
@@ -273,12 +276,12 @@ namespace Hakediş
         }
         #endregion
         #region Hava Durumu İslemleri
-        private void ReadWeather()
+        private void ReadWeather(string _cityKey,string cityName)
         {
             if (CheckInternetControl())
             {
                 string apiKey = "022a034657d661fa210c9cd44185ff5e";
-                string cityKey = "745044";
+                string cityKey = _cityKey;
                 string data = WeatherEngine.DailyWeatherGet(apiKey, cityKey);
                 var result = JsonConvert.DeserializeObject<WeatherInfo.Root>(data);
                 WeatherInfo.Root weatherInfo = result;
@@ -286,7 +289,7 @@ namespace Hakediş
                 lblTemperature.Text = weatherInfo.main.temp.ToString() + "°C";
                 weatherIconID = weatherInfo.weather[0].id;
                 selectWeatherIcon();
-                btnWeatherIcon.Text = "İstanbul";
+                btnWeatherIcon.Text = cityName;
             }
             else
             {
@@ -343,7 +346,7 @@ namespace Hakediş
             {
                 AddNewWorkOrder addNewWorkOrder = new AddNewWorkOrder(this);
                 //dataListing.ReadWorkOrderJson(jsonWorkOrderDataPath, addNewWorkOrder.workOrders);
-                //addNewWorkOrder.workOrders.AddRange(workOrders);
+                //addNewWorkOrder.workOrders.AddRange(workOrders);   
                 addNewWorkOrder.Show();
             }
 
@@ -446,6 +449,7 @@ namespace Hakediş
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             WindowState = FormWindowState.Maximized;
+            notifyIcon1.Visible = false;
             this.Show();
         }
 
@@ -605,10 +609,27 @@ namespace Hakediş
             ReadWorkOrderJson();
         }
 
+        private void HideMainItem()
+        {
+            dataGridView1.Visible = false;
+            dataGridView2.Visible = false;
+            groupBox1.Visible = false;
+            groupBox2.Visible = false;
+        }
         private void btnCreateWorkReport_Click(object sender, EventArgs e)
         {
-            WorkOrderReportForm workOrderReportForm = new WorkOrderReportForm();
-            workOrderReportForm.Show();
+            Form frm = Application.OpenForms["WorkOrderReportForm"];
+            if (frm == null  )
+            {
+                WorkOrderReportForm workOrderReportForm = new WorkOrderReportForm(this);
+                HideMainItem();
+
+                workOrderReportForm.MdiParent = this;
+                workOrderReportForm.WindowState = FormWindowState.Maximized;
+                workOrderReportForm.BringToFront();
+                workOrderReportForm.Show();
+            }
+           
         }
 
         private void toolStripBtnBackup_Click(object sender, EventArgs e)
@@ -646,5 +667,66 @@ namespace Hakediş
         {
             Application.Exit();
         }
+
+
+
+
+        #region Hava Durumu Şehir Seçimi
+        private void ankaraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            weatherCityKey = "323784";
+            weatherCityName = ankaraToolStripMenuItem.Text;
+            ReadWeather(weatherCityKey, weatherCityName);
+          //  ankaraToolStripMenuItem.CheckState = CheckState.Checked;
+            //for (int i = 0; i < şehirToolStripMenuItem.DropDownItems.Count; i++)
+            //{
+            //    var item = şehirToolStripMenuItem.DropDownItems[i].Selected;
+            //}
+          
+        }
+
+        private void izmirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            weatherCityKey = "324294";
+            weatherCityName = izmirToolStripMenuItem.Text;
+            ReadWeather(weatherCityKey, weatherCityName);
+          //  izmirToolStripMenuItem.Checked = true;
+        }
+        private void kocaeliToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            weatherCityKey = "742865";
+            weatherCityName = kocaeliToolStripMenuItem.Text;
+            ReadWeather(weatherCityKey, weatherCityName);
+          //  kocaeliToolStripMenuItem.Checked = true;
+        }
+        private void antalyaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            weatherCityKey = "323777";
+            weatherCityName = antalyaToolStripMenuItem.Text;
+            ReadWeather(weatherCityKey, weatherCityName);
+           // antalyaToolStripMenuItem.Checked = true;
+        }
+        private void bursaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            weatherCityKey = "750269";
+            weatherCityName = bursaToolStripMenuItem.Text;
+            ReadWeather(weatherCityKey, weatherCityName);
+          //  bursaToolStripMenuItem.Checked = true;
+        }
+        private void konyaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            weatherCityKey = "306571";
+            weatherCityName = konyaToolStripMenuItem.Text;
+            ReadWeather(weatherCityKey, weatherCityName);
+          //  konyaToolStripMenuItem.Checked = true;
+        }
+
+        private void yenileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReadWeather(weatherCityKey, weatherCityName);
+        }
+        #endregion
+
+
     }
 }

@@ -54,7 +54,7 @@ namespace Hakediş
             this.btnOptionsExit.IconColor = System.Drawing.Color.White;
             this.btnOptionsExit.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnOptionsExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOptionsExit.Location = new System.Drawing.Point(0, 366);
+            this.btnOptionsExit.Location = new System.Drawing.Point(0, 393);
             this.btnOptionsExit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOptionsExit.Name = "btnOptionsExit";
             this.btnOptionsExit.Size = new System.Drawing.Size(201, 67);
@@ -195,7 +195,7 @@ namespace Hakediş
             this.chckboxShowPass.AutoSize = true;
             this.chckboxShowPass.BackColor = System.Drawing.Color.Transparent;
             this.chckboxShowPass.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.chckboxShowPass.Location = new System.Drawing.Point(86, 194);
+            this.chckboxShowPass.Location = new System.Drawing.Point(84, 195);
             this.chckboxShowPass.Name = "chckboxShowPass";
             this.chckboxShowPass.Size = new System.Drawing.Size(112, 17);
             this.chckboxShowPass.TabIndex = 16;
@@ -230,7 +230,7 @@ namespace Hakediş
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(201, 433);
+            this.ClientSize = new System.Drawing.Size(201, 460);
             this.Controls.Add(this.ıconBtnNewUser);
             this.Controls.Add(this.chckboxShowPass);
             this.Controls.Add(this.maskedTxtToEmail);

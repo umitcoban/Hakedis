@@ -44,10 +44,19 @@ namespace Hakediş
         {
             try
             {
-                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(payments);
-                File.WriteAllText(jsonPaymentsDataPath, jsonData);
-                MessageBox.Show("Ödemeler Başarılı Bir Şekilde Güncellendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                mainMenu.UpdateDataList();
+                if (File.Exists(jsonPaymentsDataPath))
+                {
+                    CreateJsonFile.CreateNewPaymentsJsonFile(payments, jsonPaymentsDataPath);
+                    //string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(payments);
+                    //File.WriteAllText(jsonPaymentsDataPath, jsonData);
+                    MessageBox.Show("Ödemeler Başarılı Bir Şekilde Güncellendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    mainMenu.UpdateDataList();
+                }
+                else
+                {
+                    MessageBox.Show("Ödemeler Dosyası Bulunamadı !", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
             catch (Exception)
             {
@@ -60,6 +69,7 @@ namespace Hakediş
 
         private void UpdatePaymentForm_Load(object sender, EventArgs e)
         {
+            this.MaximumSize = new Size(263, 252);
             try
             {
                 //ReadJson();
@@ -90,6 +100,20 @@ namespace Hakediş
                 if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
                     e.Handled = true;
             }
+        }
+
+        private void btnDeletePayment_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = new DialogResult();
+            dialogResult = MessageBox.Show("Ödemeyi Silmek İstiyormusunuz ?","Ödeme Güncelleme",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            if (dialogResult == DialogResult.Yes)
+            {
+                int selectID = payments.FindIndex(x => x.ID == idIndex);
+                payments.RemoveAt(selectID);
+                NewUpdatePayments();
+                this.Close();
+            }    
+            
         }
 
         private void btnAddNewWorkOrder_Click(object sender, EventArgs e)

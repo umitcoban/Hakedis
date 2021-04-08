@@ -42,7 +42,7 @@ namespace Hakediş
             this.btnAddNewWorkOrder = new FontAwesome.Sharp.IconButton();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.contextMenuMainList = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextWorkOrderList = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tamamlananİşleriGösterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tamamlananİşleriGöstermeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -66,6 +66,16 @@ namespace Hakediş
             this.lblDateStat = new System.Windows.Forms.Label();
             this.splitDate = new System.Windows.Forms.Splitter();
             this.lblTemperature = new System.Windows.Forms.Label();
+            this.contextMenuWeather = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.şehirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.istanbultoolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ankaraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.izmirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kocaeliToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.antalyaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bursaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.konyaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.yenileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblTemperatureStat = new System.Windows.Forms.Label();
             this.lblWeather = new System.Windows.Forms.Label();
             this.btnWeatherIcon = new FontAwesome.Sharp.IconButton();
@@ -74,11 +84,12 @@ namespace Hakediş
             this.timerBackupStat = new System.Windows.Forms.Timer(this.components);
             this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.contextMenuMainList.SuspendLayout();
+            this.contextWorkOrderList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.contextMenuNotify.SuspendLayout();
             this.panelStat.SuspendLayout();
+            this.contextMenuWeather.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelMain
@@ -184,7 +195,6 @@ namespace Hakediş
             this.btnCreateWorkReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCreateWorkReport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCreateWorkReport.UseVisualStyleBackColor = true;
-            this.btnCreateWorkReport.Visible = false;
             this.btnCreateWorkReport.Click += new System.EventHandler(this.btnCreateWorkReport_Click);
             // 
             // btnUpdateWorkOrder
@@ -250,13 +260,14 @@ namespace Hakediş
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.ContextMenuStrip = this.contextMenuMainList;
+            this.dataGridView1.ContextMenuStrip = this.contextWorkOrderList;
             this.dataGridView1.Location = new System.Drawing.Point(221, 142);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowHeadersWidth = 51;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -264,13 +275,14 @@ namespace Hakediş
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
-            // contextMenuMainList
+            // contextWorkOrderList
             // 
-            this.contextMenuMainList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextWorkOrderList.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextWorkOrderList.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tamamlananİşleriGösterToolStripMenuItem,
             this.tamamlananİşleriGöstermeToolStripMenuItem});
-            this.contextMenuMainList.Name = "contextMenuMainList";
-            this.contextMenuMainList.Size = new System.Drawing.Size(224, 48);
+            this.contextWorkOrderList.Name = "contextMenuMainList";
+            this.contextWorkOrderList.Size = new System.Drawing.Size(224, 48);
             // 
             // tamamlananİşleriGösterToolStripMenuItem
             // 
@@ -304,6 +316,7 @@ namespace Hakediş
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
+            this.dataGridView2.RowHeadersWidth = 51;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView2.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
@@ -315,6 +328,7 @@ namespace Hakediş
             // toolStrip1
             // 
             this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBarBackup,
             this.toolStripBtnBackup});
@@ -327,7 +341,7 @@ namespace Hakediş
             // toolStripProgressBarBackup
             // 
             this.toolStripProgressBarBackup.Name = "toolStripProgressBarBackup";
-            this.toolStripProgressBarBackup.Size = new System.Drawing.Size(100, 22);
+            this.toolStripProgressBarBackup.Size = new System.Drawing.Size(100, 24);
             this.toolStripProgressBarBackup.Visible = false;
             // 
             // toolStripBtnBackup
@@ -352,6 +366,7 @@ namespace Hakediş
             // 
             // contextMenuNotify
             // 
+            this.contextMenuNotify.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuNotify.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.uygulamayıKapatToolStripMenuItem,
             this.uygulamayıKapatToolStripMenuItem1});
@@ -385,7 +400,8 @@ namespace Hakediş
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Location = new System.Drawing.Point(816, 129);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(204, 420);
@@ -448,7 +464,7 @@ namespace Hakediş
             this.lblRemainingWeek.BackColor = System.Drawing.Color.RoyalBlue;
             this.lblRemainingWeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblRemainingWeek.ForeColor = System.Drawing.Color.White;
-            this.lblRemainingWeek.Location = new System.Drawing.Point(9, 106);
+            this.lblRemainingWeek.Location = new System.Drawing.Point(6, 104);
             this.lblRemainingWeek.Name = "lblRemainingWeek";
             this.lblRemainingWeek.Size = new System.Drawing.Size(185, 20);
             this.lblRemainingWeek.TabIndex = 15;
@@ -458,11 +474,11 @@ namespace Hakediş
             // 
             this.lblCurrentDay.AutoSize = true;
             this.lblCurrentDay.BackColor = System.Drawing.Color.RoyalBlue;
-            this.lblCurrentDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblCurrentDay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblCurrentDay.ForeColor = System.Drawing.Color.White;
-            this.lblCurrentDay.Location = new System.Drawing.Point(9, 81);
+            this.lblCurrentDay.Location = new System.Drawing.Point(7, 81);
             this.lblCurrentDay.Name = "lblCurrentDay";
-            this.lblCurrentDay.Size = new System.Drawing.Size(209, 20);
+            this.lblCurrentDay.Size = new System.Drawing.Size(189, 17);
             this.lblCurrentDay.TabIndex = 14;
             this.lblCurrentDay.Text = "Perşembe Günündesiniz.";
             // 
@@ -470,11 +486,11 @@ namespace Hakediş
             // 
             this.lblCurrentWeek.AutoSize = true;
             this.lblCurrentWeek.BackColor = System.Drawing.Color.RoyalBlue;
-            this.lblCurrentWeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblCurrentWeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblCurrentWeek.ForeColor = System.Drawing.Color.White;
-            this.lblCurrentWeek.Location = new System.Drawing.Point(8, 59);
+            this.lblCurrentWeek.Location = new System.Drawing.Point(5, 60);
             this.lblCurrentWeek.Name = "lblCurrentWeek";
-            this.lblCurrentWeek.Size = new System.Drawing.Size(127, 20);
+            this.lblCurrentWeek.Size = new System.Drawing.Size(114, 17);
             this.lblCurrentWeek.TabIndex = 13;
             this.lblCurrentWeek.Text = "12. Haftasında";
             // 
@@ -482,11 +498,11 @@ namespace Hakediş
             // 
             this.lblCurrentMonth.AutoSize = true;
             this.lblCurrentMonth.BackColor = System.Drawing.Color.RoyalBlue;
-            this.lblCurrentMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblCurrentMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblCurrentMonth.ForeColor = System.Drawing.Color.White;
-            this.lblCurrentMonth.Location = new System.Drawing.Point(9, 36);
+            this.lblCurrentMonth.Location = new System.Drawing.Point(7, 36);
             this.lblCurrentMonth.Name = "lblCurrentMonth";
-            this.lblCurrentMonth.Size = new System.Drawing.Size(83, 20);
+            this.lblCurrentMonth.Size = new System.Drawing.Size(76, 17);
             this.lblCurrentMonth.TabIndex = 12;
             this.lblCurrentMonth.Text = "3. Ayında";
             // 
@@ -528,22 +544,103 @@ namespace Hakediş
             this.lblTemperature.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTemperature.AutoSize = true;
             this.lblTemperature.BackColor = System.Drawing.Color.RoyalBlue;
-            this.lblTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblTemperature.ContextMenuStrip = this.contextMenuWeather;
+            this.lblTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblTemperature.ForeColor = System.Drawing.Color.White;
-            this.lblTemperature.Location = new System.Drawing.Point(683, 106);
+            this.lblTemperature.Location = new System.Drawing.Point(675, 108);
             this.lblTemperature.Name = "lblTemperature";
-            this.lblTemperature.Size = new System.Drawing.Size(128, 20);
+            this.lblTemperature.Size = new System.Drawing.Size(116, 17);
             this.lblTemperature.TabIndex = 5;
             this.lblTemperature.Text = "Hava Durumu :";
+            // 
+            // contextMenuWeather
+            // 
+            this.contextMenuWeather.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.şehirToolStripMenuItem,
+            this.yenileToolStripMenuItem});
+            this.contextMenuWeather.Name = "contextMenuWeather";
+            this.contextMenuWeather.Size = new System.Drawing.Size(197, 48);
+            // 
+            // şehirToolStripMenuItem
+            // 
+            this.şehirToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.istanbultoolStripMenuItem1,
+            this.ankaraToolStripMenuItem,
+            this.izmirToolStripMenuItem,
+            this.kocaeliToolStripMenuItem,
+            this.antalyaToolStripMenuItem,
+            this.bursaToolStripMenuItem,
+            this.konyaToolStripMenuItem});
+            this.şehirToolStripMenuItem.Name = "şehirToolStripMenuItem";
+            this.şehirToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.şehirToolStripMenuItem.Text = "Şehir";
+            // 
+            // istanbultoolStripMenuItem1
+            // 
+            this.istanbultoolStripMenuItem1.Name = "istanbultoolStripMenuItem1";
+            this.istanbultoolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
+            this.istanbultoolStripMenuItem1.Text = "İstanbul";
+            // 
+            // ankaraToolStripMenuItem
+            // 
+            this.ankaraToolStripMenuItem.CheckOnClick = true;
+            this.ankaraToolStripMenuItem.Name = "ankaraToolStripMenuItem";
+            this.ankaraToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.ankaraToolStripMenuItem.Text = "Ankara";
+            this.ankaraToolStripMenuItem.Click += new System.EventHandler(this.ankaraToolStripMenuItem_Click);
+            // 
+            // izmirToolStripMenuItem
+            // 
+            this.izmirToolStripMenuItem.Name = "izmirToolStripMenuItem";
+            this.izmirToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.izmirToolStripMenuItem.Text = "İzmir";
+            this.izmirToolStripMenuItem.Click += new System.EventHandler(this.izmirToolStripMenuItem_Click);
+            // 
+            // kocaeliToolStripMenuItem
+            // 
+            this.kocaeliToolStripMenuItem.Name = "kocaeliToolStripMenuItem";
+            this.kocaeliToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.kocaeliToolStripMenuItem.Text = "Kocaeli";
+            this.kocaeliToolStripMenuItem.Click += new System.EventHandler(this.kocaeliToolStripMenuItem_Click);
+            // 
+            // antalyaToolStripMenuItem
+            // 
+            this.antalyaToolStripMenuItem.Name = "antalyaToolStripMenuItem";
+            this.antalyaToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.antalyaToolStripMenuItem.Text = "Antalya";
+            this.antalyaToolStripMenuItem.Click += new System.EventHandler(this.antalyaToolStripMenuItem_Click);
+            // 
+            // bursaToolStripMenuItem
+            // 
+            this.bursaToolStripMenuItem.Name = "bursaToolStripMenuItem";
+            this.bursaToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.bursaToolStripMenuItem.Text = "Bursa";
+            this.bursaToolStripMenuItem.Click += new System.EventHandler(this.bursaToolStripMenuItem_Click);
+            // 
+            // konyaToolStripMenuItem
+            // 
+            this.konyaToolStripMenuItem.Name = "konyaToolStripMenuItem";
+            this.konyaToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.konyaToolStripMenuItem.Text = "Konya";
+            this.konyaToolStripMenuItem.Click += new System.EventHandler(this.konyaToolStripMenuItem_Click);
+            // 
+            // yenileToolStripMenuItem
+            // 
+            this.yenileToolStripMenuItem.Name = "yenileToolStripMenuItem";
+            this.yenileToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.yenileToolStripMenuItem.Text = "Hava Durumunu Yenile";
+            this.yenileToolStripMenuItem.Click += new System.EventHandler(this.yenileToolStripMenuItem_Click);
             // 
             // lblTemperatureStat
             // 
             this.lblTemperatureStat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTemperatureStat.AutoSize = true;
             this.lblTemperatureStat.BackColor = System.Drawing.Color.RoyalBlue;
-            this.lblTemperatureStat.Location = new System.Drawing.Point(621, 110);
+            this.lblTemperatureStat.ContextMenuStrip = this.contextMenuWeather;
+            this.lblTemperatureStat.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblTemperatureStat.Location = new System.Drawing.Point(621, 109);
             this.lblTemperatureStat.Name = "lblTemperatureStat";
-            this.lblTemperatureStat.Size = new System.Drawing.Size(65, 15);
+            this.lblTemperatureStat.Size = new System.Drawing.Size(57, 13);
             this.lblTemperatureStat.TabIndex = 4;
             this.lblTemperatureStat.Text = "Sıcaklık :";
             // 
@@ -552,11 +649,12 @@ namespace Hakediş
             this.lblWeather.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWeather.AutoSize = true;
             this.lblWeather.BackColor = System.Drawing.Color.RoyalBlue;
-            this.lblWeather.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblWeather.ContextMenuStrip = this.contextMenuWeather;
+            this.lblWeather.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblWeather.ForeColor = System.Drawing.Color.White;
-            this.lblWeather.Location = new System.Drawing.Point(680, 90);
+            this.lblWeather.Location = new System.Drawing.Point(674, 88);
             this.lblWeather.Name = "lblWeather";
-            this.lblWeather.Size = new System.Drawing.Size(109, 16);
+            this.lblWeather.Size = new System.Drawing.Size(102, 15);
             this.lblWeather.TabIndex = 3;
             this.lblWeather.Text = "Hava Durumu :";
             // 
@@ -564,9 +662,10 @@ namespace Hakediş
             // 
             this.btnWeatherIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnWeatherIcon.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnWeatherIcon.ContextMenuStrip = this.contextMenuWeather;
             this.btnWeatherIcon.FlatAppearance.BorderSize = 0;
             this.btnWeatherIcon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnWeatherIcon.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.btnWeatherIcon.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.btnWeatherIcon.ForeColor = System.Drawing.Color.White;
             this.btnWeatherIcon.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
             this.btnWeatherIcon.IconColor = System.Drawing.Color.Black;
@@ -588,15 +687,18 @@ namespace Hakediş
             this.lblWeatherStat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblWeatherStat.AutoSize = true;
             this.lblWeatherStat.BackColor = System.Drawing.Color.RoyalBlue;
+            this.lblWeatherStat.ContextMenuStrip = this.contextMenuWeather;
+            this.lblWeatherStat.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblWeatherStat.Location = new System.Drawing.Point(583, 88);
             this.lblWeatherStat.Name = "lblWeatherStat";
-            this.lblWeatherStat.Size = new System.Drawing.Size(102, 15);
+            this.lblWeatherStat.Size = new System.Drawing.Size(91, 13);
             this.lblWeatherStat.TabIndex = 1;
             this.lblWeatherStat.Text = "Hava Durumu :";
             // 
             // splitter2
             // 
             this.splitter2.BackColor = System.Drawing.Color.RoyalBlue;
+            this.splitter2.ContextMenuStrip = this.contextMenuWeather;
             this.splitter2.Cursor = System.Windows.Forms.Cursors.Default;
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
             this.splitter2.Location = new System.Drawing.Point(584, 0);
@@ -633,13 +735,14 @@ namespace Hakediş
             this.Resize += new System.EventHandler(this.MainMenu_Resize);
             this.panelMain.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.contextMenuMainList.ResumeLayout(false);
+            this.contextWorkOrderList.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.contextMenuNotify.ResumeLayout(false);
             this.panelStat.ResumeLayout(false);
             this.panelStat.PerformLayout();
+            this.contextMenuWeather.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -650,9 +753,9 @@ namespace Hakediş
         private System.Windows.Forms.Panel panelMain;
         private FontAwesome.Sharp.IconButton btnAddNewWorkOrder;
         private FontAwesome.Sharp.IconButton btnUpdateWorkOrder;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        public System.Windows.Forms.DataGridView dataGridView1;
         private FontAwesome.Sharp.IconButton btnCreateWorkReport;
-        private System.Windows.Forms.DataGridView dataGridView2;
+        public System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Panel panelLogo;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private FontAwesome.Sharp.IconButton btnAddPayment;
@@ -662,11 +765,11 @@ namespace Hakediş
         private System.Windows.Forms.ToolStripMenuItem uygulamayıKapatToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem uygulamayıKapatToolStripMenuItem1;
         private FontAwesome.Sharp.IconButton btnUpdatePayment;
-        private System.Windows.Forms.ContextMenuStrip contextMenuMainList;
+        private System.Windows.Forms.ContextMenuStrip contextWorkOrderList;
         private System.Windows.Forms.ToolStripMenuItem tamamlananİşleriGösterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tamamlananİşleriGöstermeToolStripMenuItem;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
+        public System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Panel panelStat;
         private System.Windows.Forms.Label lblWeatherStat;
         private FontAwesome.Sharp.IconButton btnWeatherIcon;
@@ -686,6 +789,16 @@ namespace Hakediş
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBarBackup;
         private System.Windows.Forms.ToolStripButton toolStripBtnBackup;
         private System.Windows.Forms.Timer timerBackupStat;
+        private System.Windows.Forms.ContextMenuStrip contextMenuWeather;
+        private System.Windows.Forms.ToolStripMenuItem şehirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ankaraToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem izmirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem kocaeliToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem antalyaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bursaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem konyaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem istanbultoolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem yenileToolStripMenuItem;
     }
 }
 

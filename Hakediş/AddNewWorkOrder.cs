@@ -39,8 +39,9 @@ namespace Hakediş
                 workOrder.FinishedDate = dateTimeNewFinish.Value;
                 workOrder.ID = idIndex;
                 workOrders.Add(workOrder);
-                string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(workOrders);
-                File.WriteAllText(jsonWorkOrderDataPath, jsonData);
+                CreateJsonFile.CreateNewWorkOrdersJsonFile(workOrders,jsonWorkOrderDataPath);
+                //string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(workOrders);
+                //File.WriteAllText(jsonWorkOrderDataPath, jsonData);
                 MessageBox.Show("Yeni İş Emri Başarılı Bir Şekilde Eklendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 mainMenu.UpdateDataList();
                 this.Close();
@@ -57,7 +58,7 @@ namespace Hakediş
 
         private void AddNewWorkOrder_Load(object sender, EventArgs e)
         {
-
+            this.MaximumSize = new Size(252, 483);
             workOrders = DataListing.ReadWorkOrderJson(jsonWorkOrderDataPath, workOrders);
             if (workOrders.Count > 0)
             {

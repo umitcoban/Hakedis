@@ -30,6 +30,7 @@ namespace Hakediş
         #region Veri İşlemleri
         private void CreateNewPayment()
         {
+         
             try
             {
                 if (txtNewPayment.Text != "" && dateTimePayment.Value != null)
@@ -40,8 +41,9 @@ namespace Hakediş
                     payment.ID = idIndex;
                     payment.PaymentDate = dateTimePayment.Value;
                     payments.Add(payment);
-                    string jsonPaymentData = Newtonsoft.Json.JsonConvert.SerializeObject(payments);
-                    File.WriteAllText(jsonPaymentsDataPath, jsonPaymentData);
+                    CreateJsonFile.CreateNewPaymentsJsonFile(payments, jsonPaymentsDataPath);
+                    //string jsonPaymentData = Newtonsoft.Json.JsonConvert.SerializeObject(payments);
+                    //File.WriteAllText(jsonPaymentsDataPath, jsonPaymentData);
                     //dataListing.Payments.AddRange(payments);
                     //mainMenu.ReadWorkOrderJson();
                     MessageBox.Show("Yeni İş Emri Başarılı Bir Şekilde Eklendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -59,7 +61,7 @@ namespace Hakediş
 
         private void AddNewPaymentForm_Load(object sender, EventArgs e)
         {
-
+            this.MaximumSize = new Size(267, 268);
             payments = DataListing.ReadPaymentJson(jsonPaymentsDataPath, payments);
             if (payments.Count > 0)
             {

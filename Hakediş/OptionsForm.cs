@@ -69,13 +69,13 @@ namespace Hakediş
             {
                 Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
                 key.SetValue(filename,filepath);
-                MessageBox.Show("Uygulama Otomatik Başlamaya Ayarlanmıştır !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Uygulama Otomatik Başlamaya Ayarlanmıştır !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
                 key.DeleteValue(filename, false);
-                MessageBox.Show("Uygulama Otomatik Başlama İptal Edilmiştir !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Uygulama Otomatik Başlama İptal Edilmiştir !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             
             
@@ -195,19 +195,23 @@ namespace Hakediş
             {
                 GetExeLocation(startAutoApp);
                 BackupFile();
-                MessageBox.Show("Uygulama Otomatik Başlama ve Yedekleme Ayalandı!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if(autoUpdate)
             {
+                GetExeLocation(startAutoApp);
                 BackupFile();
-                MessageBox.Show("Yedekleme Ayalandı!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else if(startAutoApp)
             {
                 File.Delete(jsonMailUpdateDataPath);
                 GetExeLocation(startAutoApp);
-                MessageBox.Show("Uygulama Otomatik Başlama Ayalandı!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            else
+            {
+                File.Delete(jsonMailUpdateDataPath);
+                GetExeLocation(startAutoApp);
+            }
+            MessageBox.Show("Uygulama Ayarları Tamamlandı!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
         private void BackUpDataFileItem()
@@ -221,9 +225,14 @@ namespace Hakediş
                 maskedTxtPass.Text = updateMails[0].Password;
                 maskedTxtToEmail.Text = updateMails[0].ToEmail;
             }
+            else
+            {
+                btnAutoUpdate.PerformClick();
+            }
         }
         private void OptionsForm_Load(object sender, EventArgs e)
         {
+            this.MaximumSize = new Size(217, 499);
             BackUpDataFileItem();
         }
 
