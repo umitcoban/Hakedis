@@ -195,6 +195,7 @@ namespace Hakediş
             this.btnCreateWorkReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCreateWorkReport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCreateWorkReport.UseVisualStyleBackColor = true;
+            this.btnCreateWorkReport.Visible = false;
             this.btnCreateWorkReport.Click += new System.EventHandler(this.btnCreateWorkReport_Click);
             // 
             // btnUpdateWorkOrder
