@@ -69,6 +69,7 @@ namespace Hakediş
             if (dataGridView1.Rows.Count > 0)
             {
                 btnUpdateWorkOrder.Enabled = true;
+                dataGridView1.Rows[0].Selected = true;
             }
             else
             {
@@ -77,6 +78,7 @@ namespace Hakediş
             if (dataGridView2.Rows.Count >0 )
             {
                 btnUpdatePayment.Enabled = true;
+                dataGridView2.Rows[0].Selected = true;
             }
             else
             {
@@ -113,8 +115,8 @@ namespace Hakediş
                     {
                     dataGridView1.DataSource = currentWorkOrders.OrderBy(x => x.StartingDate).ToList();
                     }
-                    DataTableColumnNameChange.ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi", "Adam/Gün");
                     dataGridView1.Columns[0].Visible = false;
+                    DataTableColumnNameChange.ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi", "Adam/Gün");
                 }
                 if (File.Exists(jsonPaymentsDataPath) && new FileInfo(jsonPaymentsDataPath).Length >0)
                 {
@@ -362,7 +364,7 @@ namespace Hakediş
                     if (workOrders.Count>0)
                     {
                         UpdateWorkOrder updateWorkOrder = new UpdateWorkOrder(this);
-                        var selectRow = dataGridView1.CurrentCell.RowIndex;
+                        var selectRow = dataGridView1.SelectedRows[0].Index;
                         updateWorkOrder.idIndex = int.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
                         updateWorkOrder.txtName = dataGridView1.CurrentRow.Cells[1].Value.ToString();
                         updateWorkOrder.txtDesc = dataGridView1.CurrentRow.Cells[2].Value.ToString();

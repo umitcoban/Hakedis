@@ -15,8 +15,11 @@ namespace Hakediş
     {
         static string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         string jsonWorkOrderPath = appPath + @"\WorkOrderJson.json";
+        string jsonPaymentPath = appPath + @"\PaymentJson.json";
+        string chartWorkOrderImagePath = appPath + @"\saveWorkOrder.png";
         private MainMenu mainMenu;
         List<WorkOrder> workOrders = new List<WorkOrder>();
+        List<Payment> payments = new List<Payment>();
         string searchButtonText = "";
         public WorkOrderReportForm(MainMenu main)
         {
@@ -27,6 +30,7 @@ namespace Hakediş
         private void WorkOrderReportForm_Load(object sender, EventArgs e)
         {
             workOrders = DataListing.ReadWorkOrderJson(jsonWorkOrderPath, workOrders);
+            payments = DataListing.ReadPaymentJson(jsonPaymentPath, payments);
             //dataGridView1.DataSource = workOrders;
         }
         //private void SearchItem()
@@ -89,25 +93,29 @@ namespace Hakediş
             {
                 series.Points.Clear();
             }
-            var searchList = workOrders.Where(x => x.StartingDate >= dateTimeDetailFirst.Value && x.FinishedDate <= dateTimeDetailExpired.Value).ToList();
-            var listCount = searchList.Count;
-            if (listCount >0)
-            {
-                dataGridView1.DataSource = searchList;
-                dataGridView1.Visible = true;
-                chart1.Visible = true;
-                for (int i = 0; i < searchList.Count; i++)
+                var searchList = workOrders.Where(x => x.ExpiredDate >= dateTimeDetailFirst.Value && x.ExpiredDate <= dateTimeDetailExpired.Value).ToList();
+                var listCount = searchList.Count;
+                if (listCount > 0)
                 {
-                    chart1.Series["İş Emirleri"].Points.AddXY(searchList[i].Name, searchList[i].ManOfDay);
+                    dataGridView1.DataSource = searchList;
+                    dataGridView1.Visible = true;
+                    chart1.Visible = true;
+                    for (int i = 0; i < searchList.Count; i++)
+                    {
+                        chart1.Series["İş Emirleri"].Points.AddXY(searchList[i].Name, searchList[i].ManOfDay);
+                        btnExtractExcell.Enabled = true;
+                    }
+                    dataGridView1.Columns[0].Visible = false;
+                    DataTableColumnNameChange.ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi", "Adam/Gün");
+                    btnExtractExcell.Enabled = true;
                 }
-            }
-            else
-            {
-                chart1.Visible = false;
-                dataGridView1.Visible = false;
-                MessageBox.Show("Bu Tarihler Arasında İş Yapılmamıştır !","",MessageBoxButtons.OK,MessageBoxIcon.Information);
-            }
-
+                else
+                {
+                    btnExtractExcell.Enabled = false;
+                    chart1.Visible = false;
+                    dataGridView1.Visible = false;
+                    MessageBox.Show("Bu Tarihler Arasında İş Yapılmamıştır !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
         }
         #endregion
 
@@ -119,6 +127,7 @@ namespace Hakediş
                     FindWorkOrders();
                     break;
                 case 1:
+                    
                     break;
                 default:
                     break;
@@ -126,7 +135,15 @@ namespace Hakediş
         }
         private void btnExtractExcell_Click(object sender, EventArgs e)
         {
-            Excel_Disa_Aktar(dataGridView1);
+            if (tabControl1.SelectedIndex == 0)
+            {
+                Excel_Disa_Aktar(dataGridView1);
+            }
+            else
+            {
+                Excel_Disa_Aktar(dataGridView2);
+            }
+
         }
         public static void Excel_Disa_Aktar(DataGridView dataGridView1)
         {
@@ -145,13 +162,13 @@ namespace Hakediş
                 worksheet = workbook.Sheets["Sayfa1"];
                 worksheet = workbook.ActiveSheet;
                 worksheet.Name = "Excel Dışa Aktarım";
-                for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
+                for (int i = 2; i < dataGridView1.Columns.Count + 1; i++)
                 {
                     worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
                 }
                 for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
                 {
-                    for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                    for (int j = 1; j < dataGridView1.Columns.Count; j++)
                     {
                         worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
                     }
@@ -162,6 +179,8 @@ namespace Hakediş
         }
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
+    
+       
             switch (tabControl1.SelectedIndex)
             {
                 case 0:
@@ -183,6 +202,14 @@ namespace Hakediş
             mainMenu.groupBox2.Visible = true;
             mainMenu.dataGridView1.Visible = true;
             mainMenu.dataGridView2.Visible = true;
+        }
+
+        private void btnExportGraphImage_Click(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == tabPageWorkOrder)
+            {
+                this.chart1.SaveImage(chartWorkOrderImagePath, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
+            }
         }
     }
 }
