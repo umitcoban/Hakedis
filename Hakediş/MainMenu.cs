@@ -727,6 +727,12 @@ namespace Hakediş
         {
             ReadWeather(weatherCityKey, weatherCityName);
         }
+        private void istanbultoolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            weatherCityKey = "745042";
+            weatherCityName = istanbultoolStripMenuItem1.Text;
+            ReadWeather(weatherCityKey, weatherCityName);
+        }
         #endregion
 
 

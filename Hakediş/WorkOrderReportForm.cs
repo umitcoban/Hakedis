@@ -87,6 +87,36 @@ namespace Hakediş
             }
         }
         #region Data İşlemleri
+        private void FindPaymentsList()
+        {
+            foreach (var series in chart2.Series)
+            {
+                series.Points.Clear();
+            }
+            var searchList = payments.Where(x => x.PaymentDate >= dateTimeDetailFirst.Value).ToList();
+            if (searchList.Count > 0)
+            {
+                dataGridView2.DataSource = searchList;
+                dataGridView2.Visible = true;
+                dataGridView1.Visible = false;
+                chart1.Visible = false;
+                chart2.Visible = true;
+                for (int i = 0; i < searchList.Count; i++)
+                {
+                    chart2.Series["Ödemeler"].Points.AddXY(searchList[i].Name, searchList[i].PayforDay);
+                    btnExtractExcell.Enabled = true;
+                }
+                dataGridView2.Columns[0].Visible = false;
+                DataTableColumnNameChange.ChangeDataGridHeader(dataGridView2, "Ödeme Adı", "Ödenen Gün", "Ödeme Tarihi");
+            }
+            else
+            {
+                btnExtractExcell.Enabled = false;
+                chart2.Visible = false;
+                dataGridView2.Visible = false;
+                MessageBox.Show("Bu Tarihler Arasında Ödeme Yapılmamıştır !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
         private void FindWorkOrders()
         {
             foreach (var series in chart1.Series)
@@ -127,7 +157,7 @@ namespace Hakediş
                     FindWorkOrders();
                     break;
                 case 1:
-                    
+                    FindPaymentsList();
                     break;
                 default:
                     break;
@@ -144,6 +174,33 @@ namespace Hakediş
                 Excel_Disa_Aktar(dataGridView2);
             }
 
+        }
+        private void SaveChartWorkOrderImage()
+        {
+            saveFileDiaChart1.Filter = ("PNG Files (*.png)|*.png");
+            saveFileDiaChart1.DefaultExt = "png";
+            //saveFileDiaChart1.OverwritePrompt = false;
+            //saveFileDiaChart1.CreatePrompt = true;
+            saveFileDiaChart1.Title = "Save PNG File";
+            if (saveFileDiaChart1.ShowDialog() == DialogResult.OK)
+            {
+                chartWorkOrderImagePath = saveFileDiaChart1.FileName;
+                this.chart1.SaveImage(chartWorkOrderImagePath, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
+            }
+        }
+        private void SaveChartPaymentImage()
+        {
+            saveFileDiaChart1.Filter = ("PNG Files (*.png)|*.png");
+            saveFileDiaChart1.DefaultExt = "png";
+            //saveFileDiaChart1.OverwritePrompt = false;
+            //saveFileDiaChart1.CreatePrompt = true;
+            saveFileDiaChart1.Title = "Save PNG File";
+            if (saveFileDiaChart1.ShowDialog() == DialogResult.OK)
+            {
+               
+                chartWorkOrderImagePath = saveFileDiaChart1.FileName;
+                this.chart2.SaveImage(chartWorkOrderImagePath, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
+            }
         }
         public static void Excel_Disa_Aktar(DataGridView dataGridView1)
         {
@@ -166,7 +223,7 @@ namespace Hakediş
                 {
                     worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
                 }
-                for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                for (int i = 0; i <= dataGridView1.Rows.Count - 1; i++)
                 {
                     for (int j = 1; j < dataGridView1.Columns.Count; j++)
                     {
@@ -179,8 +236,6 @@ namespace Hakediş
         }
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
-    
-       
             switch (tabControl1.SelectedIndex)
             {
                 case 0:
@@ -208,7 +263,11 @@ namespace Hakediş
         {
             if (tabControl1.SelectedTab == tabPageWorkOrder)
             {
-                this.chart1.SaveImage(chartWorkOrderImagePath, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
+                SaveChartWorkOrderImage();
+            }
+            else
+            {
+                SaveChartPaymentImage();
             }
         }
     }
