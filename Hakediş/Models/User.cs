@@ -10,7 +10,5 @@ namespace Hakediş
     {
         public short CalculateParameter { get; set; }
         public UserTypeEnum Usertype { get; set; }
-
-        
     }
 }

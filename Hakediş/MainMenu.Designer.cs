@@ -332,9 +332,9 @@ namespace Hakediş
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBarBackup,
             this.toolStripBtnBackup});
-            this.toolStrip1.Location = new System.Drawing.Point(209, 552);
+            this.toolStrip1.Location = new System.Drawing.Point(209, 550);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(818, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(818, 27);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -350,7 +350,7 @@ namespace Hakediş
             this.toolStripBtnBackup.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnBackup.Image")));
             this.toolStripBtnBackup.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnBackup.Name = "toolStripBtnBackup";
-            this.toolStripBtnBackup.Size = new System.Drawing.Size(302, 22);
+            this.toolStripBtnBackup.Size = new System.Drawing.Size(302, 24);
             this.toolStripBtnBackup.Text = "(Güncelleme Mevcut) Güncellemek İçin Lütfen Tıklayın!";
             this.toolStripBtnBackup.Visible = false;
             this.toolStripBtnBackup.Click += new System.EventHandler(this.toolStripBtnBackup_Click);
@@ -559,7 +559,7 @@ namespace Hakediş
             this.şehirToolStripMenuItem,
             this.yenileToolStripMenuItem});
             this.contextMenuWeather.Name = "contextMenuWeather";
-            this.contextMenuWeather.Size = new System.Drawing.Size(197, 70);
+            this.contextMenuWeather.Size = new System.Drawing.Size(197, 48);
             // 
             // şehirToolStripMenuItem
             // 
@@ -578,7 +578,7 @@ namespace Hakediş
             // istanbultoolStripMenuItem1
             // 
             this.istanbultoolStripMenuItem1.Name = "istanbultoolStripMenuItem1";
-            this.istanbultoolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.istanbultoolStripMenuItem1.Size = new System.Drawing.Size(116, 22);
             this.istanbultoolStripMenuItem1.Text = "İstanbul";
             this.istanbultoolStripMenuItem1.Click += new System.EventHandler(this.istanbultoolStripMenuItem1_Click);
             // 
@@ -586,42 +586,42 @@ namespace Hakediş
             // 
             this.ankaraToolStripMenuItem.CheckOnClick = true;
             this.ankaraToolStripMenuItem.Name = "ankaraToolStripMenuItem";
-            this.ankaraToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.ankaraToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.ankaraToolStripMenuItem.Text = "Ankara";
             this.ankaraToolStripMenuItem.Click += new System.EventHandler(this.ankaraToolStripMenuItem_Click);
             // 
             // izmirToolStripMenuItem
             // 
             this.izmirToolStripMenuItem.Name = "izmirToolStripMenuItem";
-            this.izmirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.izmirToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.izmirToolStripMenuItem.Text = "İzmir";
             this.izmirToolStripMenuItem.Click += new System.EventHandler(this.izmirToolStripMenuItem_Click);
             // 
             // kocaeliToolStripMenuItem
             // 
             this.kocaeliToolStripMenuItem.Name = "kocaeliToolStripMenuItem";
-            this.kocaeliToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.kocaeliToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.kocaeliToolStripMenuItem.Text = "Kocaeli";
             this.kocaeliToolStripMenuItem.Click += new System.EventHandler(this.kocaeliToolStripMenuItem_Click);
             // 
             // antalyaToolStripMenuItem
             // 
             this.antalyaToolStripMenuItem.Name = "antalyaToolStripMenuItem";
-            this.antalyaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.antalyaToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.antalyaToolStripMenuItem.Text = "Antalya";
             this.antalyaToolStripMenuItem.Click += new System.EventHandler(this.antalyaToolStripMenuItem_Click);
             // 
             // bursaToolStripMenuItem
             // 
             this.bursaToolStripMenuItem.Name = "bursaToolStripMenuItem";
-            this.bursaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bursaToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.bursaToolStripMenuItem.Text = "Bursa";
             this.bursaToolStripMenuItem.Click += new System.EventHandler(this.bursaToolStripMenuItem_Click);
             // 
             // konyaToolStripMenuItem
             // 
             this.konyaToolStripMenuItem.Name = "konyaToolStripMenuItem";
-            this.konyaToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.konyaToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.konyaToolStripMenuItem.Text = "Konya";
             this.konyaToolStripMenuItem.Click += new System.EventHandler(this.konyaToolStripMenuItem_Click);
             // 
