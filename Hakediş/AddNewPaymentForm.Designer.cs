@@ -109,6 +109,7 @@ namespace Hakediş
             // 
             // dateTimePayment
             // 
+            this.dateTimePayment.CustomFormat = "0:dd/MM/yyyy";
             this.dateTimePayment.Location = new System.Drawing.Point(12, 145);
             this.dateTimePayment.Name = "dateTimePayment";
             this.dateTimePayment.Size = new System.Drawing.Size(228, 21);

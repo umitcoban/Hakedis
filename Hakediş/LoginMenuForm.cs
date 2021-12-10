@@ -35,6 +35,8 @@ namespace Hakediş
                 MessageBox.Show("Uygulama Şuanda Çalışmakta !");
                 System.Diagnostics.Process.GetCurrentProcess().Kill();
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void CreateNewUserConfig(UserTypeEnum @enum,short parameter)
         {
@@ -55,6 +57,8 @@ namespace Hakediş
             {
                 MessageBox.Show("Bir Hata Oluştu!", e.Message, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void CheckFilePath()
         {
@@ -64,11 +68,15 @@ namespace Hakediş
                 Hide();
                 Application.Run(new MainMenu());
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void ıconBtnPayed_Click(object sender, EventArgs e)
         {
             CreateNewUserConfig(UserTypeEnum.Paying, -1);
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
     }
 }

@@ -39,6 +39,8 @@ namespace Hakediş
             {
 
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void NewUpdatePayments()
         {
@@ -63,7 +65,8 @@ namespace Hakediş
 
                 MessageBox.Show("Bir Hata Oluştu!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         #endregion
 
@@ -83,7 +86,8 @@ namespace Hakediş
             {
 
             }
-           
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void txtUpdatePayForDay_KeyPress(object sender, KeyPressEventArgs e)
@@ -100,6 +104,8 @@ namespace Hakediş
                 if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
                     e.Handled = true;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void btnDeletePayment_Click(object sender, EventArgs e)
@@ -112,8 +118,9 @@ namespace Hakediş
                 payments.RemoveAt(selectID);
                 NewUpdatePayments();
                 this.Close();
-            }    
-            
+            }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void btnAddNewWorkOrder_Click(object sender, EventArgs e)
@@ -148,7 +155,8 @@ namespace Hakediş
             {
                 MessageBox.Show("Lütfen Zorunlu Alanları Boş Bırakmayın !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-           
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
     }
 }

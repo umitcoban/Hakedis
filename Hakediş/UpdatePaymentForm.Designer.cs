@@ -79,6 +79,8 @@ namespace Hakediş
             // 
             // dateTimePayment
             // 
+            this.dateTimePayment.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.dateTimePayment.CustomFormat = "0:dd/MM/yyyy";
             this.dateTimePayment.Location = new System.Drawing.Point(3, 128);
             this.dateTimePayment.Name = "dateTimePayment";
             this.dateTimePayment.Size = new System.Drawing.Size(240, 20);

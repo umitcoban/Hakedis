@@ -93,7 +93,7 @@ namespace Hakediş
             // 
             // dateTimeNewFinish
             // 
-            this.dateTimeNewFinish.CustomFormat = "dd-MM-yyyy-ss";
+            this.dateTimeNewFinish.CustomFormat = "0:dd/MM/yyyy";
             this.dateTimeNewFinish.Location = new System.Drawing.Point(3, 288);
             this.dateTimeNewFinish.Name = "dateTimeNewFinish";
             this.dateTimeNewFinish.Size = new System.Drawing.Size(240, 21);
@@ -173,7 +173,7 @@ namespace Hakediş
             // 
             // dateTimeUpdateExpired
             // 
-            this.dateTimeUpdateExpired.CustomFormat = "dd-MM-yyyy-ss";
+            this.dateTimeUpdateExpired.CustomFormat = "0:dd/MM/yyyy";
             this.dateTimeUpdateExpired.Enabled = false;
             this.dateTimeUpdateExpired.Location = new System.Drawing.Point(4, 351);
             this.dateTimeUpdateExpired.Name = "dateTimeUpdateExpired";
@@ -193,7 +193,7 @@ namespace Hakediş
             // 
             // dateTimeUpdateFirst
             // 
-            this.dateTimeUpdateFirst.CustomFormat = "dd-MM-yyyy-ss";
+            this.dateTimeUpdateFirst.CustomFormat = "0:dd/MM/yyyy";
             this.dateTimeUpdateFirst.Location = new System.Drawing.Point(3, 226);
             this.dateTimeUpdateFirst.Name = "dateTimeUpdateFirst";
             this.dateTimeUpdateFirst.Size = new System.Drawing.Size(243, 21);

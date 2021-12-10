@@ -106,7 +106,7 @@ namespace Hakediş
             // 
             // dateTimeNewFirst
             // 
-            this.dateTimeNewFirst.CustomFormat = "dd-MM-yyyy-ss";
+            this.dateTimeNewFirst.CustomFormat = "0:dd/MM/yyyy";
             this.dateTimeNewFirst.Location = new System.Drawing.Point(8, 224);
             this.dateTimeNewFirst.Name = "dateTimeNewFirst";
             this.dateTimeNewFirst.Size = new System.Drawing.Size(228, 21);
@@ -149,7 +149,7 @@ namespace Hakediş
             // 
             // dateTimeNewFinish
             // 
-            this.dateTimeNewFinish.CustomFormat = "dd-MM-yyyy-ss";
+            this.dateTimeNewFinish.CustomFormat = "0:dd/MM/yyyy";
             this.dateTimeNewFinish.Location = new System.Drawing.Point(8, 286);
             this.dateTimeNewFinish.Name = "dateTimeNewFinish";
             this.dateTimeNewFinish.Size = new System.Drawing.Size(228, 21);

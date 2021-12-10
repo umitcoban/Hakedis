@@ -54,13 +54,16 @@ namespace Hakediş
             {
 
             }
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         public void GetExeLocation(bool isChecked)
         {
             path = System.Reflection.Assembly.GetEntryAssembly().Location; // for getting the location of exe file ( it can change when you change the location of exe)
             fileName = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name; // for getting the name of exe file( it can change when you change the name of exe)
             StartExeWhenPcStartup(fileName, path, isChecked); // start the exe autometically when computer is stared.
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         public void StartExeWhenPcStartup(string filename, string filepath,bool isChecked)
@@ -77,8 +80,9 @@ namespace Hakediş
                 key.DeleteValue(filename, false);
                 //MessageBox.Show("Uygulama Otomatik Başlama İptal Edilmiştir !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            
-            
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
         }
         #endregion
         #region Dosyaları Yedekleme
@@ -116,6 +120,8 @@ namespace Hakediş
 
                 MessageBox.Show("Bir Hata Oluştu !", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         #endregion
         private void BackupFile()
@@ -132,6 +138,8 @@ namespace Hakediş
                         autoUpdate = false;
                     }
                 }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         #endregion
         private void btnChangeFunction(object sender, EventArgs e)
@@ -188,6 +196,8 @@ namespace Hakediş
                 default:
                     break;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void btnOptionsExit_Click(object sender, EventArgs e)
         {
@@ -213,6 +223,8 @@ namespace Hakediş
             }
             MessageBox.Show("Uygulama Ayarları Tamamlandı!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void BackUpDataFileItem()
         {
@@ -229,6 +241,8 @@ namespace Hakediş
             {
                 btnAutoUpdate.PerformClick();
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void OptionsForm_Load(object sender, EventArgs e)
         {
@@ -246,6 +260,8 @@ namespace Hakediş
             {
                 maskedTxtPass.UseSystemPasswordChar = true;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void ıconBtnNewUser_Click(object sender, EventArgs e)
@@ -257,6 +273,8 @@ namespace Hakediş
                 File.Delete(jsonUserConfigPathFile);
                 Application.Restart();
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         
     }

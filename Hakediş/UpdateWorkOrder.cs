@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Reflection;
 namespace Hakediş
 {
     public partial class UpdateWorkOrder : Form
@@ -67,7 +68,8 @@ namespace Hakediş
 
             }
 
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
 
         }
         #region Data İşlemleri
@@ -81,6 +83,8 @@ namespace Hakediş
             {
 
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void NewUpdateWorkOrder()
         {
@@ -105,7 +109,8 @@ namespace Hakediş
 
                 MessageBox.Show("Bir Hata Oluştu!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         #endregion
@@ -173,7 +178,8 @@ namespace Hakediş
             {
                 MessageBox.Show("Lütfen Zorunlu Alanları Boş Bırakmayın !","",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
-           
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void chckbxIsWorkFinished_CheckedChanged(object sender, EventArgs e)
@@ -186,6 +192,8 @@ namespace Hakediş
             {
                 dateTimeUpdateExpired.Enabled = true;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void txtUpdateMan_KeyPress(object sender, KeyPressEventArgs e)
@@ -202,6 +210,8 @@ namespace Hakediş
                 if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
                     e.Handled = true;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void btnDeleteWorkOrder_Click(object sender, EventArgs e)
@@ -215,6 +225,8 @@ namespace Hakediş
                 NewUpdateWorkOrder();
                 this.Close();
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void DateTimePickerValueChange(object sender, EventArgs e)

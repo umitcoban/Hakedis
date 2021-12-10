@@ -88,6 +88,7 @@ namespace Hakediş
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.toolStrip1.SuspendLayout();
             this.contextMenuNotify.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.panelStat.SuspendLayout();
             this.contextMenuWeather.SuspendLayout();
             this.SuspendLayout();
@@ -261,7 +262,7 @@ namespace Hakediş
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ContextMenuStrip = this.contextWorkOrderList;
-            this.dataGridView1.Location = new System.Drawing.Point(221, 142);
+            this.dataGridView1.Location = new System.Drawing.Point(5, 13);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
@@ -271,8 +272,9 @@ namespace Hakediş
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(582, 401);
+            this.dataGridView1.Size = new System.Drawing.Size(473, 401);
             this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // contextWorkOrderList
@@ -304,13 +306,12 @@ namespace Hakediş
             // 
             this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.AllowUserToResizeColumns = false;
             this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(823, 142);
+            this.dataGridView2.Location = new System.Drawing.Point(712, 142);
             this.dataGridView2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
@@ -321,7 +322,7 @@ namespace Hakediş
             this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView2.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(190, 401);
+            this.dataGridView2.Size = new System.Drawing.Size(301, 401);
             this.dataGridView2.TabIndex = 0;
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             // 
@@ -332,9 +333,9 @@ namespace Hakediş
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBarBackup,
             this.toolStripBtnBackup});
-            this.toolStrip1.Location = new System.Drawing.Point(209, 550);
+            this.toolStrip1.Location = new System.Drawing.Point(209, 552);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(818, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(818, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -350,7 +351,7 @@ namespace Hakediş
             this.toolStripBtnBackup.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnBackup.Image")));
             this.toolStripBtnBackup.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnBackup.Name = "toolStripBtnBackup";
-            this.toolStripBtnBackup.Size = new System.Drawing.Size(302, 24);
+            this.toolStripBtnBackup.Size = new System.Drawing.Size(302, 22);
             this.toolStripBtnBackup.Text = "(Güncelleme Mevcut) Güncellemek İçin Lütfen Tıklayın!";
             this.toolStripBtnBackup.Visible = false;
             this.toolStripBtnBackup.Click += new System.EventHandler(this.toolStripBtnBackup_Click);
@@ -392,9 +393,10 @@ namespace Hakediş
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Location = new System.Drawing.Point(214, 129);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(596, 420);
+            this.groupBox1.Size = new System.Drawing.Size(485, 420);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
@@ -402,9 +404,9 @@ namespace Hakediş
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Location = new System.Drawing.Point(816, 129);
+            this.groupBox2.Location = new System.Drawing.Point(705, 129);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(204, 420);
+            this.groupBox2.Size = new System.Drawing.Size(315, 420);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             // 
@@ -721,7 +723,6 @@ namespace Hakediş
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.panelStat);
-            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.panelMain);
             this.Controls.Add(this.groupBox1);
@@ -741,6 +742,7 @@ namespace Hakediş
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.contextMenuNotify.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.panelStat.ResumeLayout(false);
             this.panelStat.PerformLayout();
             this.contextMenuWeather.ResumeLayout(false);

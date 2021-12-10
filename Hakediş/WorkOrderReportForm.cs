@@ -32,6 +32,8 @@ namespace Hakediş
             workOrders = DataListing.ReadWorkOrderJson(jsonWorkOrderPath, workOrders);
             payments = DataListing.ReadPaymentJson(jsonPaymentPath, payments);
             //dataGridView1.DataSource = workOrders;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         //private void SearchItem()
         //{
@@ -60,7 +62,8 @@ namespace Hakediş
             mainMenu.groupBox2.Visible = true;
             mainMenu.dataGridView1.Visible = true;
             mainMenu.dataGridView2.Visible = true;
-            
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void textChange(object sender, EventArgs e)
         {
@@ -85,6 +88,8 @@ namespace Hakediş
                 default:
                     break;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         #region Data İşlemleri
         private void FindPaymentsList()
@@ -116,6 +121,8 @@ namespace Hakediş
                 dataGridView2.Visible = false;
                 MessageBox.Show("Bu Tarihler Arasında Ödeme Yapılmamıştır !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void FindWorkOrders()
         {
@@ -146,6 +153,8 @@ namespace Hakediş
                     dataGridView1.Visible = false;
                     MessageBox.Show("Bu Tarihler Arasında İş Yapılmamıştır !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         #endregion
 
@@ -161,7 +170,9 @@ namespace Hakediş
                     break;
                 default:
                     break;
-            }           
+            }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void btnExtractExcell_Click(object sender, EventArgs e)
         {
@@ -173,7 +184,8 @@ namespace Hakediş
             {
                 Excel_Disa_Aktar(dataGridView2);
             }
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void SaveChartWorkOrderImage()
         {
@@ -187,6 +199,8 @@ namespace Hakediş
                 chartWorkOrderImagePath = saveFileDiaChart1.FileName;
                 this.chart1.SaveImage(chartWorkOrderImagePath, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void SaveChartPaymentImage()
         {
@@ -201,6 +215,8 @@ namespace Hakediş
                 chartWorkOrderImagePath = saveFileDiaChart1.FileName;
                 this.chart2.SaveImage(chartWorkOrderImagePath, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         public static void Excel_Disa_Aktar(DataGridView dataGridView1)
         {
@@ -233,6 +249,8 @@ namespace Hakediş
                 workbook.SaveAs(save.FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
                 app.Quit();
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -249,6 +267,8 @@ namespace Hakediş
                 default:
                     break;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void WorkOrderReportForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -257,6 +277,8 @@ namespace Hakediş
             mainMenu.groupBox2.Visible = true;
             mainMenu.dataGridView1.Visible = true;
             mainMenu.dataGridView2.Visible = true;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void btnExportGraphImage_Click(object sender, EventArgs e)
@@ -269,6 +291,8 @@ namespace Hakediş
             {
                 SaveChartPaymentImage();
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
     }
 }

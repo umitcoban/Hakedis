@@ -10,17 +10,20 @@ using System.Windows.Forms;
 using System.IO;
 using Newtonsoft.Json;
 using System.Net;
-
+using System.Diagnostics;
 namespace Hakediş
 {
     public partial class MainMenu : Form
     {
+        Version version = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
         static string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
         readonly static string pathApplication = System.IO.Path.GetDirectoryName(path);
         readonly string jsonWorkOrderDataPath = pathApplication+ @"\WorkOrderJson.json";
         readonly string jsonPaymentsDataPath = pathApplication + @"\PaymentJson.json";
         readonly string jsonMailUpdateDataPath = pathApplication + @"\jsonMailUpdateData.json";
         readonly string jsonUserConfigPathFile = pathApplication + @"\UserConfig.json";
+        readonly string jsonAppVersionConfigPathFile = pathApplication + @"\AppVersionConfig.json";
+        readonly string appHakedisUpdaterPath = pathApplication + @"\UpdaterHakedis.exe";
         string userTypeString;
         public List<WorkOrder> workOrders = new List<WorkOrder>();
         public List<WorkOrder> isDoneWorkOrders = new List<WorkOrder>();
@@ -41,13 +44,26 @@ namespace Hakediş
         }
         private void MainMenu_Load(object sender, EventArgs e)
         {
+            //CreateCurrentVersionFile();
+            //if (File.Exists(pathApplication+@"\check.txt"))
+            //{
+            //    File.Delete(pathApplication + @"\check.txt");
+            //}
+            //else
+            //{
+            //    var p = new Process();
+            //    p.StartInfo.FileName = appHakedisUpdaterPath;
+            //    p.Start();
+            //    Application.Exit();
+            //}
             this.IsMdiContainer = true;
             if (CheckAlreadyRunningApp.CheckApp())
             {
                 MessageBox.Show("Uygulama Zaten Şuanda Çalışmakta !","Uygulama Arka Planda Çalışıyor");
                 System.Diagnostics.Process.GetCurrentProcess().Kill();
             }
-            this.Text = System.Environment.MachineName + "/ Hakedis /" + userTypeString;
+            this.Text = System.Environment.MachineName + "/ Hakedis /" + userTypeString+"/"+version;
+
             BackupData(DateTime.Now.ToString("dddd"));
             //Form size belirleme
             this.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
@@ -62,6 +78,8 @@ namespace Hakediş
             lblCurrentDay.Text = DateTime.Now.ToString("dddd") + " Günündesiniz.";
             lblRemainingWeek.Text = "Geriye " + (52 - week).ToString() + " Hafta Kaldı.";
             CheckLastUpdateDate();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         #region Data İşlemleri
         private void CheckDataGridEmpty()
@@ -84,6 +102,8 @@ namespace Hakediş
             {
                 btnUpdatePayment.Enabled = false;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         public void ReadUserConfigData()
         {
@@ -94,6 +114,8 @@ namespace Hakediş
                 calculateParameterNum = users[0].CalculateParameter;
                 userTypeString = users[0].Usertype.ToString();
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         public void ReadWorkOrderJson()
         {
@@ -117,6 +139,8 @@ namespace Hakediş
                     }
                     dataGridView1.Columns[0].Visible = false;
                     DataTableColumnNameChange.ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi", "Adam/Gün");
+                    dataGridView1.Columns[3].DefaultCellStyle.Format = "dd/MM/yyyy";
+                    dataGridView1.Columns[4].DefaultCellStyle.Format = "dd/MM/yyyy";
                 }
                 if (File.Exists(jsonPaymentsDataPath) && new FileInfo(jsonPaymentsDataPath).Length >0)
                 {
@@ -126,6 +150,7 @@ namespace Hakediş
                     dataGridView2.DataSource = payments;
                     DataTableColumnNameChange.ChangeDataGridHeader(dataGridView2, "Ödeme Adı", "Ödenen Gün", "Ödeme Tarihi");
                     dataGridView2.Columns[0].Visible = false;
+                    dataGridView2.Columns[3].DefaultCellStyle.Format = "dd/MM/yyyy";
                 }
                 if (File.Exists(jsonPaymentsDataPath)||File.Exists(jsonWorkOrderDataPath))
                     CalculatePayments(isDoneWorkOrders, payments);
@@ -136,6 +161,8 @@ namespace Hakediş
             {
 
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         public void CalculatePayments(List<WorkOrder> otherList, List<Payment> payments)
@@ -197,7 +224,8 @@ namespace Hakediş
             //    btnGeneralStat.BackColor = Color.Crimson;
             //    btnGeneralStat.IconChar = FontAwesome.Sharp.IconChar.MinusCircle;
             //}
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         public void UpdateDataList()
         {
@@ -207,6 +235,8 @@ namespace Hakediş
             isDoneWorkOrders.Clear();
             payments.Clear();
             ReadWorkOrderJson();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         #endregion
         #region BackupData
@@ -234,7 +264,8 @@ namespace Hakediş
                     }
                 }
             }
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         public void BackupData(string DateNow)
         {
@@ -274,7 +305,22 @@ namespace Hakediş
             {
                 MessageBox.Show(e.Message,"Hata",MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
-          
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+        }
+        #endregion
+        #region Program Versiyon Kontrol
+        private void CreateCurrentVersionFile()
+        {
+            AppVersion appVersion = new AppVersion();
+            appVersion.Major = version.Major;
+            appVersion.Minor = version.Minor;
+            appVersion.Build = version.Build;
+            appVersion.Revision = version.Revision;
+            var jsonData = JsonConvert.SerializeObject(appVersion);
+            File.WriteAllText(jsonAppVersionConfigPathFile, jsonData);
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         #endregion
         #region Hava Durumu İslemleri
@@ -300,6 +346,8 @@ namespace Hakediş
                 lblTemperature.Text = "Bulunamadı.";
                 btnWeatherIcon.IconChar = FontAwesome.Sharp.IconChar.Unlink;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void selectWeatherIcon()
         {
@@ -338,6 +386,8 @@ namespace Hakediş
                 btnWeatherIcon.IconChar = FontAwesome.Sharp.IconChar.Cloud;
                 btnWeatherIcon.IconColor = Color.Black;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         #endregion
         #region Buton İşlemleri
@@ -351,7 +401,8 @@ namespace Hakediş
                 //addNewWorkOrder.workOrders.AddRange(workOrders);   
                 addNewWorkOrder.Show();
             }
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void btnUpdateWorkOrder_Click(object sender, EventArgs e)
@@ -401,7 +452,8 @@ namespace Hakediş
             //    updateWorkOrder.Show();
             //}
             //dataGridView1.CellDoubleClick(object sender);
-           
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void btnUpdatePayment_Click(object sender, EventArgs e)
@@ -413,7 +465,8 @@ namespace Hakediş
                 //addNewPaymentForm.payments.AddRange(payments);
                 addNewPaymentForm.Show();
             }
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void btnOptions_Click(object sender, EventArgs e)
@@ -424,7 +477,8 @@ namespace Hakediş
                 OptionsForm optionsForm = new OptionsForm(this);
                 optionsForm.Show();
             }
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         #endregion
@@ -446,6 +500,8 @@ namespace Hakediş
             {
                 notifyIcon1.Visible = false;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -453,6 +509,8 @@ namespace Hakediş
             WindowState = FormWindowState.Maximized;
             notifyIcon1.Visible = false;
             this.Show();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void uygulamayıKapatToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -464,6 +522,8 @@ namespace Hakediş
         {
             WindowState = FormWindowState.Maximized;
             this.Show();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         #endregion
@@ -482,6 +542,7 @@ namespace Hakediş
             {
                 return false;
             }
+
         }
         #endregion
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -514,7 +575,8 @@ namespace Hakediş
             {
                 MessageBox.Show("Bir Hata Oluştu!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void dataGridView2_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -537,7 +599,8 @@ namespace Hakediş
                 MessageBox.Show("Bir Hata Oluştu!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void btnUpdatePayment_Click_1(object sender, EventArgs e)
@@ -569,7 +632,8 @@ namespace Hakediş
 
                 MessageBox.Show("Bir Hata Oluştu! Lütfen Ödeme Seçtiğinize Emin Olun", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
 
         }
 
@@ -581,6 +645,8 @@ namespace Hakediş
             isDoneWorkOrders.Clear();
             payments.Clear();
             ReadWorkOrderJson();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void MainListFilterClick(object sender, EventArgs e)
@@ -609,6 +675,8 @@ namespace Hakediş
             isDoneWorkOrders.Clear();
             payments.Clear();
             ReadWorkOrderJson();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void HideMainItem()
@@ -617,6 +685,8 @@ namespace Hakediş
             dataGridView2.Visible = false;
             groupBox1.Visible = false;
             groupBox2.Visible = false;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void btnCreateWorkReport_Click(object sender, EventArgs e)
         {
@@ -631,7 +701,8 @@ namespace Hakediş
                 workOrderReportForm.BringToFront();
                 workOrderReportForm.Show();
             }
-           
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void toolStripBtnBackup_Click(object sender, EventArgs e)
@@ -650,7 +721,8 @@ namespace Hakediş
 
                 throw;
             }
-
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void timerBackupStat_Tick(object sender, EventArgs e)
@@ -663,11 +735,16 @@ namespace Hakediş
                 toolStripProgressBarBackup.Value = 0;
                 toolStripProgressBarBackup.Visible = false;
             }
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
         {
+            File.Delete(pathApplication + @"\check.txt");
             Application.Exit();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
 
@@ -679,12 +756,13 @@ namespace Hakediş
             weatherCityKey = "323784";
             weatherCityName = ankaraToolStripMenuItem.Text;
             ReadWeather(weatherCityKey, weatherCityName);
-          //  ankaraToolStripMenuItem.CheckState = CheckState.Checked;
+            //  ankaraToolStripMenuItem.CheckState = CheckState.Checked;
             //for (int i = 0; i < şehirToolStripMenuItem.DropDownItems.Count; i++)
             //{
             //    var item = şehirToolStripMenuItem.DropDownItems[i].Selected;
             //}
-          
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void izmirToolStripMenuItem_Click(object sender, EventArgs e)
@@ -692,49 +770,67 @@ namespace Hakediş
             weatherCityKey = "324294";
             weatherCityName = izmirToolStripMenuItem.Text;
             ReadWeather(weatherCityKey, weatherCityName);
-          //  izmirToolStripMenuItem.Checked = true;
+            //  izmirToolStripMenuItem.Checked = true;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void kocaeliToolStripMenuItem_Click(object sender, EventArgs e)
         {
             weatherCityKey = "742865";
             weatherCityName = kocaeliToolStripMenuItem.Text;
             ReadWeather(weatherCityKey, weatherCityName);
-          //  kocaeliToolStripMenuItem.Checked = true;
+            //  kocaeliToolStripMenuItem.Checked = true;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void antalyaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             weatherCityKey = "323777";
             weatherCityName = antalyaToolStripMenuItem.Text;
             ReadWeather(weatherCityKey, weatherCityName);
-           // antalyaToolStripMenuItem.Checked = true;
+            // antalyaToolStripMenuItem.Checked = true;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void bursaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             weatherCityKey = "750269";
             weatherCityName = bursaToolStripMenuItem.Text;
             ReadWeather(weatherCityKey, weatherCityName);
-          //  bursaToolStripMenuItem.Checked = true;
+            //  bursaToolStripMenuItem.Checked = true;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void konyaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             weatherCityKey = "306571";
             weatherCityName = konyaToolStripMenuItem.Text;
             ReadWeather(weatherCityKey, weatherCityName);
-          //  konyaToolStripMenuItem.Checked = true;
+            //  konyaToolStripMenuItem.Checked = true;
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
 
         private void yenileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ReadWeather(weatherCityKey, weatherCityName);
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
         private void istanbultoolStripMenuItem1_Click(object sender, EventArgs e)
         {
             weatherCityKey = "745042";
             weatherCityName = istanbultoolStripMenuItem1.Text;
             ReadWeather(weatherCityKey, weatherCityName);
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
+
         #endregion
 
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
 
+        }
     }
 }
