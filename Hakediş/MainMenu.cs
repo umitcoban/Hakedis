@@ -38,50 +38,70 @@ namespace Hakediş
         public string weatherCityName = "İstanbul";
         public MainMenu()
         {
+            CheckFilesAndFolders();
             InitializeComponent();
             ReadWeather(weatherCityKey,weatherCityName);
             ReadUserConfigData();
         }
         private void MainMenu_Load(object sender, EventArgs e)
         {
-            //CreateCurrentVersionFile();
-            //if (File.Exists(pathApplication+@"\check.txt"))
-            //{
-            //    File.Delete(pathApplication + @"\check.txt");
-            //}
-            //else
-            //{
-            //    var p = new Process();
-            //    p.StartInfo.FileName = appHakedisUpdaterPath;
-            //    p.Start();
-            //    Application.Exit();
-            //}
-            this.IsMdiContainer = true;
-            if (CheckAlreadyRunningApp.CheckApp())
+            try
             {
-                MessageBox.Show("Uygulama Zaten Şuanda Çalışmakta !","Uygulama Arka Planda Çalışıyor");
-                System.Diagnostics.Process.GetCurrentProcess().Kill();
+                int currentDay = (int)DateTime.Now.DayOfWeek;
+                string currentDayString = ((DaysOfWeek)currentDay).ToString();
+                CreateCurrentVersionFile();
+                CheckAndOpenUpdaterApp();
+                this.IsMdiContainer = true;
+                if (CheckAlreadyRunningApp.CheckApp())
+                {
+                    MessageBox.Show("Uygulama Zaten Şuanda Çalışmakta !", "Uygulama Arka Planda Çalışıyor");
+                    System.Diagnostics.Process.GetCurrentProcess().Kill();
+                }
+                this.Text = System.Environment.MachineName + "/ Hakedis /" + userTypeString + "/" + version;
+                BackupData(currentDayString);
+                //Form size belirleme
+                this.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
+                this.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
+                //
+                ReadWorkOrderJson();
+                //int remainingWeek = ;
+                DateInfoStatusApp();
+                CheckLastUpdateDate();
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
-            this.Text = System.Environment.MachineName + "/ Hakedis /" + userTypeString+"/"+version;
+            catch (Exception)
+            {
 
-            BackupData(DateTime.Now.ToString("dddd"));
-            //Form size belirleme
-            this.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
-            this.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
-            //
-            ReadWorkOrderJson();
-            int week = DateTime.Now.DayOfYear / 7;
-            //int remainingWeek = ;
-            lblDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
-            lblCurrentMonth.Text = "Şuan Yılın " + currentMonth.ToString()+ ". Ayında,";
-            lblCurrentWeek.Text = week + ". Haftasında, ";
-            lblCurrentDay.Text = DateTime.Now.ToString("dddd") + " Günündesiniz.";
-            lblRemainingWeek.Text = "Geriye " + (52 - week).ToString() + " Hafta Kaldı.";
-            CheckLastUpdateDate();
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
+                throw;
+            }
+         
         }
         #region Data İşlemleri
+        private void DateInfoStatusApp()
+        {
+            int week = DateTime.Now.DayOfYear / 7;
+            lblDate.Text = DateTime.Now.ToString("dd-MM-yyyy");
+            lblCurrentMonth.Text = "Şuan Yılın " + currentMonth.ToString() + ". Ayında,";
+            lblCurrentWeek.Text = week + ". Haftasında, ";
+            int currentDay = (int)DateTime.Now.DayOfWeek;
+            lblCurrentDay.Text = ((DaysOfWeek)currentDay).ToString() + " Günündesiniz.";
+            lblRemainingWeek.Text = "Geriye " + (52 - week).ToString() + " Hafta Kaldı.";
+        }
+        private void CheckAndOpenUpdaterApp()
+        {
+            if (File.Exists(pathApplication + @"\check.txt"))
+            {
+                File.Delete(pathApplication + @"\check.txt");
+            }
+            else
+            {
+                var p = new Process();
+                p.StartInfo.FileName = appHakedisUpdaterPath;
+                p.Start();
+                Application.Exit();
+            }
+        }
         private void CheckDataGridEmpty()
         {
             if (dataGridView1.Rows.Count > 0)
@@ -138,9 +158,11 @@ namespace Hakediş
                     dataGridView1.DataSource = currentWorkOrders.OrderBy(x => x.StartingDate).ToList();
                     }
                     dataGridView1.Columns[0].Visible = false;
+                    dataGridView1.Columns[2].Visible = false;
                     DataTableColumnNameChange.ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi", "Adam/Gün");
                     dataGridView1.Columns[3].DefaultCellStyle.Format = "dd/MM/yyyy";
                     dataGridView1.Columns[4].DefaultCellStyle.Format = "dd/MM/yyyy";
+                    dataGridView1.Columns[5].DefaultCellStyle.Format = "dd/MM/yyyy";
                 }
                 if (File.Exists(jsonPaymentsDataPath) && new FileInfo(jsonPaymentsDataPath).Length >0)
                 {
@@ -165,6 +187,18 @@ namespace Hakediş
             GC.WaitForPendingFinalizers();
         }
 
+        private void CheckFilesAndFolders()
+        {
+            if (File.Exists(pathApplication+@"/Newtonsoft.Json.dll")&& File.Exists(pathApplication + @"/FontAwesome.Sharp.dll"))
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("Uygulama Dosyaları Eksik Lütfen Kontrol Edin !","Dosya Eksik!",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                Application.Exit();
+            }
+        }
         public void CalculatePayments(List<WorkOrder> otherList, List<Payment> payments)
         {
             if (payments.Count != 0)
@@ -242,14 +276,17 @@ namespace Hakediş
         #region BackupData
         private void CheckLastUpdateDate()
         {
+            toolStripLblLastBackupDays.Visible = false;
             if (File.Exists(jsonMailUpdateDataPath) && new FileInfo(jsonMailUpdateDataPath).Length > 0)
             {
+                toolStripLblLastBackupDays.Visible = true;
                 List<UpdateMail> updateMails = new List<UpdateMail>();
                 updateMails = DataListing.ReadBackupInfo(jsonMailUpdateDataPath, updateMails);
                 var lastUpdate = updateMails[0].LastUpdateDate.Value;
                 var updateDate = updateMails[0].UpdateDate.ToString();
                 var nowDate = DateTime.Parse(DateTime.Now.ToString("dd-MM-yyyy"));
                 var remainingDate = (nowDate - lastUpdate).TotalDays;
+                toolStripLblLastBackupDays.Text = "Son Yedekleme "+remainingDate +" Gün Önce Yapıldı.";
                 if (remainingDate > 7 && CheckInternetControl() && Hakediş.Properties.Settings.Default.isAnyUpdate == false && lastUpdate != null)
                 {
                     DialogResult dialog = new DialogResult();
@@ -283,8 +320,8 @@ namespace Hakediş
                         var toEmail = updateMails[0].ToEmail;//Göndermek İstediğin Email Girişi
                         var email = updateMails[0].UserName;
                         var pass = updateMails[0].Password;
-                        var body = DateTime.Now.ToString() + " Güncellemesi" + Environment.NewLine + Application.CompanyName + " " + Application.ProductName + " App";
-                        var subject = "Hakediş" + DateTime.Now.ToString() + " Yedek Veri Güncellemesi";
+                        var body = DateTime.Now.ToString() + " Yedeklemesi " + Environment.NewLine + Application.CompanyName + " " + Application.ProductName + " App";
+                        var subject = "Hakediş " + DateTime.Now.ToString() + " Yedek Veri Güncellemesi";
                         if (ConnectAndSendMail.Email_Send(toEmail, body, subject, email, pass, jsonWorkOrderDataPath, jsonPaymentsDataPath))
                         {
                             Hakediş.Properties.Settings.Default.isAnyUpdate = true;
@@ -542,7 +579,6 @@ namespace Hakediş
             {
                 return false;
             }
-
         }
         #endregion
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

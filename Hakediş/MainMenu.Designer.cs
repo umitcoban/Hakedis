@@ -82,6 +82,8 @@ namespace Hakediş
             this.lblWeatherStat = new System.Windows.Forms.Label();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.timerBackupStat = new System.Windows.Forms.Timer(this.components);
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLblLastBackupDays = new System.Windows.Forms.ToolStripLabel();
             this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextWorkOrderList.SuspendLayout();
@@ -332,10 +334,12 @@ namespace Hakediş
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripProgressBarBackup,
-            this.toolStripBtnBackup});
-            this.toolStrip1.Location = new System.Drawing.Point(209, 552);
+            this.toolStripBtnBackup,
+            this.toolStripSeparator1,
+            this.toolStripLblLastBackupDays});
+            this.toolStrip1.Location = new System.Drawing.Point(209, 550);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(818, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(818, 27);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -351,8 +355,8 @@ namespace Hakediş
             this.toolStripBtnBackup.Image = ((System.Drawing.Image)(resources.GetObject("toolStripBtnBackup.Image")));
             this.toolStripBtnBackup.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripBtnBackup.Name = "toolStripBtnBackup";
-            this.toolStripBtnBackup.Size = new System.Drawing.Size(302, 22);
-            this.toolStripBtnBackup.Text = "(Güncelleme Mevcut) Güncellemek İçin Lütfen Tıklayın!";
+            this.toolStripBtnBackup.Size = new System.Drawing.Size(290, 24);
+            this.toolStripBtnBackup.Text = "(Yedekleme Mevcut) Yedeklemek İçin Lütfen Tıklayın!";
             this.toolStripBtnBackup.Visible = false;
             this.toolStripBtnBackup.Click += new System.EventHandler(this.toolStripBtnBackup_Click);
             // 
@@ -714,6 +718,17 @@ namespace Hakediş
             // 
             this.timerBackupStat.Tick += new System.EventHandler(this.timerBackupStat_Tick);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            // 
+            // toolStripLblLastBackupDays
+            // 
+            this.toolStripLblLastBackupDays.Name = "toolStripLblLastBackupDays";
+            this.toolStripLblLastBackupDays.Size = new System.Drawing.Size(86, 24);
+            this.toolStripLblLastBackupDays.Text = "toolStripLabel1";
+            // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -802,6 +817,8 @@ namespace Hakediş
         private System.Windows.Forms.ToolStripMenuItem konyaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem istanbultoolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem yenileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripLabel toolStripLblLastBackupDays;
     }
 }
 
