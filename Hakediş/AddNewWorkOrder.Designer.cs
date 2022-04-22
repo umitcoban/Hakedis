@@ -40,6 +40,8 @@ namespace Hakediş
             this.txtNewDesc = new System.Windows.Forms.RichTextBox();
             this.dateTimeNewFinish = new System.Windows.Forms.DateTimePicker();
             this.lblNewFinish = new System.Windows.Forms.Label();
+            this.txtID = new System.Windows.Forms.TextBox();
+            this.lblID = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericNewManDay)).BeginInit();
             this.SuspendLayout();
             // 
@@ -53,7 +55,7 @@ namespace Hakediş
             this.btnAddNewWorkOrder.IconChar = FontAwesome.Sharp.IconChar.UserPlus;
             this.btnAddNewWorkOrder.IconColor = System.Drawing.Color.White;
             this.btnAddNewWorkOrder.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnAddNewWorkOrder.Location = new System.Drawing.Point(0, 377);
+            this.btnAddNewWorkOrder.Location = new System.Drawing.Point(0, 435);
             this.btnAddNewWorkOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddNewWorkOrder.Name = "btnAddNewWorkOrder";
             this.btnAddNewWorkOrder.Size = new System.Drawing.Size(236, 67);
@@ -68,7 +70,7 @@ namespace Hakediş
             // 
             this.lblNewName.AutoSize = true;
             this.lblNewName.ForeColor = System.Drawing.Color.White;
-            this.lblNewName.Location = new System.Drawing.Point(2, 18);
+            this.lblNewName.Location = new System.Drawing.Point(0, 57);
             this.lblNewName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNewName.Name = "lblNewName";
             this.lblNewName.Size = new System.Drawing.Size(88, 15);
@@ -77,7 +79,7 @@ namespace Hakediş
             // 
             // txtNewName
             // 
-            this.txtNewName.Location = new System.Drawing.Point(5, 39);
+            this.txtNewName.Location = new System.Drawing.Point(3, 78);
             this.txtNewName.Name = "txtNewName";
             this.txtNewName.Size = new System.Drawing.Size(228, 21);
             this.txtNewName.TabIndex = 4;
@@ -86,7 +88,7 @@ namespace Hakediş
             // 
             this.lblNewDescription.AutoSize = true;
             this.lblNewDescription.ForeColor = System.Drawing.Color.White;
-            this.lblNewDescription.Location = new System.Drawing.Point(2, 71);
+            this.lblNewDescription.Location = new System.Drawing.Point(0, 110);
             this.lblNewDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNewDescription.Name = "lblNewDescription";
             this.lblNewDescription.Size = new System.Drawing.Size(119, 15);
@@ -97,7 +99,7 @@ namespace Hakediş
             // 
             this.lblNewFirstDate.AutoSize = true;
             this.lblNewFirstDate.ForeColor = System.Drawing.Color.White;
-            this.lblNewFirstDate.Location = new System.Drawing.Point(5, 197);
+            this.lblNewFirstDate.Location = new System.Drawing.Point(3, 236);
             this.lblNewFirstDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNewFirstDate.Name = "lblNewFirstDate";
             this.lblNewFirstDate.Size = new System.Drawing.Size(181, 15);
@@ -107,7 +109,7 @@ namespace Hakediş
             // dateTimeNewFirst
             // 
             this.dateTimeNewFirst.CustomFormat = "0:dd/MM/yyyy";
-            this.dateTimeNewFirst.Location = new System.Drawing.Point(8, 224);
+            this.dateTimeNewFirst.Location = new System.Drawing.Point(6, 263);
             this.dateTimeNewFirst.Name = "dateTimeNewFirst";
             this.dateTimeNewFirst.Size = new System.Drawing.Size(228, 21);
             this.dateTimeNewFirst.TabIndex = 8;
@@ -117,7 +119,7 @@ namespace Hakediş
             // 
             this.lblNewManDay.AutoSize = true;
             this.lblNewManDay.ForeColor = System.Drawing.Color.White;
-            this.lblNewManDay.Location = new System.Drawing.Point(5, 324);
+            this.lblNewManDay.Location = new System.Drawing.Point(3, 363);
             this.lblNewManDay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNewManDay.Name = "lblNewManDay";
             this.lblNewManDay.Size = new System.Drawing.Size(185, 15);
@@ -132,7 +134,7 @@ namespace Hakediş
             0,
             0,
             65536});
-            this.numericNewManDay.Location = new System.Drawing.Point(8, 353);
+            this.numericNewManDay.Location = new System.Drawing.Point(6, 392);
             this.numericNewManDay.Name = "numericNewManDay";
             this.numericNewManDay.Size = new System.Drawing.Size(227, 21);
             this.numericNewManDay.TabIndex = 12;
@@ -141,7 +143,7 @@ namespace Hakediş
             // 
             // txtNewDesc
             // 
-            this.txtNewDesc.Location = new System.Drawing.Point(5, 99);
+            this.txtNewDesc.Location = new System.Drawing.Point(3, 138);
             this.txtNewDesc.Name = "txtNewDesc";
             this.txtNewDesc.Size = new System.Drawing.Size(228, 86);
             this.txtNewDesc.TabIndex = 13;
@@ -150,7 +152,7 @@ namespace Hakediş
             // dateTimeNewFinish
             // 
             this.dateTimeNewFinish.CustomFormat = "0:dd/MM/yyyy";
-            this.dateTimeNewFinish.Location = new System.Drawing.Point(8, 286);
+            this.dateTimeNewFinish.Location = new System.Drawing.Point(6, 325);
             this.dateTimeNewFinish.Name = "dateTimeNewFinish";
             this.dateTimeNewFinish.Size = new System.Drawing.Size(228, 21);
             this.dateTimeNewFinish.TabIndex = 15;
@@ -159,19 +161,40 @@ namespace Hakediş
             // 
             this.lblNewFinish.AutoSize = true;
             this.lblNewFinish.ForeColor = System.Drawing.Color.White;
-            this.lblNewFinish.Location = new System.Drawing.Point(5, 258);
+            this.lblNewFinish.Location = new System.Drawing.Point(3, 297);
             this.lblNewFinish.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNewFinish.Name = "lblNewFinish";
             this.lblNewFinish.Size = new System.Drawing.Size(161, 15);
             this.lblNewFinish.TabIndex = 14;
             this.lblNewFinish.Text = "Teslim Tarihi Giriniz (*):";
             // 
+            // txtID
+            // 
+            this.txtID.Location = new System.Drawing.Point(2, 26);
+            this.txtID.Name = "txtID";
+            this.txtID.Size = new System.Drawing.Size(232, 21);
+            this.txtID.TabIndex = 17;
+            this.txtID.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtID_KeyPress);
+            // 
+            // lblID
+            // 
+            this.lblID.AutoSize = true;
+            this.lblID.ForeColor = System.Drawing.Color.White;
+            this.lblID.Location = new System.Drawing.Point(0, 8);
+            this.lblID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblID.Name = "lblID";
+            this.lblID.Size = new System.Drawing.Size(75, 15);
+            this.lblID.TabIndex = 16;
+            this.lblID.Text = "ID Giriniz :";
+            // 
             // AddNewWorkOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(236, 444);
+            this.ClientSize = new System.Drawing.Size(236, 502);
+            this.Controls.Add(this.txtID);
+            this.Controls.Add(this.lblID);
             this.Controls.Add(this.dateTimeNewFinish);
             this.Controls.Add(this.lblNewFinish);
             this.Controls.Add(this.txtNewDesc);
@@ -212,5 +235,7 @@ namespace Hakediş
         private System.Windows.Forms.RichTextBox txtNewDesc;
         private System.Windows.Forms.DateTimePicker dateTimeNewFinish;
         private System.Windows.Forms.Label lblNewFinish;
+        private System.Windows.Forms.TextBox txtID;
+        private System.Windows.Forms.Label lblID;
     }
 }

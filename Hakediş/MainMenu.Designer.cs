@@ -49,6 +49,9 @@ namespace Hakediş
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripProgressBarBackup = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripBtnBackup = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLblLastBackupDays = new System.Windows.Forms.ToolStripLabel();
+            this.ıconToolStripBtnBackupManual = new FontAwesome.Sharp.IconToolStripButton();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuNotify = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.uygulamayıKapatToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,8 +85,10 @@ namespace Hakediş
             this.lblWeatherStat = new System.Windows.Forms.Label();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.timerBackupStat = new System.Windows.Forms.Timer(this.components);
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLblLastBackupDays = new System.Windows.Forms.ToolStripLabel();
+            this.txtSearchWorkOrder = new System.Windows.Forms.TextBox();
+            this.cmbWorkOrderFilter = new System.Windows.Forms.ComboBox();
+            this.dateTimePickerStartWorkOrder = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerFinishWorkOrder = new System.Windows.Forms.DateTimePicker();
             this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.contextWorkOrderList.SuspendLayout();
@@ -109,7 +114,7 @@ namespace Hakediş
             this.panelMain.Location = new System.Drawing.Point(0, 0);
             this.panelMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.panelMain.Name = "panelMain";
-            this.panelMain.Size = new System.Drawing.Size(209, 577);
+            this.panelMain.Size = new System.Drawing.Size(209, 598);
             this.panelMain.TabIndex = 0;
             // 
             // btnUpdatePayment
@@ -145,7 +150,7 @@ namespace Hakediş
             this.btnOptions.IconColor = System.Drawing.Color.White;
             this.btnOptions.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnOptions.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOptions.Location = new System.Drawing.Point(0, 510);
+            this.btnOptions.Location = new System.Drawing.Point(0, 531);
             this.btnOptions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnOptions.Name = "btnOptions";
             this.btnOptions.Size = new System.Drawing.Size(209, 67);
@@ -198,6 +203,7 @@ namespace Hakediş
             this.btnCreateWorkReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCreateWorkReport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCreateWorkReport.UseVisualStyleBackColor = true;
+            this.btnCreateWorkReport.Visible = false;
             this.btnCreateWorkReport.Click += new System.EventHandler(this.btnCreateWorkReport_Click);
             // 
             // btnUpdateWorkOrder
@@ -264,7 +270,7 @@ namespace Hakediş
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.ContextMenuStrip = this.contextWorkOrderList;
-            this.dataGridView1.Location = new System.Drawing.Point(5, 13);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 13);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
@@ -274,10 +280,11 @@ namespace Hakediş
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(473, 401);
+            this.dataGridView1.Size = new System.Drawing.Size(541, 391);
             this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
+            this.dataGridView1.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dataGridView1_RowStateChanged);
+            this.dataGridView1.RowValidating += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dataGridView1_RowValidating);
             // 
             // contextWorkOrderList
             // 
@@ -313,7 +320,7 @@ namespace Hakediş
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(712, 142);
+            this.dataGridView2.Location = new System.Drawing.Point(780, 149);
             this.dataGridView2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
@@ -324,7 +331,7 @@ namespace Hakediş
             this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView2.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(301, 401);
+            this.dataGridView2.Size = new System.Drawing.Size(301, 415);
             this.dataGridView2.TabIndex = 0;
             this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellDoubleClick);
             // 
@@ -336,10 +343,11 @@ namespace Hakediş
             this.toolStripProgressBarBackup,
             this.toolStripBtnBackup,
             this.toolStripSeparator1,
-            this.toolStripLblLastBackupDays});
-            this.toolStrip1.Location = new System.Drawing.Point(209, 550);
+            this.toolStripLblLastBackupDays,
+            this.ıconToolStripBtnBackupManual});
+            this.toolStrip1.Location = new System.Drawing.Point(209, 573);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(818, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(886, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -359,6 +367,31 @@ namespace Hakediş
             this.toolStripBtnBackup.Text = "(Yedekleme Mevcut) Yedeklemek İçin Lütfen Tıklayın!";
             this.toolStripBtnBackup.Visible = false;
             this.toolStripBtnBackup.Click += new System.EventHandler(this.toolStripBtnBackup_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLblLastBackupDays
+            // 
+            this.toolStripLblLastBackupDays.Name = "toolStripLblLastBackupDays";
+            this.toolStripLblLastBackupDays.Size = new System.Drawing.Size(86, 24);
+            this.toolStripLblLastBackupDays.Text = "toolStripLabel1";
+            this.toolStripLblLastBackupDays.Visible = false;
+            // 
+            // ıconToolStripBtnBackupManual
+            // 
+            this.ıconToolStripBtnBackupManual.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.ıconToolStripBtnBackupManual.IconChar = FontAwesome.Sharp.IconChar.Upload;
+            this.ıconToolStripBtnBackupManual.IconColor = System.Drawing.Color.Black;
+            this.ıconToolStripBtnBackupManual.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ıconToolStripBtnBackupManual.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ıconToolStripBtnBackupManual.Name = "ıconToolStripBtnBackupManual";
+            this.ıconToolStripBtnBackupManual.Size = new System.Drawing.Size(24, 24);
+            this.ıconToolStripBtnBackupManual.Text = "Yedekle";
+            this.ıconToolStripBtnBackupManual.Visible = false;
+            this.ıconToolStripBtnBackupManual.Click += new System.EventHandler(this.ıconToolStripBtnBackupManual_Click);
             // 
             // notifyIcon1
             // 
@@ -398,9 +431,9 @@ namespace Hakediş
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Location = new System.Drawing.Point(214, 129);
+            this.groupBox1.Location = new System.Drawing.Point(214, 161);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(485, 420);
+            this.groupBox1.Size = new System.Drawing.Size(553, 409);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             // 
@@ -408,9 +441,9 @@ namespace Hakediş
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Location = new System.Drawing.Point(705, 129);
+            this.groupBox2.Location = new System.Drawing.Point(773, 129);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(315, 420);
+            this.groupBox2.Size = new System.Drawing.Size(315, 441);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             // 
@@ -435,7 +468,7 @@ namespace Hakediş
             this.panelStat.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelStat.Location = new System.Drawing.Point(209, 0);
             this.panelStat.Name = "panelStat";
-            this.panelStat.Size = new System.Drawing.Size(818, 129);
+            this.panelStat.Size = new System.Drawing.Size(886, 129);
             this.panelStat.TabIndex = 6;
             // 
             // splitter1
@@ -443,7 +476,7 @@ namespace Hakediş
             this.splitter1.Dock = System.Windows.Forms.DockStyle.Top;
             this.splitter1.Location = new System.Drawing.Point(227, 129);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(357, 129);
+            this.splitter1.Size = new System.Drawing.Size(425, 129);
             this.splitter1.TabIndex = 16;
             this.splitter1.TabStop = false;
             // 
@@ -458,7 +491,7 @@ namespace Hakediş
             this.btnGeneralStat.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnGeneralStat.Location = new System.Drawing.Point(227, 0);
             this.btnGeneralStat.Name = "btnGeneralStat";
-            this.btnGeneralStat.Size = new System.Drawing.Size(357, 129);
+            this.btnGeneralStat.Size = new System.Drawing.Size(425, 129);
             this.btnGeneralStat.TabIndex = 18;
             this.btnGeneralStat.Text = "Durumunuz : Stabil.";
             this.btnGeneralStat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -553,7 +586,7 @@ namespace Hakediş
             this.lblTemperature.ContextMenuStrip = this.contextMenuWeather;
             this.lblTemperature.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblTemperature.ForeColor = System.Drawing.Color.White;
-            this.lblTemperature.Location = new System.Drawing.Point(675, 108);
+            this.lblTemperature.Location = new System.Drawing.Point(743, 108);
             this.lblTemperature.Name = "lblTemperature";
             this.lblTemperature.Size = new System.Drawing.Size(116, 17);
             this.lblTemperature.TabIndex = 5;
@@ -645,7 +678,7 @@ namespace Hakediş
             this.lblTemperatureStat.BackColor = System.Drawing.Color.RoyalBlue;
             this.lblTemperatureStat.ContextMenuStrip = this.contextMenuWeather;
             this.lblTemperatureStat.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblTemperatureStat.Location = new System.Drawing.Point(621, 109);
+            this.lblTemperatureStat.Location = new System.Drawing.Point(689, 109);
             this.lblTemperatureStat.Name = "lblTemperatureStat";
             this.lblTemperatureStat.Size = new System.Drawing.Size(57, 13);
             this.lblTemperatureStat.TabIndex = 4;
@@ -659,7 +692,7 @@ namespace Hakediş
             this.lblWeather.ContextMenuStrip = this.contextMenuWeather;
             this.lblWeather.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblWeather.ForeColor = System.Drawing.Color.White;
-            this.lblWeather.Location = new System.Drawing.Point(674, 88);
+            this.lblWeather.Location = new System.Drawing.Point(742, 88);
             this.lblWeather.Name = "lblWeather";
             this.lblWeather.Size = new System.Drawing.Size(102, 15);
             this.lblWeather.TabIndex = 3;
@@ -679,7 +712,7 @@ namespace Hakediş
             this.btnWeatherIcon.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnWeatherIcon.IconSize = 100;
             this.btnWeatherIcon.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnWeatherIcon.Location = new System.Drawing.Point(584, 0);
+            this.btnWeatherIcon.Location = new System.Drawing.Point(652, 0);
             this.btnWeatherIcon.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnWeatherIcon.Name = "btnWeatherIcon";
             this.btnWeatherIcon.Size = new System.Drawing.Size(230, 90);
@@ -696,7 +729,7 @@ namespace Hakediş
             this.lblWeatherStat.BackColor = System.Drawing.Color.RoyalBlue;
             this.lblWeatherStat.ContextMenuStrip = this.contextMenuWeather;
             this.lblWeatherStat.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblWeatherStat.Location = new System.Drawing.Point(583, 88);
+            this.lblWeatherStat.Location = new System.Drawing.Point(651, 88);
             this.lblWeatherStat.Name = "lblWeatherStat";
             this.lblWeatherStat.Size = new System.Drawing.Size(91, 13);
             this.lblWeatherStat.TabIndex = 1;
@@ -708,7 +741,7 @@ namespace Hakediş
             this.splitter2.ContextMenuStrip = this.contextMenuWeather;
             this.splitter2.Cursor = System.Windows.Forms.Cursors.Default;
             this.splitter2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.splitter2.Location = new System.Drawing.Point(584, 0);
+            this.splitter2.Location = new System.Drawing.Point(652, 0);
             this.splitter2.Name = "splitter2";
             this.splitter2.Size = new System.Drawing.Size(234, 129);
             this.splitter2.TabIndex = 7;
@@ -718,23 +751,51 @@ namespace Hakediş
             // 
             this.timerBackupStat.Tick += new System.EventHandler(this.timerBackupStat_Tick);
             // 
-            // toolStripSeparator1
+            // txtSearchWorkOrder
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
+            this.txtSearchWorkOrder.Location = new System.Drawing.Point(214, 133);
+            this.txtSearchWorkOrder.Name = "txtSearchWorkOrder";
+            this.txtSearchWorkOrder.Size = new System.Drawing.Size(191, 21);
+            this.txtSearchWorkOrder.TabIndex = 8;
+            this.txtSearchWorkOrder.TextChanged += new System.EventHandler(this.txtSearchWorkOrder_TextChanged);
             // 
-            // toolStripLblLastBackupDays
+            // cmbWorkOrderFilter
             // 
-            this.toolStripLblLastBackupDays.Name = "toolStripLblLastBackupDays";
-            this.toolStripLblLastBackupDays.Size = new System.Drawing.Size(86, 24);
-            this.toolStripLblLastBackupDays.Text = "toolStripLabel1";
+            this.cmbWorkOrderFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbWorkOrderFilter.FormattingEnabled = true;
+            this.cmbWorkOrderFilter.Location = new System.Drawing.Point(608, 132);
+            this.cmbWorkOrderFilter.Name = "cmbWorkOrderFilter";
+            this.cmbWorkOrderFilter.Size = new System.Drawing.Size(133, 23);
+            this.cmbWorkOrderFilter.TabIndex = 9;
+            this.cmbWorkOrderFilter.SelectedIndexChanged += new System.EventHandler(this.cmbWorkOrderFilter_SelectedIndexChanged);
+            // 
+            // dateTimePickerStartWorkOrder
+            // 
+            this.dateTimePickerStartWorkOrder.Location = new System.Drawing.Point(216, 133);
+            this.dateTimePickerStartWorkOrder.Name = "dateTimePickerStartWorkOrder";
+            this.dateTimePickerStartWorkOrder.Size = new System.Drawing.Size(189, 21);
+            this.dateTimePickerStartWorkOrder.TabIndex = 10;
+            this.dateTimePickerStartWorkOrder.Validating += new System.ComponentModel.CancelEventHandler(this.dateTimePickerStartWorkOrder_Validating);
+            this.dateTimePickerStartWorkOrder.Validated += new System.EventHandler(this.dateTimePickerStartWorkOrder_Validated);
+            // 
+            // dateTimePickerFinishWorkOrder
+            // 
+            this.dateTimePickerFinishWorkOrder.Location = new System.Drawing.Point(411, 133);
+            this.dateTimePickerFinishWorkOrder.Name = "dateTimePickerFinishWorkOrder";
+            this.dateTimePickerFinishWorkOrder.Size = new System.Drawing.Size(191, 21);
+            this.dateTimePickerFinishWorkOrder.TabIndex = 11;
+            this.dateTimePickerFinishWorkOrder.Validating += new System.ComponentModel.CancelEventHandler(this.dateTimePickerFinishWorkOrder_Validating);
             // 
             // MainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(1027, 577);
+            this.ClientSize = new System.Drawing.Size(1095, 598);
+            this.Controls.Add(this.dateTimePickerFinishWorkOrder);
+            this.Controls.Add(this.dateTimePickerStartWorkOrder);
+            this.Controls.Add(this.cmbWorkOrderFilter);
+            this.Controls.Add(this.txtSearchWorkOrder);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.panelStat);
@@ -819,6 +880,11 @@ namespace Hakediş
         private System.Windows.Forms.ToolStripMenuItem yenileToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLblLastBackupDays;
+        private FontAwesome.Sharp.IconToolStripButton ıconToolStripBtnBackupManual;
+        private System.Windows.Forms.TextBox txtSearchWorkOrder;
+        private System.Windows.Forms.ComboBox cmbWorkOrderFilter;
+        private System.Windows.Forms.DateTimePicker dateTimePickerStartWorkOrder;
+        private System.Windows.Forms.DateTimePicker dateTimePickerFinishWorkOrder;
     }
 }
 

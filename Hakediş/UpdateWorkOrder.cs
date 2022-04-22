@@ -33,7 +33,7 @@ namespace Hakediş
 
         private void UpdateWorkOrder_Load(object sender, EventArgs e)
         {
-            this.MaximumSize = new Size(262, 492);
+            this.MaximumSize = new Size(262, 512);
             try
             {
                 ReadJson();
@@ -51,6 +51,7 @@ namespace Hakediş
                 txtUpdateDesc.Text = txtDesc;
                 dateTimeUpdateFirst.Value = startDate.Value;
                 dateTimeNewFinish.Value = finishDate.Value;
+                txtUpdateID.Text = idIndex.ToString();
                 txtUpdateMan.Text = ManDay.ToString();
                 if (expiredDate != null)
                 {
@@ -115,34 +116,7 @@ namespace Hakediş
 
         #endregion
 
-        //private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        //{
-        //    try
-        //    {
-        //        if (dataGridView1.CurrentRow.Cells[5].Value != null)
-        //        {
-        //            chckbxIsWorkFinished.Checked = true;
-        //        }
-        //        else
-        //        {
-        //            chckbxIsWorkFinished.Checked = false;
-        //        }
-        //        idIndex = int.Parse(dataGridView1.CurrentRow.Cells[0].Value.ToString());
-        //        txtUpdateName.Text = dataGridView1.CurrentRow.Cells[1].Value.ToString();
-        //        txtUpdateDesc.Text = dataGridView1.CurrentRow.Cells[2].Value.ToString();
-        //        if (dataGridView1.CurrentRow.Cells[3].Value != null)
-        //            dateTimeUpdateFirst.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[3].Value.ToString());
-        //        if (dataGridView1.CurrentRow.Cells[4].Value != null)
-        //            dateTimeNewFinish.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[4].Value.ToString());
-        //        txtUpdateMan.Text = dataGridView1.CurrentRow.Cells[6].Value.ToString();
-        //        if (dataGridView1.CurrentRow.Cells[5].Value != null)
-        //            dateTimeUpdateExpired.Value = DateTime.Parse(dataGridView1.CurrentRow.Cells[5].Value.ToString());
-        //    }
-        //    catch (Exception exa)
-        //    {
-        //        MessageBox.Show(exa.Message);
-        //    }
-        //}
+   
 
         private void btnAddNewWorkOrder_Click(object sender, EventArgs e)
         {
@@ -151,6 +125,7 @@ namespace Hakediş
                 try
                 {
                     int selectedID = workOrders.FindIndex(x => x.ID == idIndex);
+                    workOrders[selectedID].ID = int.Parse(txtUpdateID.Text);
                     workOrders[selectedID].Name = txtUpdateName.Text;
                     workOrders[selectedID].Description = txtUpdateDesc.Text;
                     workOrders[selectedID].StartingDate = dateTimeUpdateFirst.Value;
@@ -231,18 +206,7 @@ namespace Hakediş
 
         private void DateTimePickerValueChange(object sender, EventArgs e)
         {
-            //DateTimePicker dateTimePicker = (DateTimePicker)sender;
-            //switch (dateTimePicker.Name)
-            //{
-            //    case "dateTimeUpdateFirst":
-            //        dateTimeUpdateExpired.MinDate = dateTimeUpdateFirst.Value.AddDays(-5);
-            //        break;
-            //    case "dateTimeNewFinish":
-            //        dateTimeNewFinish.MinDate = dateTimeUpdateExpired.Value;
-            //        break;
-            //    default:
-            //        break;
-            //}
+
         }
     }
 }

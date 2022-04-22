@@ -36,7 +36,6 @@ namespace Hakediş
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnExportGraphImage = new FontAwesome.Sharp.IconButton();
@@ -50,6 +49,11 @@ namespace Hakediş
             this.lblDetailFirstDate = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.tabPageWorkOrder = new System.Windows.Forms.TabPage();
+            this.panelWorkOrderReportInfo = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.ıconPictureBox1 = new FontAwesome.Sharp.IconPictureBox();
+            this.ıconPictureBox2 = new FontAwesome.Sharp.IconPictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPagePayment = new System.Windows.Forms.TabPage();
@@ -59,6 +63,10 @@ namespace Hakediş
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.tabPageWorkOrder.SuspendLayout();
+            this.panelWorkOrderReportInfo.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ıconPictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ıconPictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPagePayment.SuspendLayout();
@@ -81,7 +89,7 @@ namespace Hakediş
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(255, 550);
+            this.panel1.Size = new System.Drawing.Size(255, 673);
             this.panel1.TabIndex = 1;
             // 
             // btnExportGraphImage
@@ -109,7 +117,6 @@ namespace Hakediş
             // btnExportPDF
             // 
             this.btnExportPDF.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnExportPDF.Enabled = false;
             this.btnExportPDF.FlatAppearance.BorderSize = 0;
             this.btnExportPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExportPDF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -127,7 +134,7 @@ namespace Hakediş
             this.btnExportPDF.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnExportPDF.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnExportPDF.UseVisualStyleBackColor = true;
-            this.btnExportPDF.Visible = false;
+            this.btnExportPDF.Click += new System.EventHandler(this.btnExportPDF_Click);
             // 
             // btnExtractExcell
             // 
@@ -150,6 +157,7 @@ namespace Hakediş
             this.btnExtractExcell.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnExtractExcell.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnExtractExcell.UseVisualStyleBackColor = true;
+            this.btnExtractExcell.Visible = false;
             this.btnExtractExcell.Click += new System.EventHandler(this.btnExtractExcell_Click);
             // 
             // btnSearchWorkOrder
@@ -184,7 +192,7 @@ namespace Hakediş
             this.btnAddNewWorkOrder.IconChar = FontAwesome.Sharp.IconChar.WindowClose;
             this.btnAddNewWorkOrder.IconColor = System.Drawing.Color.Red;
             this.btnAddNewWorkOrder.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnAddNewWorkOrder.Location = new System.Drawing.Point(0, 494);
+            this.btnAddNewWorkOrder.Location = new System.Drawing.Point(0, 617);
             this.btnAddNewWorkOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddNewWorkOrder.Name = "btnAddNewWorkOrder";
             this.btnAddNewWorkOrder.Size = new System.Drawing.Size(255, 56);
@@ -257,33 +265,99 @@ namespace Hakediş
             this.chart1.Location = new System.Drawing.Point(3, 208);
             this.chart1.Name = "chart1";
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series1.Legend = "Legend1";
             series1.Name = "İş Emirleri";
+            series1.YValuesPerPoint = 6;
             this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(735, 320);
+            this.chart1.Size = new System.Drawing.Size(953, 443);
             this.chart1.TabIndex = 4;
             this.chart1.Text = "chart1";
             this.chart1.Visible = false;
             // 
             // tabPageWorkOrder
             // 
+            this.tabPageWorkOrder.Controls.Add(this.panelWorkOrderReportInfo);
             this.tabPageWorkOrder.Controls.Add(this.chart1);
             this.tabPageWorkOrder.Controls.Add(this.dataGridView1);
             this.tabPageWorkOrder.Location = new System.Drawing.Point(4, 24);
             this.tabPageWorkOrder.Name = "tabPageWorkOrder";
             this.tabPageWorkOrder.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWorkOrder.Size = new System.Drawing.Size(741, 510);
+            this.tabPageWorkOrder.Size = new System.Drawing.Size(959, 633);
             this.tabPageWorkOrder.TabIndex = 0;
             this.tabPageWorkOrder.Text = "İş Emirleri";
             this.tabPageWorkOrder.UseVisualStyleBackColor = true;
+            // 
+            // panelWorkOrderReportInfo
+            // 
+            this.panelWorkOrderReportInfo.BackColor = System.Drawing.Color.Navy;
+            this.panelWorkOrderReportInfo.Controls.Add(this.tableLayoutPanel1);
+            this.panelWorkOrderReportInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelWorkOrderReportInfo.Location = new System.Drawing.Point(3, 3);
+            this.panelWorkOrderReportInfo.Name = "panelWorkOrderReportInfo";
+            this.panelWorkOrderReportInfo.Size = new System.Drawing.Size(953, 199);
+            this.panelWorkOrderReportInfo.TabIndex = 6;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 14.46674F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 85.53326F));
+            this.tableLayoutPanel1.Controls.Add(this.ıconPictureBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.ıconPictureBox2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label1, 1, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(947, 185);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // ıconPictureBox1
+            // 
+            this.ıconPictureBox1.BackColor = System.Drawing.Color.Navy;
+            this.ıconPictureBox1.IconChar = FontAwesome.Sharp.IconChar.Neuter;
+            this.ıconPictureBox1.IconColor = System.Drawing.Color.White;
+            this.ıconPictureBox1.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ıconPictureBox1.IconSize = 74;
+            this.ıconPictureBox1.Location = new System.Drawing.Point(3, 3);
+            this.ıconPictureBox1.Name = "ıconPictureBox1";
+            this.ıconPictureBox1.Size = new System.Drawing.Size(123, 74);
+            this.ıconPictureBox1.TabIndex = 0;
+            this.ıconPictureBox1.TabStop = false;
+            // 
+            // ıconPictureBox2
+            // 
+            this.ıconPictureBox2.BackColor = System.Drawing.Color.Navy;
+            this.ıconPictureBox2.IconChar = FontAwesome.Sharp.IconChar.Neuter;
+            this.ıconPictureBox2.IconColor = System.Drawing.Color.White;
+            this.ıconPictureBox2.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ıconPictureBox2.IconSize = 74;
+            this.ıconPictureBox2.Location = new System.Drawing.Point(3, 95);
+            this.ıconPictureBox2.Name = "ıconPictureBox2";
+            this.ıconPictureBox2.Size = new System.Drawing.Size(123, 74);
+            this.ıconPictureBox2.TabIndex = 1;
+            this.ıconPictureBox2.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(141, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(803, 57);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "sdklşgjsdşlgksdklgşlsksşdlgsdşlfjsdşlfjsdgljsdgşljsdglsdjgklsdjgsdlkgjsdklgjsdgls" +
+    "djglsdkjgsdklgjsdlkgjsdg\r\nsdgkjsdklgjsdglksdjglsdjgsdlkgjsdlkgjsdlgkjsdlgksdjglk" +
+    "sdj";
             // 
             // dataGridView1
             // 
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCellsExceptHeaders;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Top;
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dataGridView1.MultiSelect = false;
@@ -294,7 +368,7 @@ namespace Hakediş
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(735, 199);
+            this.dataGridView1.Size = new System.Drawing.Size(399, 199);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.Visible = false;
             // 
@@ -308,7 +382,7 @@ namespace Hakediş
             this.tabControl1.Location = new System.Drawing.Point(257, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(749, 538);
+            this.tabControl1.Size = new System.Drawing.Size(967, 661);
             this.tabControl1.TabIndex = 6;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -318,7 +392,7 @@ namespace Hakediş
             this.tabPagePayment.Controls.Add(this.dataGridView2);
             this.tabPagePayment.Location = new System.Drawing.Point(4, 24);
             this.tabPagePayment.Name = "tabPagePayment";
-            this.tabPagePayment.Size = new System.Drawing.Size(741, 510);
+            this.tabPagePayment.Size = new System.Drawing.Size(959, 633);
             this.tabPagePayment.TabIndex = 1;
             this.tabPagePayment.Text = "Ödemeler";
             this.tabPagePayment.UseVisualStyleBackColor = true;
@@ -335,16 +409,10 @@ namespace Hakediş
             this.chart2.Location = new System.Drawing.Point(3, 205);
             this.chart2.Name = "chart2";
             series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series2.Legend = "Legend1";
-            series2.Name = "İş Emirleri";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
-            series3.Legend = "Legend1";
-            series3.Name = "Ödemeler";
+            series2.Name = "Ödemeler";
             this.chart2.Series.Add(series2);
-            this.chart2.Series.Add(series3);
-            this.chart2.Size = new System.Drawing.Size(735, 302);
+            this.chart2.Size = new System.Drawing.Size(845, 326);
             this.chart2.TabIndex = 7;
             this.chart2.Text = "chart2";
             this.chart2.Visible = false;
@@ -365,7 +433,7 @@ namespace Hakediş
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopLeft;
             this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.Size = new System.Drawing.Size(741, 199);
+            this.dataGridView2.Size = new System.Drawing.Size(959, 199);
             this.dataGridView2.TabIndex = 6;
             this.dataGridView2.Visible = false;
             // 
@@ -374,7 +442,7 @@ namespace Hakediş
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(1011, 550);
+            this.ClientSize = new System.Drawing.Size(1229, 673);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
@@ -395,6 +463,11 @@ namespace Hakediş
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.tabPageWorkOrder.ResumeLayout(false);
+            this.panelWorkOrderReportInfo.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ıconPictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ıconPictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPagePayment.ResumeLayout(false);
@@ -424,5 +497,10 @@ namespace Hakediş
         private FontAwesome.Sharp.IconButton btnExportPDF;
         private FontAwesome.Sharp.IconButton btnExtractExcell;
         private System.Windows.Forms.SaveFileDialog saveFileDiaChart1;
+        private System.Windows.Forms.Panel panelWorkOrderReportInfo;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private FontAwesome.Sharp.IconPictureBox ıconPictureBox1;
+        private FontAwesome.Sharp.IconPictureBox ıconPictureBox2;
+        private System.Windows.Forms.Label label1;
     }
 }

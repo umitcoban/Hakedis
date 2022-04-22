@@ -31,6 +31,7 @@ namespace Hakediş
         {
             try
             {
+
                 WorkOrder workOrder = new WorkOrder();
                 workOrder.Name = txtNewName.Text;
                 workOrder.Description = txtNewDesc.Text;
@@ -38,14 +39,22 @@ namespace Hakediş
                 workOrder.ExpiredDate = null;
                 workOrder.ManOfDay = double.Parse(numericNewManDay.Value.ToString());
                 workOrder.FinishedDate = dateTimeNewFinish.Value;
-                workOrder.ID = idIndex;
-                workOrders.Add(workOrder);
-                CreateJsonFile.CreateNewWorkOrdersJsonFile(workOrders,jsonWorkOrderDataPath);
-                //string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(workOrders);
-                //File.WriteAllText(jsonWorkOrderDataPath, jsonData);
-                MessageBox.Show("Yeni İş Emri Başarılı Bir Şekilde Eklendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                mainMenu.UpdateDataList();
-                this.Close();
+                workOrder.ID = int.Parse(txtID.Text);
+                if (workOrders.Where(x=> x.ID == idIndex).FirstOrDefault().ID != idIndex)
+                {
+                    workOrders.Add(workOrder);
+                    CreateJsonFile.CreateNewWorkOrdersJsonFile(workOrders, jsonWorkOrderDataPath);
+                    //string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(workOrders);
+                    //File.WriteAllText(jsonWorkOrderDataPath, jsonData);
+                    MessageBox.Show("Yeni İş Emri Başarılı Bir Şekilde Eklendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    mainMenu.UpdateDataList();
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Bu ID Daha Önce Kullanılmıştır !", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
             catch (Exception)
             {
@@ -59,7 +68,7 @@ namespace Hakediş
 
         private void AddNewWorkOrder_Load(object sender, EventArgs e)
         {
-            this.MaximumSize = new Size(252, 483);
+            this.MaximumSize = new Size(252, 541);
             workOrders = DataListing.ReadWorkOrderJson(jsonWorkOrderDataPath, workOrders);
             if (workOrders.Count > 0)
             {
@@ -117,6 +126,21 @@ namespace Hakediş
             //    if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
             //        e.Handled = true;
             //}
+        }
+
+        private void txtID_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
+            {
+                e.Handled = true;
+                return;
+            }
+
+            if (e.KeyChar == 46)
+            {
+                if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
+                    e.Handled = true;
+            }
         }
     }
 }

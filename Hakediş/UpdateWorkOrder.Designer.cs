@@ -30,6 +30,8 @@ namespace Hakediş
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.txtUpdateID = new System.Windows.Forms.TextBox();
+            this.lblUpdateID = new System.Windows.Forms.Label();
             this.btnDeleteWorkOrder = new FontAwesome.Sharp.IconButton();
             this.dateTimeNewFinish = new System.Windows.Forms.DateTimePicker();
             this.lblNewFinish = new System.Windows.Forms.Label();
@@ -50,6 +52,8 @@ namespace Hakediş
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.txtUpdateID);
+            this.panel1.Controls.Add(this.lblUpdateID);
             this.panel1.Controls.Add(this.btnDeleteWorkOrder);
             this.panel1.Controls.Add(this.dateTimeNewFinish);
             this.panel1.Controls.Add(this.lblNewFinish);
@@ -68,8 +72,26 @@ namespace Hakediş
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(243, 453);
+            this.panel1.Size = new System.Drawing.Size(243, 473);
             this.panel1.TabIndex = 0;
+            // 
+            // txtUpdateID
+            // 
+            this.txtUpdateID.Location = new System.Drawing.Point(3, 21);
+            this.txtUpdateID.Name = "txtUpdateID";
+            this.txtUpdateID.Size = new System.Drawing.Size(243, 21);
+            this.txtUpdateID.TabIndex = 32;
+            // 
+            // lblUpdateID
+            // 
+            this.lblUpdateID.AutoSize = true;
+            this.lblUpdateID.ForeColor = System.Drawing.Color.White;
+            this.lblUpdateID.Location = new System.Drawing.Point(4, 2);
+            this.lblUpdateID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblUpdateID.Name = "lblUpdateID";
+            this.lblUpdateID.Size = new System.Drawing.Size(25, 15);
+            this.lblUpdateID.TabIndex = 31;
+            this.lblUpdateID.Text = "ID:";
             // 
             // btnDeleteWorkOrder
             // 
@@ -80,7 +102,7 @@ namespace Hakediş
             this.btnDeleteWorkOrder.IconChar = FontAwesome.Sharp.IconChar.UserAltSlash;
             this.btnDeleteWorkOrder.IconColor = System.Drawing.Color.Red;
             this.btnDeleteWorkOrder.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnDeleteWorkOrder.Location = new System.Drawing.Point(134, 397);
+            this.btnDeleteWorkOrder.Location = new System.Drawing.Point(134, 414);
             this.btnDeleteWorkOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnDeleteWorkOrder.Name = "btnDeleteWorkOrder";
             this.btnDeleteWorkOrder.Size = new System.Drawing.Size(116, 56);
@@ -94,7 +116,7 @@ namespace Hakediş
             // dateTimeNewFinish
             // 
             this.dateTimeNewFinish.CustomFormat = "0:dd/MM/yyyy";
-            this.dateTimeNewFinish.Location = new System.Drawing.Point(3, 288);
+            this.dateTimeNewFinish.Location = new System.Drawing.Point(3, 324);
             this.dateTimeNewFinish.Name = "dateTimeNewFinish";
             this.dateTimeNewFinish.Size = new System.Drawing.Size(240, 21);
             this.dateTimeNewFinish.TabIndex = 29;
@@ -104,7 +126,7 @@ namespace Hakediş
             // 
             this.lblNewFinish.AutoSize = true;
             this.lblNewFinish.ForeColor = System.Drawing.Color.White;
-            this.lblNewFinish.Location = new System.Drawing.Point(4, 260);
+            this.lblNewFinish.Location = new System.Drawing.Point(4, 296);
             this.lblNewFinish.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNewFinish.Name = "lblNewFinish";
             this.lblNewFinish.Size = new System.Drawing.Size(146, 15);
@@ -113,7 +135,7 @@ namespace Hakediş
             // 
             // txtUpdateMan
             // 
-            this.txtUpdateMan.Location = new System.Drawing.Point(3, 164);
+            this.txtUpdateMan.Location = new System.Drawing.Point(3, 200);
             this.txtUpdateMan.Name = "txtUpdateMan";
             this.txtUpdateMan.Size = new System.Drawing.Size(247, 21);
             this.txtUpdateMan.TabIndex = 27;
@@ -123,7 +145,7 @@ namespace Hakediş
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(4, 146);
+            this.label1.Location = new System.Drawing.Point(4, 182);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(143, 15);
@@ -132,7 +154,7 @@ namespace Hakediş
             // 
             // txtUpdateDesc
             // 
-            this.txtUpdateDesc.Location = new System.Drawing.Point(3, 76);
+            this.txtUpdateDesc.Location = new System.Drawing.Point(3, 112);
             this.txtUpdateDesc.Name = "txtUpdateDesc";
             this.txtUpdateDesc.Size = new System.Drawing.Size(240, 58);
             this.txtUpdateDesc.TabIndex = 25;
@@ -143,7 +165,7 @@ namespace Hakediş
             this.chckbxIsWorkFinished.AutoSize = true;
             this.chckbxIsWorkFinished.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.chckbxIsWorkFinished.ForeColor = System.Drawing.Color.White;
-            this.chckbxIsWorkFinished.Location = new System.Drawing.Point(143, 324);
+            this.chckbxIsWorkFinished.Location = new System.Drawing.Point(143, 360);
             this.chckbxIsWorkFinished.Name = "chckbxIsWorkFinished";
             this.chckbxIsWorkFinished.Size = new System.Drawing.Size(107, 17);
             this.chckbxIsWorkFinished.TabIndex = 24;
@@ -160,7 +182,7 @@ namespace Hakediş
             this.btnAddNewWorkOrder.IconChar = FontAwesome.Sharp.IconChar.UserCheck;
             this.btnAddNewWorkOrder.IconColor = System.Drawing.Color.Lime;
             this.btnAddNewWorkOrder.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnAddNewWorkOrder.Location = new System.Drawing.Point(0, 397);
+            this.btnAddNewWorkOrder.Location = new System.Drawing.Point(0, 414);
             this.btnAddNewWorkOrder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnAddNewWorkOrder.Name = "btnAddNewWorkOrder";
             this.btnAddNewWorkOrder.Size = new System.Drawing.Size(146, 56);
@@ -175,7 +197,7 @@ namespace Hakediş
             // 
             this.dateTimeUpdateExpired.CustomFormat = "0:dd/MM/yyyy";
             this.dateTimeUpdateExpired.Enabled = false;
-            this.dateTimeUpdateExpired.Location = new System.Drawing.Point(4, 351);
+            this.dateTimeUpdateExpired.Location = new System.Drawing.Point(4, 387);
             this.dateTimeUpdateExpired.Name = "dateTimeUpdateExpired";
             this.dateTimeUpdateExpired.Size = new System.Drawing.Size(243, 21);
             this.dateTimeUpdateExpired.TabIndex = 20;
@@ -184,7 +206,7 @@ namespace Hakediş
             // 
             this.lblUpdateExpiredDate.AutoSize = true;
             this.lblUpdateExpiredDate.ForeColor = System.Drawing.Color.White;
-            this.lblUpdateExpiredDate.Location = new System.Drawing.Point(1, 323);
+            this.lblUpdateExpiredDate.Location = new System.Drawing.Point(1, 359);
             this.lblUpdateExpiredDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUpdateExpiredDate.Name = "lblUpdateExpiredDate";
             this.lblUpdateExpiredDate.Size = new System.Drawing.Size(145, 15);
@@ -194,7 +216,7 @@ namespace Hakediş
             // dateTimeUpdateFirst
             // 
             this.dateTimeUpdateFirst.CustomFormat = "0:dd/MM/yyyy";
-            this.dateTimeUpdateFirst.Location = new System.Drawing.Point(3, 226);
+            this.dateTimeUpdateFirst.Location = new System.Drawing.Point(3, 262);
             this.dateTimeUpdateFirst.Name = "dateTimeUpdateFirst";
             this.dateTimeUpdateFirst.Size = new System.Drawing.Size(243, 21);
             this.dateTimeUpdateFirst.TabIndex = 18;
@@ -204,7 +226,7 @@ namespace Hakediş
             // 
             this.lblUpdateFirstDate.AutoSize = true;
             this.lblUpdateFirstDate.ForeColor = System.Drawing.Color.White;
-            this.lblUpdateFirstDate.Location = new System.Drawing.Point(0, 198);
+            this.lblUpdateFirstDate.Location = new System.Drawing.Point(0, 234);
             this.lblUpdateFirstDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUpdateFirstDate.Name = "lblUpdateFirstDate";
             this.lblUpdateFirstDate.Size = new System.Drawing.Size(181, 15);
@@ -215,7 +237,7 @@ namespace Hakediş
             // 
             this.lblUpdateDescription.AutoSize = true;
             this.lblUpdateDescription.ForeColor = System.Drawing.Color.White;
-            this.lblUpdateDescription.Location = new System.Drawing.Point(4, 58);
+            this.lblUpdateDescription.Location = new System.Drawing.Point(4, 94);
             this.lblUpdateDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUpdateDescription.Name = "lblUpdateDescription";
             this.lblUpdateDescription.Size = new System.Drawing.Size(119, 15);
@@ -224,7 +246,7 @@ namespace Hakediş
             // 
             // txtUpdateName
             // 
-            this.txtUpdateName.Location = new System.Drawing.Point(3, 28);
+            this.txtUpdateName.Location = new System.Drawing.Point(3, 64);
             this.txtUpdateName.Name = "txtUpdateName";
             this.txtUpdateName.Size = new System.Drawing.Size(243, 21);
             this.txtUpdateName.TabIndex = 14;
@@ -233,7 +255,7 @@ namespace Hakediş
             // 
             this.lblUpdateName.AutoSize = true;
             this.lblUpdateName.ForeColor = System.Drawing.Color.White;
-            this.lblUpdateName.Location = new System.Drawing.Point(4, 9);
+            this.lblUpdateName.Location = new System.Drawing.Point(4, 45);
             this.lblUpdateName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblUpdateName.Name = "lblUpdateName";
             this.lblUpdateName.Size = new System.Drawing.Size(88, 15);
@@ -245,7 +267,7 @@ namespace Hakediş
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MidnightBlue;
-            this.ClientSize = new System.Drawing.Size(246, 453);
+            this.ClientSize = new System.Drawing.Size(246, 473);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.ForeColor = System.Drawing.Color.Black;
@@ -282,5 +304,7 @@ namespace Hakediş
         private System.Windows.Forms.DateTimePicker dateTimeNewFinish;
         private System.Windows.Forms.Label lblNewFinish;
         private FontAwesome.Sharp.IconButton btnDeleteWorkOrder;
+        private System.Windows.Forms.TextBox txtUpdateID;
+        private System.Windows.Forms.Label lblUpdateID;
     }
 }

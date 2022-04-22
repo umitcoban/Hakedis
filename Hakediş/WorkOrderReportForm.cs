@@ -8,9 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Office.Interop.Excel;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.IO;
 namespace Hakediş
 {
-    
+
     public partial class WorkOrderReportForm : Form
     {
         static string appPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
@@ -20,6 +23,7 @@ namespace Hakediş
         private MainMenu mainMenu;
         List<WorkOrder> workOrders = new List<WorkOrder>();
         List<Payment> payments = new List<Payment>();
+        readonly string applicationVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
         string searchButtonText = "";
         public WorkOrderReportForm(MainMenu main)
         {
@@ -53,7 +57,7 @@ namespace Hakediş
         //    {
         //        dataGridView1.DataSource = cloneWorkOrders;
         //    }
-       
+
         //}
         private void btnAddNewWorkOrder_Click(object sender, EventArgs e)
         {
@@ -67,7 +71,7 @@ namespace Hakediş
         }
         private void textChange(object sender, EventArgs e)
         {
-             
+
         }
         private void txtDetailName_TextChanged(object sender, EventArgs e)
         {
@@ -102,7 +106,7 @@ namespace Hakediş
             if (searchList.Count > 0)
             {
                 dataGridView2.DataSource = searchList;
-                dataGridView2.Visible = true;
+              //  dataGridView2.Visible = true;
                 dataGridView1.Visible = false;
                 chart1.Visible = false;
                 chart2.Visible = true;
@@ -113,6 +117,7 @@ namespace Hakediş
                 }
                 dataGridView2.Columns[0].Visible = false;
                 DataTableColumnNameChange.ChangeDataGridHeader(dataGridView2, "Ödeme Adı", "Ödenen Gün", "Ödeme Tarihi");
+                dataGridView2.Columns[3].DefaultCellStyle.Format = "dd/MM/yyyy";
             }
             else
             {
@@ -130,29 +135,32 @@ namespace Hakediş
             {
                 series.Points.Clear();
             }
-                var searchList = workOrders.Where(x => x.ExpiredDate >= dateTimeDetailFirst.Value && x.ExpiredDate <= dateTimeDetailExpired.Value).ToList();
-                var listCount = searchList.Count;
-                if (listCount > 0)
+            var searchList = workOrders.Where(x => x.ExpiredDate >= dateTimeDetailFirst.Value && x.ExpiredDate <= dateTimeDetailExpired.Value).ToList();
+            var listCount = searchList.Count;
+            if (listCount > 0)
+            {
+                dataGridView1.DataSource = searchList;
+               // dataGridView1.Visible = true;
+                chart1.Visible = true;
+                for (int i = 0; i < searchList.Count; i++)
                 {
-                    dataGridView1.DataSource = searchList;
-                    dataGridView1.Visible = true;
-                    chart1.Visible = true;
-                    for (int i = 0; i < searchList.Count; i++)
-                    {
-                        chart1.Series["İş Emirleri"].Points.AddXY(searchList[i].Name, searchList[i].ManOfDay);
-                        btnExtractExcell.Enabled = true;
-                    }
-                    dataGridView1.Columns[0].Visible = false;
-                    DataTableColumnNameChange.ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi", "Adam/Gün");
+                    chart1.Series["İş Emirleri"].Points.AddXY(searchList[i].Name, searchList[i].ManOfDay);
                     btnExtractExcell.Enabled = true;
                 }
-                else
-                {
-                    btnExtractExcell.Enabled = false;
-                    chart1.Visible = false;
-                    dataGridView1.Visible = false;
-                    MessageBox.Show("Bu Tarihler Arasında İş Yapılmamıştır !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+                dataGridView1.Columns[0].Visible = false;
+                DataTableColumnNameChange.ChangeDataGridHeader(dataGridView1, "İş Adı", "Açıklama", "Başlangıç Tarihi", "Bitirme Tarihi", "Teslim Tarihi", "Adam/Gün");
+                dataGridView1.Columns[3].DefaultCellStyle.Format = "dd/MM/yyyy";
+                dataGridView1.Columns[4].DefaultCellStyle.Format = "dd/MM/yyyy";
+                dataGridView1.Columns[5].DefaultCellStyle.Format = "dd/MM/yyyy";
+                btnExtractExcell.Enabled = true;
+            }
+            else
+            {
+                btnExtractExcell.Enabled = false;
+                chart1.Visible = false;
+                dataGridView1.Visible = false;
+                MessageBox.Show("Bu Tarihler Arasında İş Yapılmamıştır !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
@@ -211,12 +219,194 @@ namespace Hakediş
             saveFileDiaChart1.Title = "Save PNG File";
             if (saveFileDiaChart1.ShowDialog() == DialogResult.OK)
             {
-               
+
                 chartWorkOrderImagePath = saveFileDiaChart1.FileName;
                 this.chart2.SaveImage(chartWorkOrderImagePath, System.Windows.Forms.DataVisualization.Charting.ChartImageFormat.Png);
             }
             GC.Collect();
             GC.WaitForPendingFinalizers();
+        }
+        public void ExtractPdf(DataGridView dataGridView, bool selectedParameter)
+        {
+            Phrase p = new Phrase("\n");
+            #region Font seç
+            BaseFont trArial = BaseFont.CreateFont(@"C:\WINDOWS\Fonts\tahoma.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
+            iTextSharp.text.Font fontArial = new iTextSharp.text.Font(trArial, 10, iTextSharp.text.Font.NORMAL, iTextSharp.text.BaseColor.DARK_GRAY);
+            iTextSharp.text.Font fontArialHeader = new iTextSharp.text.Font(trArial, 11, iTextSharp.text.Font.BOLD, iTextSharp.text.BaseColor.BLACK);
+            iTextSharp.text.Font fontArialbold = new iTextSharp.text.Font(trArial, 9, iTextSharp.text.Font.BOLD, iTextSharp.text.BaseColor.DARK_GRAY);
+            iTextSharp.text.Font fontArialboldgeneral = new iTextSharp.text.Font(trArial, 10, iTextSharp.text.Font.BOLD, iTextSharp.text.BaseColor.BLACK);
+            #endregion
+
+            #region Fatura pdf oluştur
+            SaveFileDialog save = new SaveFileDialog();
+            save.OverwritePrompt = false;
+            save.Title = "PDF Dosyaları";
+            save.DefaultExt = "pdf";
+            save.Filter = "pdf Dosyaları (*.pdf)|*.pdf|Tüm Dosyalar(*.*)|*.*";
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                iTextSharp.text.Document pdfFile = new iTextSharp.text.Document();
+                PdfWriter.GetInstance(pdfFile, new FileStream(save.FileName, FileMode.Create));
+                pdfFile.Open();
+
+                #region Fatura oluşturan bilgileri
+                pdfFile.AddCreator("Hakedis"); //Oluşturan kişinin isminin eklenmesi
+                pdfFile.AddCreationDate();//Oluşturulma tarihinin eklenmesi
+                pdfFile.AddAuthor("Hakedis" + applicationVersion); //Yazarın isiminin eklenmesi
+                pdfFile.AddHeader(DateTime.Now.ToLongDateString(), "Hakediş " + DateTime.Now.ToLongDateString());
+                pdfFile.AddTitle("Hakediş Rapor"); //Başlık ve title eklenmesi
+                #endregion
+
+                #region Tablo Başlık tarih ve marka bilgileri
+                PdfPTable markAndDateTable = new PdfPTable(2);
+                markAndDateTable.TotalWidth = 250f;
+                markAndDateTable.DefaultCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+
+                PdfPCell markName = new PdfPCell(new Phrase("Hakediş " + applicationVersion, fontArialbold));
+                markName.HorizontalAlignment = Element.ALIGN_LEFT;
+                markName.VerticalAlignment = Element.ALIGN_LEFT;
+                markName.Border = 0;
+
+                PdfPCell dateTimeReport = new PdfPCell(new Phrase(DateTime.Now.ToLongDateString(), fontArialbold));
+                dateTimeReport.VerticalAlignment = Element.ALIGN_RIGHT;
+                dateTimeReport.HorizontalAlignment = Element.ALIGN_RIGHT;
+                dateTimeReport.Border = 0;
+                dateTimeReport.ExtraParagraphSpace = 5f;
+
+                markAndDateTable.AddCell(markName);
+                markAndDateTable.AddCell(dateTimeReport);
+                #endregion
+
+                #region Veri Tablosu İşlemleri
+
+                #region Pdf Kolon Başlıklarını Belirleme
+                int columnCount = dataGridView.Columns.Count;
+                PdfPTable pdfColumnheader = new PdfPTable(columnCount - 2);
+                pdfColumnheader.TotalWidth = 400f;
+                pdfColumnheader.LockedWidth = true;
+                pdfColumnheader.DefaultCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+                if (selectedParameter == true)
+                {
+                    for (int i = 0; i < columnCount; i++)
+                    {
+                        if (i != 0 && i!=1)
+                        {
+                            PdfPCell columnName = new PdfPCell(new Phrase(dataGridView.Columns[i].HeaderText, fontArialHeader));
+                            columnName.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+                            columnName.VerticalAlignment = PdfPCell.ALIGN_MIDDLE;
+                            columnName.FixedHeight = 30f;
+                            columnName.Border = 1;
+                            pdfColumnheader.AddCell(columnName);
+                        }
+                    }
+                }
+                else
+                {
+                     pdfColumnheader = new PdfPTable(columnCount - 1);
+                    for (int i = 0; i < columnCount; i++)
+                    {
+                        if (i != 0)
+                        {
+                            PdfPCell columnName = new PdfPCell(new Phrase(dataGridView.Columns[i].HeaderText, fontArialHeader));
+                            columnName.HorizontalAlignment = PdfPCell.ALIGN_CENTER;
+                            columnName.VerticalAlignment = PdfPCell.ALIGN_MIDDLE;
+                            columnName.FixedHeight = 30f;
+                            columnName.Border = 1;
+                            pdfColumnheader.AddCell(columnName);
+                        }
+                    }
+                }
+            
+                #region Satır işlemleri
+
+                int rowsCount = dataGridView.Rows.Count;
+                PdfPTable pdfDataTable = new PdfPTable(columnCount - 2);
+                if (selectedParameter == true)
+                {
+                    for (int i = 0; i <= rowsCount - 1; i++)
+                    {
+                        for (int j = 0; j < dataGridView.Rows[i].Cells.Count; j++)
+                        {
+                            if (j != 0 && j != 2)
+                            {
+                                PdfPCell cell2 = new PdfPCell(new Phrase(dataGridView.Rows[i].Cells[j].Value.ToString(), fontArial));
+                                pdfDataTable.AddCell(cell2);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    pdfDataTable = new PdfPTable(columnCount - 1);
+                    for (int i = 0; i <= rowsCount - 1; i++)
+                    {
+                        for (int j = 0; j < dataGridView.Rows[i].Cells.Count; j++)
+                        {
+                            if (j != 0)
+                            {
+                                PdfPCell cell2 = new PdfPCell(new Phrase(dataGridView.Rows[i].Cells[j].Value.ToString(), fontArial));
+                                pdfDataTable.AddCell(cell2);
+                            }
+                        }
+                    }
+                }
+               
+
+                #endregion
+
+                #region Toplam Bilgi Verileri
+                PdfPTable tableTotalInfo = new PdfPTable(2);
+                tableTotalInfo.TotalWidth = 250f;
+                tableTotalInfo.LockedWidth = true;
+                tableTotalInfo.DefaultCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
+                double totalManOfDay = 0;
+                if (selectedParameter == true)
+                {
+                    for (int i = 0; i < dataGridView.Rows.Count; i++)
+                    {
+                        totalManOfDay += double.Parse(dataGridView.Rows[i].Cells[6].Value.ToString());
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < dataGridView.Rows.Count; i++)
+                    {
+                        totalManOfDay += double.Parse(dataGridView.Rows[i].Cells[2].Value.ToString());
+                    }
+                }
+
+                PdfPCell cellTotalManOfDay = new PdfPCell(new Phrase(totalManOfDay.ToString(), fontArial));
+                cellTotalManOfDay.HorizontalAlignment = Element.ALIGN_CENTER;
+                cellTotalManOfDay.VerticalAlignment = Element.ALIGN_LEFT;
+                PdfPCell cellTotal = new PdfPCell(new Phrase("Toplam İş Günü", fontArial));
+                cellTotal.HorizontalAlignment = Element.ALIGN_CENTER;
+                cellTotal.VerticalAlignment = Element.ALIGN_LEFT;
+                tableTotalInfo.AddCell(cellTotal);
+                tableTotalInfo.AddCell(cellTotalManOfDay);
+                #endregion
+
+                #endregion
+
+                #region Pdf Dosyasını yaz ve kapat
+                if (pdfFile.IsOpen() == false) pdfFile.Open();
+                pdfFile.Add(markAndDateTable);
+                pdfFile.Add(p);
+                pdfFile.Add(pdfColumnheader);
+                pdfFile.Add(p);
+                pdfFile.Add(pdfDataTable);
+                pdfFile.Add(p);
+                pdfFile.Add(tableTotalInfo);
+                //pdfFile.Add(p);
+                //pdfFile.Add(p);
+                //pdfFile.Add(p);
+                //pdfFile.Add(nameSurname);
+                //pdfFile.Add(p);
+                //pdfFile.Add(signature);
+                pdfFile.Close();
+                #endregion
+                #endregion
+            }
+            #endregion
         }
         public static void Excel_Disa_Aktar(DataGridView dataGridView1)
         {
@@ -293,6 +483,19 @@ namespace Hakediş
             }
             GC.Collect();
             GC.WaitForPendingFinalizers();
+        }
+
+        private void btnExportPDF_Click(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == tabPageWorkOrder)
+            {
+                ExtractPdf(dataGridView1,true);
+            }
+            else
+            {
+                ExtractPdf(dataGridView2,false);
+            }
+          
         }
     }
 }
