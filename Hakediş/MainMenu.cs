@@ -49,8 +49,10 @@ namespace Hakediş
         {
             try
             {
-                CreateCurrentVersionFile();
-                CheckUpdaterAppDone();
+               //
+               //
+               CreateCurrentVersionFile();
+               CheckUpdaterAppDone();
                 dateTimePickerFinishWorkOrder.MinDate = dateTimePickerStartWorkOrder.Value;
                 int currentDay = (int)DateTime.Now.DayOfWeek;
                 string currentDayString = ((DaysOfWeek)currentDay).ToString();
@@ -73,12 +75,15 @@ namespace Hakediş
                 CheckLastUpdateDate();
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
-                //cmbWorkOrderFilter.SelectedIndex = 0;
+                if (cmbWorkOrderFilter.Items.Count>0)
+                {
+                    cmbWorkOrderFilter.SelectedIndex = 0;
+                }
             }
             catch (Exception)
             {
 
-                throw;
+                MessageBox.Show("Bir Hata Oluştu","",MessageBoxButtons.OK,MessageBoxIcon.Error);
             }
 
         }

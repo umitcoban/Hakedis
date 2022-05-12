@@ -40,12 +40,13 @@ namespace Hakediş
                 workOrder.ManOfDay = double.Parse(numericNewManDay.Value.ToString());
                 workOrder.FinishedDate = dateTimeNewFinish.Value;
                 workOrder.ID = int.Parse(txtID.Text);
-                if (workOrders.Where(x=> x.ID == idIndex).FirstOrDefault().ID != idIndex)
+                var isThere = workOrders.Where(x => x.ID == workOrder.ID).Count();
+                if (isThere == 0)
                 {
                     workOrders.Add(workOrder);
                     CreateJsonFile.CreateNewWorkOrdersJsonFile(workOrders, jsonWorkOrderDataPath);
                     //string jsonData = Newtonsoft.Json.JsonConvert.SerializeObject(workOrders);
-                    //File.WriteAllText(jsonWorkOrderDataPath, jsonData);
+                    //File.WriteAllText(jsonWorkOrderDataPath, sjsonData);
                     MessageBox.Show("Yeni İş Emri Başarılı Bir Şekilde Eklendi !", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     mainMenu.UpdateDataList();
                     this.Close();
